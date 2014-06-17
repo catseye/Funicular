@@ -1,0 +1,118 @@
+#!/usr/bin/env lua
+
+--[[========================================================================]]--
+
+--[[ Emulators ]]--
+
+E_UAE = {
+    command = 'e-uae %s',
+    source = 'http://e-uae.com/foo'
+}
+
+QEMU_i386 = {
+    command = 'qemu-system-i386 %s',
+    source = 'http://qemu.com/foo'
+}
+    
+VICE_x64 = {
+    command = 'x64 %s',
+    source = 'http://viceteam.org/foo',
+}
+
+--[[ Architectures ]]--
+
+Amiga_500 = {
+    emulator = E_UAE
+}
+
+i386 = {
+    emulator = QEMU_i386
+}
+
+Commodore_64 = {
+    emulator = VICE_x64
+}
+
+--[[ Platforms ]]--
+
+AmigaDOS_1_3 = {
+    architecture = Amiga_500,
+    install_image = 'Workbench_1.3.adf'
+}
+
+NetBSD_6 = {
+    architecture = i386,
+    install_image = 'NetBSD-6.1.4.iso'
+}
+
+FreeDOS = {
+    architecture = i386,
+    install_image = 'fdsrc.iso'
+}
+
+--[[========================================================================]]--
+
+dump_table = function(prefix, t)
+    local k, v
+    for k, v in pairs(t) do
+        if type(v) == 'table' then
+            dump_table(prefix .. k .. '.', v)
+        else
+            print(prefix .. k .. ' = ' .. v)
+        end
+    end
+end
+
+commands = {
+    dump = function(funicular, args)
+        dump_table('', funicular)
+    end,
+
+    init = function(funicular, args)
+        -- create system image
+    end,
+
+    install = function(funicular, args)
+    end,
+
+    setup = function(funicular, args)
+    end,
+
+    start = function(args)
+        -- start emulator
+    end,
+
+    backup = function(args)
+        -- copy system image to args[1]
+        -- gzip it
+    end,
+
+    restore = function(args)
+        -- copy args[1] to system image
+        -- gunzip it
+    end,
+}
+
+command = arg[1]
+if command == nil or commands[command] == nil then
+    print([[Usage: funicular <command>
+where <command> is one of:
+    init
+    install
+    setup
+    start
+    backup
+    restore]])
+    os.exit(1)
+end
+
+result, error = loadfile("Funicularfile")
+if result == nil then
+    print("No Funicularfile found in this directory.")
+    os.exit(1)
+end
+funicular = result()
+
+print(command .. "...")
+command = commands[command]
+command(funicular, arg)

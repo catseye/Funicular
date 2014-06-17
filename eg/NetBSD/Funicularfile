@@ -1,0 +1,18 @@
+NetBSD_Funicular = {
+    platform = NetBSD_6,
+    system_image = 'wd0.img',
+    setup_image = 'setup-netbsd.iso',
+    instructions = [[
+        Yes.
+        We will have many instructions here.
+        You bet.
+    ]]
+}
+
+Amiga_Funicular = {
+    platform = AmigaDOS_1_3,
+    system_image = 'hd0/',
+    setup_image = 'setup.adf',
+}
+
+return NetBSD_Funicular
