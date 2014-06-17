@@ -6,17 +6,17 @@
 
 E_UAE = {
     name = 'E-UAE',
-    source = 'http://e-uae.com/foo'
+    source = 'http://www.rcdrummond.net/uae/e-uae-0.8.29-WIP4/e-uae-0.8.29-WIP4.tar.bz2'
 }
 
 QEMU = {
     name = 'QEMU',
-    source = 'http://qemu.com/foo'
+    source = 'http://wiki.qemu-project.org/download/qemu-1.6.2.tar.bz2'
 }
 
 VICE = {
     name = 'VICE',
-    source = 'http://viceteam.org/foo',
+    source = 'http://downloads.sourceforge.net/project/vice-emu/releases/vice-2.4.tar.gz',
 }
 
 --[[ Emulator Modes ]]--
@@ -24,25 +24,26 @@ VICE = {
 E_UAE_Amiga_500 = {
     name = 'E-UAE/Amiga 500',
     emulator = E_UAE,
-    command = 'e-uae ${system-image}',
+    command = 'e-uae ${SYSTEM_IMAGE}',
 }
 
 QEMU_i386 = {
     name = 'QEMU/i386',
     emulator = QEMU,
-    command = 'qemu-system-i386 -hda ${system-image}',
+    command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE}',
+    install_command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE} -cdrom ${INSTALL_IMAGE} -boot order=d',
 }
 
 VICE_x64 = {
     name = 'VICE/x64',
     emulator = VICE,
-    command = 'x64 ${system-image}',
+    command = 'x64 ${SYSTEM_IMAGE}',
 }
 
 VICE_xvic = {
     name = 'VICE/xvic',
     emulator = VICE,
-    command = 'xvic ${system-image}',
+    command = 'xvic ${SYSTEM_IMAGE}',
 }
 
 --[[ Architectures ]]--
@@ -50,7 +51,7 @@ VICE_xvic = {
 Amiga_500 = {
     name = "Amiga 500",
     emulator_mode = E_UAE_Amiga_500,
-    create_system_image = function(filename)
+    create_system_image = function(funicular, size)
         print "(create Amiga 500 system image)"
     end
 }
@@ -58,15 +59,15 @@ Amiga_500 = {
 i386 = {
     name = "i386",
     emulator_mode = QEMU_i386,
-    create_system_image = function(filename)
-        print "(create i386 system image)"
+    create_system_image = function(funicular, size)
+        execute(funicular, "dd if=/dev/zero of=${SYSTEM_IMAGE} bs=1M count=" .. size)
     end
 }
 
 Commodore_64 = {
     name = "Commodore 64",
     emulator_mode = VICE_x64,
-    create_system_image = function(filename)
+    create_system_image = function(funicular, size)
         print "(create C64 system image)"
     end
 }
@@ -74,7 +75,7 @@ Commodore_64 = {
 VIC_20 = {
     name = "VIC 20",
     emulator_mode = VICE_xvic,
-    create_system_image = function(filename)
+    create_system_image = function(funicular, size)
         print "(create VIC 20 system image)"
     end
 }
@@ -84,19 +85,22 @@ VIC_20 = {
 AmigaDOS_1_3 = {
     name = "AmigaDOS 1.3",
     architecture = Amiga_500,
-    install_image = 'Workbench_1.3.adf'
+    install_image = 'Workbench_1.3.adf',
+    setup_command = "whoknows",
 }
 
 NetBSD_6 = {
     name = "NetBSD 6.1.4",
     architecture = i386,
-    install_image = 'NetBSD-6.1.4.iso'
+    install_image = 'NetBSD-6.1.4-i386.iso',
+    setup_command = "genisoimage -R -J -D -joliet-long -o ${SETUP_IMAGE} staging_area",
 }
 
 FreeDOS = {
     name = "FreeDOS 1.0",
     architecture = i386,
-    install_image = 'fdsrc.iso'
+    install_image = 'fdsrc.iso',
+    setup_command = "genisoimage -R -J -D -joliet-long -o ${SETUP_IMAGE} staging_area",
 }
 
 --[[========================================================================]]--
@@ -112,6 +116,26 @@ dump_table = function(prefix, t)
     end
 end
 
+
+function exists(filename)
+   local file = io.open(filename, "r")
+   if file == nil then
+       return false
+   end
+   io.close(file)
+   return true
+end
+
+
+function execute(funicular, command)
+    command = command:gsub("${SETUP_IMAGE}", funicular.setup_image)
+    command = command:gsub("${SYSTEM_IMAGE}", funicular.system_image)
+    command = command:gsub("${INSTALL_IMAGE}", funicular.platform.install_image)
+    print(command)
+    os.execute(command)
+end
+
+
 commands = {
     dump = function(funicular, arg)
         dump_table('', funicular)
@@ -119,28 +143,27 @@ commands = {
 
     init = function(funicular, arg)
         size = arg[2]
+        if size == nil then
+            print "Usage: funicular init <size-in-megabytes>"
+            os.exit(1)
+        end
         print("init... size: " .. size)
-        funicular.platform.architecture.create_system_image(funicular.system_image, size)
+        funicular.platform.architecture.create_system_image(funicular, size)
     end,
 
     install = function(funicular, arg)
-        print("install...")
-        print(funicular.platform.name)
-        print "onto system image"
+        print("installing " .. funicular.platform.name .. " onto system image...")
+        execute(funicular, funicular.platform.architecture.emulator_mode.install_command)
     end,
 
     setup = function(funicular, arg)
-        print("setup...")
-        print "TODO: Create setup image for"
-        print(funicular.platform.name)
+        print("creating setup image for " .. funicular.platform.name .. "...")
+        execute(funicular, funicular.platform.setup_command)
     end,
 
     start = function(funicular, arg)
-        print("starting " .. funicular.platform.architecture.emulator_mode.emulator.name)
-        command = funicular.platform.architecture.emulator_mode.command
-        command = command:gsub("${system%-image}", funicular.system_image)
-        print(command)
-        os.execute(command)
+        print("starting " .. funicular.platform.architecture.emulator_mode.emulator.name .. "...")
+        execute(funicular, funicular.platform.architecture.emulator_mode.command)
     end,
 
     backup = function(funicular, arg)
