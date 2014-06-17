@@ -5,47 +5,96 @@
 --[[ Emulators ]]--
 
 E_UAE = {
-    command = 'e-uae %s',
+    name = 'E-UAE',
     source = 'http://e-uae.com/foo'
 }
 
-QEMU_i386 = {
-    command = 'qemu-system-i386 %s',
+QEMU = {
+    name = 'QEMU',
     source = 'http://qemu.com/foo'
 }
-    
-VICE_x64 = {
-    command = 'x64 %s',
+
+VICE = {
+    name = 'VICE',
     source = 'http://viceteam.org/foo',
+}
+
+--[[ Emulator Modes ]]--
+
+E_UAE_Amiga_500 = {
+    name = 'E-UAE/Amiga 500',
+    emulator = E_UAE,
+    command = 'e-uae ${system-image}',
+}
+
+QEMU_i386 = {
+    name = 'QEMU/i386',
+    emulator = QEMU,
+    command = 'qemu-system-i386 -hda ${system-image}',
+}
+
+VICE_x64 = {
+    name = 'VICE/x64',
+    emulator = VICE,
+    command = 'x64 ${system-image}',
+}
+
+VICE_xvic = {
+    name = 'VICE/xvic',
+    emulator = VICE,
+    command = 'xvic ${system-image}',
 }
 
 --[[ Architectures ]]--
 
 Amiga_500 = {
-    emulator = E_UAE
+    name = "Amiga 500",
+    emulator_mode = E_UAE_Amiga_500,
+    create_system_image = function(filename)
+        print "(create Amiga 500 system image)"
+    end
 }
 
 i386 = {
-    emulator = QEMU_i386
+    name = "i386",
+    emulator_mode = QEMU_i386,
+    create_system_image = function(filename)
+        print "(create i386 system image)"
+    end
 }
 
 Commodore_64 = {
-    emulator = VICE_x64
+    name = "Commodore 64",
+    emulator_mode = VICE_x64,
+    create_system_image = function(filename)
+        print "(create C64 system image)"
+    end
+}
+
+VIC_20 = {
+    name = "VIC 20",
+    emulator_mode = VICE_xvic,
+    create_system_image = function(filename)
+        print "(create VIC 20 system image)"
+    end
 }
 
 --[[ Platforms ]]--
 
 AmigaDOS_1_3 = {
+    name = "AmigaDOS 1.3",
     architecture = Amiga_500,
     install_image = 'Workbench_1.3.adf'
 }
 
 NetBSD_6 = {
+    name = "NetBSD 6.1.4",
     architecture = i386,
     install_image = 'NetBSD-6.1.4.iso'
 }
 
 FreeDOS = {
+    name = "FreeDOS 1.0",
     architecture = i386,
     install_image = 'fdsrc.iso'
 }
@@ -64,55 +113,68 @@ dump_table = function(prefix, t)
 end
 
 commands = {
-    dump = function(funicular, args)
+    dump = function(funicular, arg)
         dump_table('', funicular)
     end,
 
-    init = function(funicular, args)
-        -- create system image
+    init = function(funicular, arg)
+        size = arg[2]
+        print("init... size: " .. size)
+        funicular.platform.architecture.create_system_image(funicular.system_image, size)
     end,
 
-    install = function(funicular, args)
+    install = function(funicular, arg)
+        print("install...")
+        print(funicular.platform.name)
+        print "onto system image"
     end,
 
-    setup = function(funicular, args)
+    setup = function(funicular, arg)
+        print("setup...")
+        print "TODO: Create setup image for"
+        print(funicular.platform.name)
     end,
 
-    start = function(args)
-        -- start emulator
+    start = function(funicular, arg)
+        print("starting " .. funicular.platform.architecture.emulator_mode.emulator.name)
+        command = funicular.platform.architecture.emulator_mode.command
+        command = command:gsub("${system%-image}", funicular.system_image)
+        print(command)
+        os.execute(command)
     end,
 
-    backup = function(args)
+    backup = function(funicular, arg)
         -- copy system image to args[1]
         -- gzip it
     end,
 
-    restore = function(args)
+    restore = function(funicular, arg)
         -- copy args[1] to system image
         -- gunzip it
     end,
 }
 
-command = arg[1]
+--[[-- MAIN --]]--
+
+local command = arg[1]
 if command == nil or commands[command] == nil then
-    print([[Usage: funicular <command>
+    print [[Usage: funicular <command>
 where <command> is one of:
     init
     install
     setup
     start
     backup
-    restore]])
+    restore]]
     os.exit(1)
 end
 
-result, error = loadfile("Funicularfile")
+local result, error = loadfile("Funicularfile")
 if result == nil then
     print("No Funicularfile found in this directory.")
     os.exit(1)
 end
-funicular = result()
+local funicular = result()
 
-print(command .. "...")
 command = commands[command]
 command(funicular, arg)
