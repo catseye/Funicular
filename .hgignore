@@ -1,0 +1,6 @@
+syntax: glob
+
+*.iso
+*.img
+*.adf
+*.d64

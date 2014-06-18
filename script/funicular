@@ -52,7 +52,7 @@ Amiga_500 = {
     name = "Amiga 500",
     emulator_mode = E_UAE_Amiga_500,
     create_system_image = function(funicular, size)
-        print "(create Amiga 500 system image)"
+        execute(funicular, "mkdir -p ${SYSTEM_IMAGE}")
     end
 }
 
@@ -68,7 +68,7 @@ Commodore_64 = {
     name = "Commodore 64",
     emulator_mode = VICE_x64,
     create_system_image = function(funicular, size)
-        print "(create C64 system image)"
+        execute(funicular, "init_d64 ${SYSTEM_IMAGE}")
     end
 }
 
@@ -76,7 +76,7 @@ VIC_20 = {
     name = "VIC 20",
     emulator_mode = VICE_xvic,
     create_system_image = function(funicular, size)
-        print "(create VIC 20 system image)"
+        execute(funicular, "init_d64 ${SYSTEM_IMAGE}")
     end
 }
 
