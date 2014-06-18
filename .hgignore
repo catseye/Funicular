@@ -4,3 +4,5 @@ syntax: glob
 *.img
 *.adf
 *.d64
+distfiles
+staging_area
