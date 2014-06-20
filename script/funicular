@@ -96,10 +96,11 @@ NetBSD_6 = {
     setup_command = "genisoimage -R -J -D -joliet-long -o ${SETUP_IMAGE} staging_area",
 }
 
-FreeDOS = {
-    name = "FreeDOS 1.0",
+FreeDOS_1_1 = {
+    name = "FreeDOS 1.1",
     architecture = i386,
-    install_image = 'fdsrc.iso',
+    install_image = 'fd11src.iso',
+    install_image_url = 'http://www.freedos.org/download/download/fd11src.iso',
     setup_command = "genisoimage -R -J -D -joliet-long -o ${SETUP_IMAGE} staging_area",
 }
 

@@ -1,0 +1,38 @@
+return {
+    platform = FreeDOS_1_1,
+    system_image = 'freedos-hda.img',
+    work_image = 'freedos-fda.img',
+    setup_image = 'freedos-init-cd.iso',
+    distfiles = [[
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/copying.dj
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev203.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/faq230b.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/readme.1st
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu224b.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc473b.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak3791b.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2misc/csdpmi7b.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/perl588b.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/tar112ab.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gzip16b.zip
+      http://ftp.mpoli.fi/software/DOS/EDITORS/TED3.ZIP
+      http://www.tortall.net/projects/yasm/releases/yasm-1.2.0-dos.exe
+      http://www.lua.org/ftp/lua-5.2.2.tar.gz
+    ]],
+    instructions = [[
+        Yes.
+        We will have many instructions here.
+        You bet.
+    ]],
+}
+
+--[[
+# to build lua: set LFN=n, cd src, make generic
+
+#  https://raw.githubusercontent.com/kikito/ansicolors.lua/master/ansicolors.lua
+
+#  http://www.nasm.us/pub/nasm/releasebuilds/2.11.04/dos/nasm-2.11.04-dos-upx.zip
+
+# http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/fdboot.img
+#FREEDOS_BOOT_FLOPPY=$IMGDIR/fdboot.img
+]]--
