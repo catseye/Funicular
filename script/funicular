@@ -31,6 +31,7 @@ QEMU_i386 = {
     name = 'QEMU/i386',
     emulator = QEMU,
     command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE}',
+    setup_command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE} -cdrom ${SETUP_IMAGE}',
     install_command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE} -cdrom ${INSTALL_IMAGE} -boot order=d',
 }
 
@@ -183,6 +184,7 @@ commands = {
             execute(funicular, 'cp -p distfiles/' .. basename(url) .. ' staging_area/')
         end
         execute(funicular, funicular.platform.setup_command)
+        execute(funicular, funicular.platform.architecture.emulator_mode.setup_command)
     end,
 
     start = function(funicular, arg)
