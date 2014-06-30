@@ -192,6 +192,10 @@ commands = {
         for url in string.gmatch(funicular.distfiles, "[^%s]+") do
             execute(funicular, 'cp -p distfiles/' .. basename(url) .. ' staging_area/')
         end
+        if exists('skel') then
+            execute(funicular, 'cp -Rp skel/* staging_area/')
+            -- execute(funicular, 'chmod 755 staging_area/*.sh')
+        end
         execute(funicular, funicular.platform.setup_command)
         execute(funicular, funicular.platform.architecture.emulator_mode.setup_command)
     end,
