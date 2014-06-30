@@ -24,7 +24,16 @@ VICE = {
 E_UAE_Amiga_500 = {
     name = 'E-UAE/Amiga 500',
     emulator = E_UAE,
-    command = 'e-uae ${SYSTEM_IMAGE}',
+    command = 'uae ${SYSTEM_IMAGE}',
+    -- requires = 'kick.rom',
+    -- writeout '.uaerc',
+    --[[
+whatever
+goes in a
+.uaerc
+file.
+Note that this probably can/should vary by partic^H^H^Hspecific funicular.
+    ]]--
 }
 
 QEMU_i386 = {

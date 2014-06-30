@@ -1,5 +1,6 @@
 *.iso
 *.img
+*.rom
 *.adf
 *.d64
 distfiles
