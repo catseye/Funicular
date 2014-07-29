@@ -14,8 +14,25 @@ return {
       http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
     ]],
     instructions = [[
-        Yes.
-        We will have many instructions here.
-        You bet.
+
+INSTALLATION INSTRUCTIONS
+=========================
+
+* At the boot prompt, select "1. Install NetBSD"
+* After it boots, select a language for installation messages, and a keyboard type.
+* At the next menu, select "Install NetBSD to hard disk".  Then "yes".
+* At the "Select your distribution" menu, select "Custom installation".
+* At the next menu, arrow up to "Compiler Tools" and hit Enter to select it.
+  Then arrow back down and select "Install selected sets".
+* This is the correct geometry.
+* Use the entire disk.
+* Yes, install the NetBSD bootcode.
+* Use existing partition sizes.  Partition sizes ok.  Name is irrelevant.  Yes, proceed.
+* At "Bootblocks selection": Use BIOS console.
+* Install from CD-ROM.
+* When that's done - don't bother configuring anything.
+* When back at the main menu, select "Exit Install System" and type:
+    shutdown -p now
+
     ]],
 }

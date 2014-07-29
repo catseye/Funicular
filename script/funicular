@@ -172,12 +172,19 @@ commands = {
             print "Usage: funicular init <size-in-megabytes>"
             os.exit(1)
         end
+        if exists(funicular.system_image) then
+            print(funicular.system_image .. " already exists!  rm it first.")
+            return
+        end
         print("init... size: " .. size)
         funicular.platform.architecture.create_system_image(funicular, size)
     end,
 
     install = function(funicular, arg)
         print("installing " .. funicular.platform.name .. " onto system image...")
+        if funicular.instructions then
+            print(funicular.instructions)
+        end
         execute(funicular, funicular.platform.architecture.emulator_mode.install_command)
     end,
 
