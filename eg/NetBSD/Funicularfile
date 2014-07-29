@@ -2,6 +2,7 @@ return {
     platform = NetBSD_6,
     system_image = 'wd0.img',
     setup_image = 'setup-netbsd.iso',
+
     distfiles = [[
       http://ftp.gnu.org/gnu/make/make-3.81.tar.gz
       http://www.nano-editor.org/dist/v2.2/nano-2.2.6.tar.gz
@@ -13,11 +14,8 @@ return {
       http://code.call-cc.org/releases/4.8.0/chicken-4.8.0.5.tar.gz
       http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
     ]],
-    instructions = [[
 
-INSTALLATION INSTRUCTIONS
-=========================
-
+    install_instructions = [[
 * At the boot prompt, select "1. Install NetBSD"
 * After it boots, select a language for installation messages, and a keyboard type.
 * At the next menu, select "Install NetBSD to hard disk".  Then "yes".
@@ -31,8 +29,22 @@ INSTALLATION INSTRUCTIONS
 * At "Bootblocks selection": Use BIOS console.
 * Install from CD-ROM.
 * When that's done - don't bother configuring anything.
-* When back at the main menu, select "Exit Install System" and type:
-    shutdown -p now
+* When back at the main menu, select "Exit Install System" and type `shutdown -p now`
+    ]],
 
+    setup_instructions = [[
+* Login as root (which will not have a password. You may or may not wish to give it one,
+  depending on your security needs.)
+* As root, run:
+        mount /cdrom
+        cp /cdrom/setup-netbsd.sh .
+        . ./setup-netbsd.sh
+* Follow the instructions in the script.
+* Once it is finished, log out and log in again as `user`. (You may or may not wish to
+  run passwd to give user a password at this point, depending on your security needs.)
+* Then try the following commands to confirm that toolshelf installed successfully:
+        python -V
+        toolshelf
+        th relink all
     ]],
 }

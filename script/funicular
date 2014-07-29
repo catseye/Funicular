@@ -182,8 +182,14 @@ commands = {
 
     install = function(funicular, arg)
         print("installing " .. funicular.platform.name .. " onto system image...")
-        if funicular.instructions then
-            print(funicular.instructions)
+        if funicular.install_instructions then
+            print [[
+
+=========================
+INSTALLATION INSTRUCTIONS
+=========================
+]]
+            print(funicular.install_instructions)
         end
         execute(funicular, funicular.platform.architecture.emulator_mode.install_command)
     end,
@@ -204,6 +210,15 @@ commands = {
             -- execute(funicular, 'chmod 755 staging_area/*.sh')
         end
         execute(funicular, funicular.platform.setup_command)
+        if funicular.setup_instructions then
+            print [[
+
+==================
+SETUP INSTRUCTIONS
+==================
+]]
+            print(funicular.setup_instructions)
+        end
         execute(funicular, funicular.platform.architecture.emulator_mode.setup_command)
     end,
 
