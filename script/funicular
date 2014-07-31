@@ -173,7 +173,7 @@ commands = {
             os.exit(1)
         end
         if exists(funicular.system_image) then
-            print(funicular.system_image .. " already exists!  rm it first.")
+            print(funicular.system_image .. " already exists!  Delete it first.")
             return
         end
         print("init... size: " .. size)
@@ -228,13 +228,45 @@ SETUP INSTRUCTIONS
     end,
 
     backup = function(funicular, arg)
-        -- copy system image to args[1]
-        -- gzip it
+        bup = arg[2]
+        if bup == nil then
+            print "Usage: funicular backup <backup-basename>"
+            os.exit(1)
+        end
+
+        bup_img_gz = bup .. '.img.gz'
+        if exists(bup_img_gz) then
+            print(bup_img_gz .. ' already exists!  Delete it or pick a different name.')
+            os.exit(1)
+        end
+
+        execute(funicular, "ls -lah ${SYSTEM_IMAGE}")
+        execute(funicular, "cp ${SYSTEM_IMAGE} " .. bup .. ".img")
+        execute(funicular, "gzip " .. bup .. ".img")
+        execute(funicular, "ls -lah " .. bup_img_gz)
     end,
 
     restore = function(funicular, arg)
-        -- copy args[1] to system image
-        -- gunzip it
+        bup = arg[2]
+        if bup == nil then
+            print "Usage: funicular restore <backup-basename>"
+            os.exit(1)
+        end
+
+        bup_img_gz = bup .. '.img.gz'
+        if not exists(bup_img_gz) then
+            print(bup_img_gz .. ' does not exist.')
+            os.exit(1)
+        end
+
+        if exists(funicular.system_image) then
+            print(funicular.system_image .. ' still exists, please delete it first.')
+            os.exit(1)
+        end
+
+        execute(funicular, "ls -lah " .. bup_img_gz)
+        execute(funicular, "cp " .. bup_img_gz .. " ${SYSTEM_IMAGE}.gz")
+        execute(funicular, "gunzip ${SYSTEM_IMAGE}.gz")
     end,
 }
 
