@@ -2,8 +2,10 @@ syntax: glob
 
 *.iso
 *.img
+*.img.gz
 *.rom
 *.adf
 *.d64
 distfiles
+distrepos
 staging_area

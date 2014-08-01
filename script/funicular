@@ -161,6 +161,22 @@ function fetch_distfile(funicular, url)
 end
 
 
+function checkout_hg_repo(funicular, url)
+    filename = 'distrepos/' .. basename(url)
+    if not exists(filename) then
+        execute(funicular, 'hg clone ' .. url .. ' ' .. filename)
+    end
+end
+
+
+function checkout_git_repo(funicular, url)
+    filename = 'distrepos/' .. basename(url)
+    if not exists(filename) then
+        execute(funicular, 'git clone ' .. url .. ' ' .. filename)
+    end
+end
+
+
 commands = {
     dump = function(funicular, arg)
         dump_table('', funicular)
@@ -196,19 +212,39 @@ INSTALLATION INSTRUCTIONS
 
     setup = function(funicular, arg)
         print("creating setup image for " .. funicular.platform.name .. "...")
+
         execute(funicular, 'mkdir -p distfiles')
         for url in string.gmatch(funicular.distfiles, "[^%s]+") do
             fetch_distfile(funicular, url)
         end
+
+        execute(funicular, 'mkdir -p distrepos')
+        for url in string.gmatch(funicular.distrepos_hg, "[^%s]+") do
+            checkout_hg_repo(funicular, url)
+        end
+        for url in string.gmatch(funicular.distrepos_git, "[^%s]+") do
+            checkout_git_repo(funicular, url)
+        end
+
         execute(funicular, 'rm -rf staging_area')
         execute(funicular, 'mkdir -p staging_area')
         for url in string.gmatch(funicular.distfiles, "[^%s]+") do
             execute(funicular, 'cp -p distfiles/' .. basename(url) .. ' staging_area/')
         end
+        for url in string.gmatch(funicular.distrepos_hg, "[^%s]+") do
+            execute(funicular, 'cd distrepos && tar zcf ../staging_area/bitbucket.org,catseye,' ..
+                    basename(url) .. '-master.tar.gz ' .. basename(url))
+        end
+        for url in string.gmatch(funicular.distrepos_git, "[^%s]+") do
+            execute(funicular, 'cd distrepos && tar zcf ../staging_area/github.com,catseye,' ..
+                    basename(url) .. '-master.tar.gz ' .. basename(url))
+        end
+
         if exists('skel') then
             execute(funicular, 'cp -Rp skel/* staging_area/')
             -- execute(funicular, 'chmod 755 staging_area/*.sh')
         end
+
         execute(funicular, funicular.platform.setup_command)
         if funicular.setup_instructions then
             print [[
