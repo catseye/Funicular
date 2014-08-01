@@ -14,7 +14,12 @@ return {
       http://www.erlang.org/download/otp_src_R16B03-1.tar.gz
       http://code.call-cc.org/releases/4.8.0/chicken-4.8.0.5.tar.gz
       http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
+      https://github.com/git/git/archive/v1.9.4.zip
     ]],
+
+-- make NO_CURL=1
+-- temporarily link /usr/bin/perl to `which perl` (sighhhh)
+-- no porcelain, but e.g. git-log is available
 
     distrepos_hg = [[
       https://bitbucket.org/catseye/alpaca
