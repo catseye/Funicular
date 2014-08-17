@@ -164,7 +164,8 @@ end
 function checkout_hg_repo(funicular, url)
     filename = 'distrepos/' .. basename(url)
     if not exists(filename) then
-        execute(funicular, 'hg clone ' .. url .. ' ' .. filename)
+        th = '`toolshelf.py pwd ' .. url .. '`'
+        execute(funicular, 'hg clone ' .. th .. ' ' .. filename)
     end
 end
 
@@ -214,28 +215,28 @@ INSTALLATION INSTRUCTIONS
         print("creating setup image for " .. funicular.platform.name .. "...")
 
         execute(funicular, 'mkdir -p distfiles')
-        for url in string.gmatch(funicular.distfiles, "[^%s]+") do
+        for url in string.gmatch(funicular.distfiles or "", "[^%s]+") do
             fetch_distfile(funicular, url)
         end
 
         execute(funicular, 'mkdir -p distrepos')
-        for url in string.gmatch(funicular.distrepos_hg, "[^%s]+") do
-            checkout_hg_repo(funicular, url)
+        for url in string.gmatch(funicular.distrepos_hg or "", "[^%s]+") do
+           checkout_hg_repo(funicular, url)
         end
-        for url in string.gmatch(funicular.distrepos_git, "[^%s]+") do
+        for url in string.gmatch(funicular.distrepos_git or "", "[^%s]+") do
             checkout_git_repo(funicular, url)
         end
 
         execute(funicular, 'rm -rf staging_area')
         execute(funicular, 'mkdir -p staging_area')
-        for url in string.gmatch(funicular.distfiles, "[^%s]+") do
+        for url in string.gmatch(funicular.distfiles or "", "[^%s]+") do
             execute(funicular, 'cp -p distfiles/' .. basename(url) .. ' staging_area/')
         end
-        for url in string.gmatch(funicular.distrepos_hg, "[^%s]+") do
+        for url in string.gmatch(funicular.distrepos_hg or "", "[^%s]+") do
             execute(funicular, 'cd distrepos && tar zcf ../staging_area/bitbucket.org,catseye,' ..
                     basename(url) .. '-master.tar.gz ' .. basename(url))
         end
-        for url in string.gmatch(funicular.distrepos_git, "[^%s]+") do
+        for url in string.gmatch(funicular.distrepos_git or "", "[^%s]+") do
             execute(funicular, 'cd distrepos && tar zcf ../staging_area/github.com,catseye,' ..
                     basename(url) .. '-master.tar.gz ' .. basename(url))
         end
