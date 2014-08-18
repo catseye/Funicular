@@ -54,9 +54,9 @@
 /cdrom/bitbucket.org,catseye,kangaroo-iceberg-master.tar.gz
 /cdrom/bitbucket.org,catseye,kelxquoia-master.tar.gz
 /cdrom/bitbucket.org,catseye,kosheri-master.tar.gz
-/cdrom/bitbucket.org,catseye,larabee-master.tar.gz
+/cdrom/bitbucket.org,catseye,larabee-master.tar.gz@rel_1_0_2014_0818
 /cdrom/bitbucket.org,catseye,maentwrog-master.tar.gz
-/cdrom/bitbucket.org,catseye,mascarpone-master.tar.gz
+/cdrom/bitbucket.org,catseye,mascarpone-master.tar.gz@rel_1_0_2014_0818
 /cdrom/bitbucket.org,catseye,muriel-master.tar.gz
 /cdrom/bitbucket.org,catseye,mzstorkipiwanbotbotbot-master.tar.gz
 /cdrom/bitbucket.org,catseye,n-dcnc-master.tar.gz
@@ -87,7 +87,7 @@
 /cdrom/bitbucket.org,catseye,strelnokoff-master.tar.gz
 /cdrom/bitbucket.org,catseye,super-wumpus-land-master.tar.gz
 /cdrom/bitbucket.org,catseye,tamsin-master.tar.gz@0.5
-/cdrom/bitbucket.org,catseye,the-swallows-master.tar.gz
+/cdrom/bitbucket.org,catseye,the-swallows-master.tar.gz@1.0
 /cdrom/bitbucket.org,catseye,thue-master.tar.gz
 /cdrom/bitbucket.org,catseye,toolshelf-master.tar.gz@0.1-2014.0616
 /cdrom/bitbucket.org,catseye,tpis-master.tar.gz
@@ -105,4 +105,4 @@
 /cdrom/bitbucket.org,catseye,yoob-master.tar.gz
 /cdrom/bitbucket.org,catseye,ypsilax-master.tar.gz@rel_1_1_2014_0818
 /cdrom/bitbucket.org,catseye,zowie-master.tar.gz
-/cdrom/bitbucket.org,catseye,zzrk-master.tar.gz
+/cdrom/bitbucket.org,catseye,zzrk-master.tar.gz@rel_1_0_2012_0616
