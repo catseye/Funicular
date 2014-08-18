@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TOOLSHELF_VERSION=0.1-2014.0616
+TOOLSHELF_VERSION=0.1-2014.0818
 
 cd /home/user
 mkdir -p toolshelf

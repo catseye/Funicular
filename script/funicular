@@ -1,5 +1,7 @@
 #!/usr/bin/env lua
 
+TOOLSHELF = os.getenv("TOOLSHELF")
+
 --[[========================================================================]]--
 
 --[[ Emulators ]]--
@@ -144,12 +146,16 @@ function basename(filename)
     return filename:match("^.+/(.-)$")
 end
 
+
 function execute(funicular, command)
     command = command:gsub("${SETUP_IMAGE}", funicular.setup_image)
     command = command:gsub("${SYSTEM_IMAGE}", funicular.system_image)
     command = command:gsub("${INSTALL_IMAGE}", funicular.platform.install_image)
     print(command)
-    os.execute(command)
+    local exit_code = os.execute(command)
+    if exit_code ~= 0 then
+        os.exit(1)
+    end
 end
 
 
@@ -161,11 +167,30 @@ function fetch_distfile(funicular, url)
 end
 
 
+function is_docked(funicular, url)
+    local command = 'toolshelf.py pwd ' .. url
+    print(command)
+    local exit_code = os.execute(command)
+    return (exit_code == 0)
+end
+
+
 function checkout_hg_repo(funicular, url)
     filename = 'distrepos/' .. basename(url)
     if not exists(filename) then
-        th = '`toolshelf.py pwd ' .. url .. '`'
-        execute(funicular, 'hg clone ' .. th .. ' ' .. filename)
+        if TOOLSHELF ~= nil then
+            if not is_docked(funicular, url) then
+                execute(funicular, 'toolshelf.py tether ' .. url)
+            end
+            th = '`toolshelf.py pwd ' .. url .. '`'
+            execute(funicular, 'hg clone ' .. th .. ' ' .. filename)
+        else
+            execute(funicular, 'hg clone ' .. url .. ' ' .. filename)
+        end
+    else
+        if TOOLSHELF ~= nil then
+            execute(funicular, 'cd ' .. filename .. ' && hg pull -u')
+        end
     end
 end
 
