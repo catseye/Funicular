@@ -9,25 +9,12 @@
 
 ### Cat's Eye Stage ###
 
-#### part a -- infrastructure ####
-
-#### part b -- projects ####
-
-# */catseye/deturgenchry
-#   build_command echo "DOES NOT BUILD"
-
 */catseye/dungeons-of-ekileugor
   build_command echo "DOES NOT BUILD (needs petcat)"
 
 */catseye/etcha
   build_command echo "DOES NOT BUILD"
   test_command echo "TESTS NOT RUN (DOES NOT EVEN BUILD)"
-
-# */catseye/noit-o-mnain-worb
-#   build_command echo "Cannot build Java implementation.  Use Perl implementation."
-
-# */catseye/pl-goto-.net
-#   test_command echo "TESTS NOT RUN (currently they need Mono)"
 
 */catseye/robin
   build_command echo "DOES NOT BUILD"
@@ -36,11 +23,5 @@
 */catseye/whothm
   build_command echo "DOES NOT BUILD"
 
-# */catseye/wunnel
-#   build_command echo "DOES NOT BUILD"
-
 */catseye/yoob
   build_command echo "DOES NOT BUILD"
-
-# */catseye/ypsilax
-#   build_command echo "Cannot build Java implementation.  Use Perl implementation."
