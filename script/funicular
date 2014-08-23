@@ -27,6 +27,8 @@ E_UAE_Amiga_500 = {
     name = 'E-UAE/Amiga 500',
     emulator = E_UAE,
     command = 'uae ${SYSTEM_IMAGE}',
+    setup_command = 'uae ${SYSTEM_IMAGE}',
+    install_command = 'uae ${SYSTEM_IMAGE}',
     -- requires = 'kick.rom',
     -- writeout '.uaerc',
     --[[
@@ -98,7 +100,7 @@ AmigaDOS_1_3 = {
     name = "AmigaDOS 1.3",
     architecture = Amiga_500,
     install_image = 'Workbench_1.3.adf',
-    setup_command = "whoknows",
+    setup_command = "sh ./populate.sh",
 }
 
 NetBSD_6 = {

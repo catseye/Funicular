@@ -3,18 +3,18 @@ return {
     system_image = 'hd0/',
     setup_image = 'hd1/',
     distfiles = [[
-      http://uk.aminet.net/dev/asm/A68kGibbs.lha
-      http://uk.aminet.net/dev/asm/FixFd.lha
-      http://uk.aminet.net/dev/c/dice-3.15.lha
-      http://uk.aminet.net/dev/c/vbcc_target_m68k-amiga.lha
-      http://uk.aminet.net/dev/lang/Draco.lha
-      http://uk.aminet.net/dev/lang/pcq12b.lzh
-      http://uk.aminet.net/dev/misc/blink67.lzh
-      http://uk.aminet.net/dev/src/ArpRequest.lha
-      http://uk.aminet.net/text/font/FastFonts.lha
-      http://uk.aminet.net/util/batch/Xicon.lha
-      http://uk.aminet.net/util/boot/CLImax.lha
-      http://uk.aminet.net/util/shell/Conman.lha
+      http://aminet.net/dev/asm/A68kGibbs.lha
+      http://aminet.net/dev/asm/FixFd.lha
+      http://aminet.net/dev/c/dice-3.15.lha
+      http://aminet.net/dev/c/vbcc_target_m68k-amiga.lha
+      http://aminet.net/dev/lang/Draco.lha
+      http://aminet.net/dev/lang/pcq12b.lzh
+      http://aminet.net/dev/misc/blink67.lzh
+      http://aminet.net/dev/src/ArpRequest.lha
+      http://aminet.net/text/font/FastFonts.lha
+      http://aminet.net/util/batch/Xicon.lha
+      http://aminet.net/util/boot/CLImax.lha
+      http://aminet.net/util/shell/Conman.lha
       http://ftp.back2roots.org/back2roots/cds/fred_fish/frozenfish_vol1_9404/bbs/alib/d0xx/d069/icontype.lha
       http://ftp.back2roots.org/back2roots/cds/fred_fish/frozenfish_vol1_9404/bbs/alib/d0xx/d092/smalllib.lha
       http://ftp.back2roots.org/back2roots/cds/fred_fish/frozenfish_vol1_9404/bbs/alib/d1xx/d113/noiconpos.lha
