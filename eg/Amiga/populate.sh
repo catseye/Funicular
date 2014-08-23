@@ -1,4 +1,4 @@
-#cp -Rp skel/* dh0/
+cp -Rp skel/* dh0/
 
 mkdir -p dh0/c
 mkdir -p dh0/devs
@@ -12,13 +12,13 @@ if [ -e dh0/s/Startup-Sequence ]; then
 fi
 
 mkdir -p dh0/Distributions
-cp -p icons/Drawer.info dh0/Distributions.info
+cp -p skel/icons/Drawer.info dh0/Distributions.info
 
 mkdir -p dh0/Empty
-cp -p icons/Drawer.info dh0/Empty.info
+cp -p skel/icons/Drawer.info dh0/Empty.info
 
 mkdir -p dh0/Extras
-cp -p icons/Drawer.info dh0/Extras.info
+cp -p skel/icons/Drawer.info dh0/Extras.info
 
 ### extract the simple and cromulent archives ###
 ARCHIVES="
@@ -61,13 +61,10 @@ lha xfw=dh0/Distributions/PCQ-1.2b distfiles/pcq12b.lzh
 lha xfw=dh0/Distributions distfiles/Draco.lha
 chmod 755 dh0/Distributions/Draco/c/*
 
-# STOP HERE FOR NOW
-exit 0
-
 ### Drawer icons in Distributions ###
 for DIR in dh0/Distributions/*; do
   if [ -d $DIR ]; then
-    cp -p icons/Drawer.info ${DIR}.info
+    cp -p skel/icons/Drawer.info ${DIR}.info
   fi
 done
 

@@ -22,5 +22,9 @@ return {
       http://ftp.back2roots.org/back2roots/cds/fred_fish/frozenfish_vol1_9404/bbs/alib/d2xx/d224/who.lha
       http://ftp.back2roots.org/back2roots/cds/fred_fish/frozenfish_vol1_9404/bbs/alib/d9xx/d935/muchmore.lha
     ]],
-    instructions = '',
+    setup_instructions = [[
+* Wait for the Workbench to appear.
+* Double-click the "Funicular" disk icon.
+* Double-click the "Workbenchize" icon that appears.
+]]
 }

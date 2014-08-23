@@ -26,9 +26,9 @@ VICE = {
 E_UAE_Amiga_500 = {
     name = 'E-UAE/Amiga 500',
     emulator = E_UAE,
-    command = 'uae -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
-    setup_command = 'uae -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1" -s "floppy0=${SETUP_IMAGE}"',
-    install_command = 'uae -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1" -s "floppy0=${INSTALL_IMAGE}"',
+    command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
+    setup_command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1" -s "floppy0=${SETUP_IMAGE}"',
+    install_command = 'echo "No install step.  Installation will happen during setup."',
 }
 
 QEMU_i386 = {
