@@ -1,6 +1,7 @@
 return {
     platform = AmigaDOS_1_3,
     install_image = 'Workbench_1.3.adf',
+    setup_image = 'Workbench_1.3.adf',
     system_image = 'dh0',
     distfiles = [[
       http://aminet.net/dev/asm/A68kGibbs.lha
