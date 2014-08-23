@@ -1,59 +1,96 @@
 Funicular
 =========
 
-**Funicular** is a system to semi-automate the creation of development
-environments on eclectic architectures.  It is currently vapourware.
+**Funicular** is a system that semi-automates the creation of development
+environments on eclectic architectures.  It is currently a work in progress.
 
-Here, "eclectic architectures" is not terribly-well defined, but it includes
+"Semi-automate" means it automates what it can, and provides repeatable
+instructions for you to follow for what it can't.
+
+"Eclectic architectures" is not terribly-well defined, but it includes
 retrocomputing and esoteric architectures.  Basically, if you've got an
-emulator for it, you might be able to build and run a system for it, using
-Funicular.
+emulator for it and install and support images for it, you might be able
+to install and outfit and and run a system for it, using Funicular.
 
 It's kind of like a Vagrant for the lunatic fringe, eh?
 
-Each funicular is defined by a `Funicularfile`.  This file is written in
-the configuration subset of Lua, and gives the configuration for the funicular;
-it looks something like
+It currently supports:
 
-    return {
-        platform = NetBSD_6,
-        system_image = 'wd0.img',
-        setup_image = 'setup-netbsd.iso',
-    }
+*   NetBSD under QEMU
+*   FreeDOS under QEMU (to a certain degree)
 
-A funicular is generally based around a particular Platform
-(Amiga[DOS]-Gondola, NetBSD-Gondola, FreeDOS-Gondola).
+We hope that it will soon support:
 
-The Platform defines a default Architecture, which in turn defines a
-default Emulator.
+*   AmigaDOS under E-UAE
 
-In truth, Architectures are many-to-many with Platforms, which are
-many-to-many with Emulators — so there are lots of possibilities, and the
-Architecture may vary (NetBSD on i386 vs mips or whatnot) and the
-emulator may vary (UAE or E-UAE, QEMU or Bochs, etc.)
+And one day:
 
-Images
-------
+*   Commodore 64 KERNAL under VICE
+*   VIC-20 KERNAL under VICE
+*   AppleDOS under an Apple 2 emulator
 
-    Image {
-        filename: string
-        type: disk-image | cdrom-image | host-file-mapped
-    }
+It is hoped that Funicular will eventually replace the discrete, ad-hoc
+projects [NetBSD-Gondola](https://github.com/catseye/NetBSD-Gondola),
+[FreeDOS-Gondola](https://github.com/catseye/FreeDOS-Gondola), and
+[Amiga-Gondola](https://github.com/catseye/Amiga-Gondola).
 
-An Image has one of three distinct roles:
+Concepts
+--------
 
-*   `system_image`: contains one operating system; boots into that operating
+### Funiculars, Platforms, Architectures, Emulators ###
+
+Each funicular is defined by a `Funicularfile` in a particular directory
+dedicated to that funicular (in analogy with `Makefile`, `Vagrantfile`, etc.)
+
+A funicular is generally based around a particular Platform.  The Platform
+defines a default Architecture, which in turn defines a default Emulator.
+
+In truth, it is more complicated than that.  Architectures have a many-to-many
+relationship with Platforms, which themselves have a many-to-many relationship
+with Emulators.
+
+For example, the NetBSD Platform could be on i386 or MIPS Architecture, and the
+QEMU emulator can emulate both i386 and SPARC, while the i386 architecture can
+be emulated by both QEMU and Bochs.
+
+So, there are lots of possibilities.  But, we can stick to certain "defaults"
+for now; not only because they are "opinionated" (I'd rather use QEMU than
+Bochs) but also because it makes it a lot simpler.  Hopefully we'll come up
+with a sane way to customize all the relationships at some point.
+
+### Images ###
+
+An Image has one of several roles:
+
+*   **System Image**: contains one operating system; boots into that operating
     system, if applicable; persistent and mutable; often contains utilities;
     also generally contains a work area for installing and building STUFF
-*   `install_image`: CDROM (or other readonly) image which installs the operating
+
+*   **Support Image**: like a system image, but read-only, but required for
+    the Platform or Architecture to operate.  Often in the form of ROM images.
+    May or may not be supplied with an Emulator, depending on licensing
+    requirements.
+
+*   **Install Image**: CDROM (or other readonly) image which installs the operating
     system to the system-image; generally not needed after that point
-*   `setup_image`: CDROM (or other readonly) image which contains STUFF
+
+*   **Setup Image**: CDROM (or other readonly) image which contains STUFF
     to install and build in the work area; ephemeral (recreated by funicular
-    as needed from toolshelf sources)
+    as needed from acquired sources)
 
-There is a fourth role; from a system-image, a funicular may be able to
-create a
-
-*   `work_image`: contains a skeletal operating system and a subset of the
+*   **Distribution Image**: contains a skeletal operating system and a subset of the
     STUFF so built.  intended to be used as a "distributed product" —
     for other (web) emulators, bootable USB sticks, or whatnot
+
+Usage
+-----
+
+To bring up a funicular, you generally follow these steps:
+
+*   Acquire an install image for the Platform (e.g. a NetBSD install ISO.)
+*   Acquire an appropriate Emulator (e.g. `toolshelf dock @@qemu`.)
+*   Run `funicular init 4000` to create a 4G (or whatever) system image.
+*   Run `funicular install` to install the platform onto the system image.
+*   Run `funicular setup` to fetch various pieces of software and install
+    them too on the system image.
+*   Run `funicular start` to use your funicular for whatever you want.

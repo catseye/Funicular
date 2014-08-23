@@ -19,10 +19,40 @@ return {
       http://www.tortall.net/projects/yasm/releases/yasm-1.2.0-dos.exe
       http://www.lua.org/ftp/lua-5.2.2.tar.gz
     ]],
-    instructions = [[
-        Yes.
-        We will have many instructions here.
-        You bet.
+
+    install_instructions = [[
+*   select "Install to Hard Disk"
+*   select "f" to start FDISK
+*   FAT32 -- no
+*   1 -- create DOS partition
+*   1 -- create Primary DOS partition
+*   Use maximum available size -- yes
+*   Press Esc to continue
+*   Press Esc to exit FDISK.  System will now restart...
+*   select "Install to Hard Disk"
+*   press 1 to start installing
+*   select English or whatever
+*   You need to format. -- yes ... proceed?  yes.
+*   1 -- continue with installation
+*   1 -- start installation
+*   Enter, Enter, the above directories are correct, yes
+*   just base and util should be enough, down-arrow to DONE
+    *   N.B.! util is required for UPX!
+*   proceed with installation -- yes
+*   down-arrow to DONE
+*   proceed with installation -- yes -- ...wait...
+*   Press any key to continue
+*   down-arrow to DONE
+*   proceed with installation -- yes
+*   Press any key to continue -- ...watch flickering...
+*   What to do with the bootloader?  -- 1
+*   select "Boot from system harddisk"
+*   Hit Enter for the JEMMEX option, should be fine
+*   viola, `C:\>`.  You can now just stop the emulator.
+    ]],
+
+    setup_instructions = [[
+        ...
     ]],
 }
 

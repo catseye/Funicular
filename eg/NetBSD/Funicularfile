@@ -35,7 +35,6 @@ return {
       https://bitbucket.org/catseye/animals
       https://bitbucket.org/catseye/apple-befunge
       https://bitbucket.org/catseye/arboretuum
-      https://bitbucket.org/catseye/atari-2600-skeleton
       https://bitbucket.org/catseye/befos
       https://bitbucket.org/catseye/befunge-93
       https://bitbucket.org/catseye/beta-juliet
@@ -68,6 +67,7 @@ return {
       https://bitbucket.org/catseye/flip
       https://bitbucket.org/catseye/flobnar
       https://bitbucket.org/catseye/funge-98
+      https://bitbucket.org/catseye/funicular
       https://bitbucket.org/catseye/gemooy
       https://bitbucket.org/catseye/granola-m
       https://bitbucket.org/catseye/hev
@@ -86,7 +86,6 @@ return {
       https://bitbucket.org/catseye/muriel
       https://bitbucket.org/catseye/mzstorkipiwanbotbotbot
       https://bitbucket.org/catseye/n-dcnc
-      https://bitbucket.org/catseye/netbsd-gondola
       https://bitbucket.org/catseye/netusb
       https://bitbucket.org/catseye/nhohnhehr
       https://bitbucket.org/catseye/noit-o-mnain-worb
@@ -99,7 +98,6 @@ return {
       https://bitbucket.org/catseye/redgreen
       https://bitbucket.org/catseye/realpath
       https://bitbucket.org/catseye/robin
-      https://bitbucket.org/catseye/rooibos
       https://bitbucket.org/catseye/rube
       https://bitbucket.org/catseye/rube-ii
       https://bitbucket.org/catseye/sally
@@ -138,9 +136,6 @@ return {
       https://bitbucket.org/catseye/ophis
       https://bitbucket.org/catseye/openzz
       https://bitbucket.org/catseye/minischeme
-
-      https://bitbucket.org/catseye/ymattw-cdiff
-      https://bitbucket.org/catseye/cpressey-tree
     ]],
 
     install_instructions = [[
