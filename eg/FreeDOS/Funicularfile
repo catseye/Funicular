@@ -1,7 +1,7 @@
 return {
     platform = FreeDOS_1_1,
-    system_image = 'freedos-hda.img',
-    work_image = 'freedos-fda.img',
+    system_image = 'hda.img',
+    work_image = 'fda.img',
     setup_image = 'freedos-init-cd.iso',
     distfiles = [[
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/copying.dj
@@ -52,7 +52,11 @@ return {
     ]],
 
     setup_instructions = [[
-        ...
+*   Hit Enter for the JEMMEX option, should be fine
+*   When booted, run `D:\INSTPLAT`
+*   When it says `replace lib\Perl5\Pod\perlmaco.pod?`, type `A`, Enter.
+*   THEN HIT ENTER AGAIN.
+*   When finished, you can just stop the emulator.
     ]],
 }
 

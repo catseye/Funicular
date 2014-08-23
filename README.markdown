@@ -42,8 +42,9 @@ Concepts
 Each funicular is defined by a `Funicularfile` in a particular directory
 dedicated to that funicular (in analogy with `Makefile`, `Vagrantfile`, etc.)
 
-A funicular is generally based around a particular Platform.  The Platform
-defines a default Architecture, which in turn defines a default Emulator.
+A funicular defines a development environment; is generally based around a
+particular Platform.  The Platform defines a default Architecture, which in
+turn defines a default Emulator.
 
 In truth, it is more complicated than that.  Architectures have a many-to-many
 relationship with Platforms, which themselves have a many-to-many relationship
@@ -53,10 +54,21 @@ For example, the NetBSD Platform could be on i386 or MIPS Architecture, and the
 QEMU emulator can emulate both i386 and SPARC, while the i386 architecture can
 be emulated by both QEMU and Bochs.
 
+Worse, Platforms and Architectures are hierarchical, but not in any clean way.
+Amiga Kickstart sits on top of a 680x0 core, and AmigaDOS sits on top of
+Kickstart.  The Java platform sits on top of, potentially, many different
+platforms.  And so forth.
+
 So, there are lots of possibilities.  But, we can stick to certain "defaults"
 for now; not only because they are "opinionated" (I'd rather use QEMU than
 Bochs) but also because it makes it a lot simpler.  Hopefully we'll come up
 with a sane way to customize all the relationships at some point.
+
+It is useful to remember that a funicular defines an environment (usually a
+development environment, with compilers, text editors, and whatever else
+might help you develop software.)  So, there can be multiple funiculars
+with the exact same Platform and Architecture, but outfit differently and
+providing different development environments.
 
 ### Images ###
 
@@ -94,3 +106,9 @@ To bring up a funicular, you generally follow these steps:
 *   Run `funicular setup` to fetch various pieces of software and install
     them too on the system image.
 *   Run `funicular start` to use your funicular for whatever you want.
+
+Notes
+-----
+
+The Cat's Eye Technologies Platform is a set of funiculars.  (TODO explain
+this.)
