@@ -1,15 +1,3 @@
-cat >.uaerc <<EOF
-kickstart_rom_file=kick.rom
-floppy0=Workbench_1_3.adf
-filesystem2=rw,DH0:TheHardDrive:dh0,1
-EOF
-
-#rm -rf dh0/*
-
-#if [ -d workbench-cache ]; then
-#    cp -Rp workbench-cache/* dh0/
-#fi
-
 #cp -Rp skel/* dh0/
 
 mkdir -p dh0/c

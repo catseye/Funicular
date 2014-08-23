@@ -5,6 +5,7 @@ syntax: glob
 *.img.gz
 *.rom
 *.adf
+*.dms
 *.d64
 distfiles
 distrepos

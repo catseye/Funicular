@@ -26,18 +26,9 @@ VICE = {
 E_UAE_Amiga_500 = {
     name = 'E-UAE/Amiga 500',
     emulator = E_UAE,
-    command = 'uae ${SYSTEM_IMAGE}',
-    setup_command = 'uae ${SYSTEM_IMAGE}',
-    install_command = 'uae ${SYSTEM_IMAGE}',
-    -- requires = 'kick.rom',
-    -- writeout '.uaerc',
-    --[[
-whatever
-goes in a
-.uaerc
-file.
-Note that this probably can/should vary by partic^H^H^Hspecific funicular.
-    ]]--
+    command = 'uae -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE}"',
+    setup_command = 'uae -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE}" -s "floppy0=${SETUP_IMAGE}"',
+    install_command = 'uae -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE}" -s "floppy0=${INSTALL_IMAGE}"',
 }
 
 QEMU_i386 = {
@@ -150,9 +141,10 @@ end
 
 
 function execute(funicular, command)
-    command = command:gsub("${SETUP_IMAGE}", funicular.setup_image)
-    command = command:gsub("${SYSTEM_IMAGE}", funicular.system_image)
-    command = command:gsub("${INSTALL_IMAGE}", funicular.platform.install_image)
+    command = command:gsub("${SETUP_IMAGE}", funicular.setup_image or '')
+    command = command:gsub("${SYSTEM_IMAGE}", funicular.system_image or '')
+    command = command:gsub("${INSTALL_IMAGE}", funicular.install_image or
+                           funicular.platform.install_image or '')
     print(command)
     local exit_code = os.execute(command)
     if exit_code ~= 0 then

@@ -2,6 +2,7 @@
 *.img
 *.rom
 *.adf
+*.dms
 *.d64
 distfiles
 staging_area
