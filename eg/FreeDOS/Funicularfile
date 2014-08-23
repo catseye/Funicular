@@ -54,8 +54,8 @@ return {
     setup_instructions = [[
 *   Hit Enter for the JEMMEX option, should be fine
 *   When booted, run `D:\INSTPLAT`
-*   When it says `replace lib\Perl5\Pod\perlmaco.pod?`, type `A`, Enter.
-*   THEN HIT ENTER AGAIN.
+*   When it asks `replace lib/Perl5/Pod/perlmaco.pod?`, type `A`, Enter.
+*   THEN HIT ENTER AGAIN.  It's waiting silently for you.
 *   When finished, you can just stop the emulator.
     ]],
 }

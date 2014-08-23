@@ -17,7 +17,7 @@ It's kind of like a Vagrant for the lunatic fringe, eh?
 It currently supports:
 
 *   NetBSD under QEMU
-*   FreeDOS under QEMU (to a certain degree)
+*   FreeDOS under QEMU
 
 We hope that it will soon support:
 
@@ -107,8 +107,19 @@ To bring up a funicular, you generally follow these steps:
     them too on the system image.
 *   Run `funicular start` to use your funicular for whatever you want.
 
+After `install` and `setup`, or at any time thereafter, you may wish to
+run `funicular backup` to create a compressed backup copy of the system
+image at that point.  Restoring from such a backup will generally be faster
+and easier than installing or setting up again.
+
 Notes
 -----
 
 The Cat's Eye Technologies Platform is a set of funiculars.  (TODO explain
 this.)
+
+`funicular` is written in Lua 5.1.  A `Funicularfile` is written in the
+configuration subset of Lua.
+
+`funicular` will use `toolshelf` if it is available on the host system,
+but does not strictly require it.
