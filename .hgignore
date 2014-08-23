@@ -10,3 +10,4 @@ distfiles
 distrepos
 staging_area
 dh0
+.uaerc
