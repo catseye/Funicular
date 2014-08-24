@@ -112,6 +112,20 @@ run `funicular backup` to create a compressed backup copy of the system
 image at that point.  Restoring from such a backup will generally be faster
 and easier than installing or setting up again.
 
+Certain funiculars may support creating a distribution image.  To create
+a distribution image, you generally follow these steps:
+
+*   Make sure the funicular has been set up as above.
+*   Run `funicular initdist 720` to create a 720K (or whatever) dist image.
+*   Run `funicular start`.  It will detect that there is a dist image
+    present, and may print out specific instructions.
+*   Formatting and populating the dist image is funicular-dependent.
+    Look for instructions that might have been printed out,
+*   After the dist image is how you like it, shutdown the emulator using
+    the recommended method for doing so.
+*   Run `funicular distboot` to try to boot off the dist image, if it is
+    bootable.
+
 Notes
 -----
 

@@ -27,7 +27,8 @@ E_UAE_Amiga_500 = {
     name = 'E-UAE/Amiga 500',
     emulator = E_UAE,
     command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
-    dist_command = 'uae -s cpu_speed=max -s floppy_speed=800 -s floppy0=${DIST_IMAGE} -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
+    dist_command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "floppy0=${DIST_IMAGE}" -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
+    distboot_command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "floppy0=${DIST_IMAGE}"',
     setup_command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1" -s "floppy0=${SETUP_IMAGE}"',
     install_command = 'echo "No install step.  Installation will happen during setup."',
 }
@@ -35,10 +36,11 @@ E_UAE_Amiga_500 = {
 QEMU_i386 = {
     name = 'QEMU/i386',
     emulator = QEMU,
-    command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE}',
-    dist_command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE} -fda ${DIST_IMAGE}',
-    setup_command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE} -cdrom ${SETUP_IMAGE}',
-    install_command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE} -cdrom ${INSTALL_IMAGE} -boot order=d',
+    command = 'qemu-system-i386 -hda "${SYSTEM_IMAGE}"',
+    dist_command = 'qemu-system-i386 -hda "${SYSTEM_IMAGE}" -fda "${DIST_IMAGE}"',
+    distboot_command = 'qemu-system-i386 -fda "${DIST_IMAGE}" -boot order=a',
+    setup_command = 'qemu-system-i386 -hda "${SYSTEM_IMAGE}" -cdrom "${SETUP_IMAGE}"',
+    install_command = 'qemu-system-i386 -hda "${SYSTEM_IMAGE}" -cdrom "${INSTALL_IMAGE}" -boot order=d',
 }
 
 VICE_x64 = {
@@ -335,6 +337,15 @@ DISTRIBUTION INSTRUCTIONS
         end
     end,
 
+    distboot = function(funicular, arg)
+        if not funicular.dist_image or not exists(funicular.dist_image) then
+            print "No distribution image defined or created."
+            return
+        end
+        print("distbooting " .. funicular.platform.architecture.emulator_mode.emulator.name .. "...")
+        execute(funicular, funicular.platform.architecture.emulator_mode.distboot_command)
+    end,
+
     backup = function(funicular, arg)
         bup = arg[2]
         if bup == nil then
@@ -389,6 +400,7 @@ where <command> is one of:
     setup
     start
     initdist
+    distboot
     backup
     restore]]
     os.exit(1)

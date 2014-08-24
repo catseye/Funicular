@@ -33,5 +33,7 @@ return {
     format drive df0 name Burgundy
   (or pick whatever name you want instead of Burgundy.)
 * Copy whatever you like onto DF0:
+* If you want to make the disk bootable, type:
+    install df0:
 ]],
 }
