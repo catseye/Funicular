@@ -3,6 +3,7 @@ return {
     install_image = 'Workbench_1.3.adf',
     setup_image = 'Workbench_1.3.adf',
     system_image = 'dh0',
+    dist_image = 'df0.adf',
     distfiles = [[
       http://aminet.net/dev/asm/A68kGibbs.lha
       http://aminet.net/dev/asm/FixFd.lha
@@ -26,5 +27,11 @@ return {
 * Wait for the Workbench to appear.
 * Double-click the "Funicular" disk icon.
 * Double-click the "Workbenchize" icon that appears.
-]]
+]],
+    dist_instructions = [[
+* Format DF0: by typing:
+    format drive df0 name Burgundy
+  (or pick whatever name you want instead of Burgundy.)
+* Copy whatever you like onto DF0:
+]],
 }

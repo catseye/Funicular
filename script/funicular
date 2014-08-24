@@ -27,6 +27,7 @@ E_UAE_Amiga_500 = {
     name = 'E-UAE/Amiga 500',
     emulator = E_UAE,
     command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
+    dist_command = 'uae -s cpu_speed=max -s floppy_speed=800 -s floppy0=${DIST_IMAGE} -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
     setup_command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1" -s "floppy0=${SETUP_IMAGE}"',
     install_command = 'echo "No install step.  Installation will happen during setup."',
 }
@@ -61,7 +62,12 @@ Amiga_500 = {
         execute(funicular, "mkdir -p ${SYSTEM_IMAGE}")
     end,
     create_dist_image = function(funicular, size)
-        execute(funicular, "init_adf ${DIST_IMAGE}")
+        -- TODO: this is a little restrictive
+        if size ~= '880' then
+            print "Only supported sizes: 880"
+            os.exit(1)
+        end
+        execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=1K count=" .. size)
     end
 }
 
@@ -72,6 +78,11 @@ i386 = {
         execute(funicular, "dd if=/dev/zero of=${SYSTEM_IMAGE} bs=1M count=" .. size)
     end,
     create_dist_image = function(funicular, size)
+        -- TODO: this is a little restrictive
+        if size ~= '360' and size ~= '720' and size ~= '1440' then
+            print "Only supported sizes: 360, 720 and 1440"
+            os.exit(1)
+        end
         execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=1K count=" .. size)
     end
 }
