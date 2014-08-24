@@ -64,45 +64,14 @@ return {
     ]],
 
     dist_instructions = [[
-Phase 2
--------
+* To initialize the distribution floppy, run `TOOLS\INITFLOP`.
+* Enter `360`, `720`, or `1440` as appropriate.
+* As explained in the script, it may take more than one attempt to format
+  the image correctly, if it has never been used before.
+* To populate the initialized floppy with files, use `TOOLS\PUTFLOPY`.
 
-Create a floppy image (360K, 720K, or 1.44M) for use in v86 or elsewhere.
-Obviously, this is not big enough for most dev tools, but we can squeeze
-a few in.
-
-*   Back on the host, run `./create-fda-image.sh` to make a floppy image
-    (enter either `0.36`, `0.72`, or `1.44` for size)
-
-*   Run `./start-freedos.sh`
-
-    *   run `D:\INITFLOP`.
-    *   enter `360`, `720`, or `1440` as appropriate.
-    *   select to install `yasm` or not, as you desire.  (requires 720!)
-    *   select to install `perl` or not, as you desire.  (requires 1440!)
-    *   When finished, quit QEMU.
-
-*   Run `./start-freedos.sh floppy` to confirm that the floppy image boots.
-    Then just quit QEMU.
-
-We now have a bootable floppy image with a few basic tools on it.  We can
-"outfit" it with something more interesting.  And while we could do this
-from the guest FreeDOS instance, parts of it are easier to do from the host,
-using `mtools`.
-
-### Shelta ###
-
-*   Create a 720K floppy, as described above.  Elect to install `yasm` on it.
-
-*   Back on the host, run `toolshelf dock bb:catseye/shelta` if you haven't
-    got it.
-
-*   Run `./outfit-floppy-shelta.sh`
-
-*   Run `./start-freedos.sh floppy` to confirm that the floppy image boots.
-    And test `shelta` on it.  Then just quit QEMU.
-
-    ]],
+You now have a bootable floppy image with a few basic tools on it.
+  ]]
 }
 
 --[[
@@ -127,6 +96,18 @@ Please type 0.16, 0.18, 0.32, 0.36, 0.72, 1.2, 1.44, 1.68, 1.72, or 2.88.
 1680
 1720
 2880
+
+### Shelta ###
+
+*   Create a 720K floppy, as described above.  Elect to install `yasm` on it.
+
+*   Back on the host, run `toolshelf dock bb:catseye/shelta` if you haven't
+    got it.
+
+*   Run `./outfit-floppy-shelta.sh`
+
+*   Run `./start-freedos.sh floppy` to confirm that the floppy image boots.
+    And test `shelta` on it.  Then just quit QEMU.
 
 TODO
 ----

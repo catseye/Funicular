@@ -309,6 +309,15 @@ SETUP INSTRUCTIONS
     start = function(funicular, arg)
         print("starting " .. funicular.platform.architecture.emulator_mode.emulator.name .. "...")
         if funicular.dist_image and exists(funicular.dist_image) then
+            if funicular.dist_instructions then
+                 print [[
+
+=========================
+DISTRIBUTION INSTRUCTIONS
+=========================
+]]
+                 print(funicular.dist_instructions)
+            end
             execute(funicular, funicular.platform.architecture.emulator_mode.dist_command)
         else
             execute(funicular, funicular.platform.architecture.emulator_mode.command)
