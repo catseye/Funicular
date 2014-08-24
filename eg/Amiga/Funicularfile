@@ -16,11 +16,11 @@ return {
       http://aminet.net/util/batch/Xicon.lha
       http://aminet.net/util/boot/CLImax.lha
       http://aminet.net/util/shell/Conman.lha
-      http://ftp.back2roots.org/back2roots/cds/fred_fish/frozenfish_vol1_9404/bbs/alib/d0xx/d069/icontype.lha
-      http://ftp.back2roots.org/back2roots/cds/fred_fish/frozenfish_vol1_9404/bbs/alib/d0xx/d092/smalllib.lha
-      http://ftp.back2roots.org/back2roots/cds/fred_fish/frozenfish_vol1_9404/bbs/alib/d1xx/d113/noiconpos.lha
-      http://ftp.back2roots.org/back2roots/cds/fred_fish/frozenfish_vol1_9404/bbs/alib/d2xx/d224/who.lha
-      http://ftp.back2roots.org/back2roots/cds/fred_fish/frozenfish_vol1_9404/bbs/alib/d9xx/d935/muchmore.lha
+      http://www.nic.funet.fi/pub/amiga/fish/001-100/ff069/IconType.lha
+      http://www.nic.funet.fi/pub/amiga/fish/001-100/ff092/SmallLib.lha
+      http://www.nic.funet.fi/pub/amiga/fish/101-200/ff113/NoIconPos.lha
+      http://www.nic.funet.fi/pub/amiga/fish/201-300/ff224/Who.lha
+      http://www.nic.funet.fi/pub/amiga/fish/901-1000/ff935/MuchMore.lha
     ]],
     setup_instructions = [[
 * Wait for the Workbench to appear.

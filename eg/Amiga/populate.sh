@@ -24,9 +24,9 @@ cp -p skel/icons/Drawer.info dh0/Extras.info
 ARCHIVES="
   FastFonts
   Conman CLImax
-  muchmore who
-  Xicon noiconpos icontype
-  smalllib FixFd
+  MuchMore Who
+  Xicon NoIconPos IconType
+  SmallLib FixFd
   ArpRequest
 "
 for ARCHIVE in $ARCHIVES; do

@@ -18,6 +18,9 @@ return {
       http://ftp.mpoli.fi/software/DOS/EDITORS/TED3.ZIP
       http://www.tortall.net/projects/yasm/releases/yasm-1.2.0-dos.exe
       http://www.lua.org/ftp/lua-5.2.2.tar.gz
+      
+      http://catseye.tc/distfiles/shelta-1.2-2014.0422.zip
+      https://github.com/catseye/Illgol-Grand-Mal/archive/rel_16_tons_and_what_do_you_get.zip
     ]],
 
     install_instructions = [[
