@@ -1,0 +1,23 @@
+Welcome to the Shelta 1.2 FreeDOS disk image for v86!
+
+* To compile EG\HELLO.SHE to EG\HELLO.COM, type
+
+    bin\shelta n eg\hello    ('n' means: use NASM-source compiler)
+
+  then run
+
+    eg\hello
+
+* To build the bootstrapped compilers, type
+
+    bin\bootstrp
+
+  Then you can build sources with the bootstrapped compilers:
+
+    bin\shelta s eg\99       ('s' means: use stage 1 bootstrapped compiler)
+    bin\shelta s2 eg\demo    ('s2' means: use stage 2 bootstrapped compiler)
+
+* You can also edit Shelta sources with the 'ted3' text editor, like so:
+
+    edit eg\99.she
+

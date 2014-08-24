@@ -3,6 +3,7 @@ return {
     system_image = 'hda.img',
     work_image = 'fda.img',
     setup_image = 'freedos-init-cd.iso',
+    dist_image = 'a.img',
     distfiles = [[
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/copying.dj
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev203.zip
@@ -61,6 +62,47 @@ return {
 *   THEN HIT ENTER AGAIN.  It's waiting silently for you.
 *   When finished, you can just stop the emulator.
     ]],
+
+    dist_instructions = [[
+Phase 2
+-------
+
+Create a floppy image (360K, 720K, or 1.44M) for use in v86 or elsewhere.
+Obviously, this is not big enough for most dev tools, but we can squeeze
+a few in.
+
+*   Back on the host, run `./create-fda-image.sh` to make a floppy image
+    (enter either `0.36`, `0.72`, or `1.44` for size)
+
+*   Run `./start-freedos.sh`
+
+    *   run `D:\INITFLOP`.
+    *   enter `360`, `720`, or `1440` as appropriate.
+    *   select to install `yasm` or not, as you desire.  (requires 720!)
+    *   select to install `perl` or not, as you desire.  (requires 1440!)
+    *   When finished, quit QEMU.
+
+*   Run `./start-freedos.sh floppy` to confirm that the floppy image boots.
+    Then just quit QEMU.
+
+We now have a bootable floppy image with a few basic tools on it.  We can
+"outfit" it with something more interesting.  And while we could do this
+from the guest FreeDOS instance, parts of it are easier to do from the host,
+using `mtools`.
+
+### Shelta ###
+
+*   Create a 720K floppy, as described above.  Elect to install `yasm` on it.
+
+*   Back on the host, run `toolshelf dock bb:catseye/shelta` if you haven't
+    got it.
+
+*   Run `./outfit-floppy-shelta.sh`
+
+*   Run `./start-freedos.sh floppy` to confirm that the floppy image boots.
+    And test `shelta` on it.  Then just quit QEMU.
+
+    ]],
 }
 
 --[[
@@ -72,4 +114,30 @@ return {
 
 # http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/fdboot.img
 #FREEDOS_BOOT_FLOPPY=$IMGDIR/fdboot.img
+
+Please type 0.16, 0.18, 0.32, 0.36, 0.72, 1.2, 1.44, 1.68, 1.72, or 2.88.
+
+160 * 1024
+180
+320
+360
+720
+1200
+1440
+1680
+1720
+2880
+
+TODO
+----
+
+*   LF2CRLF.COM ?
+*   BIN\SHELTAS.COM ...
+*   BIN\SHELTAS2.COM ...
+*   BIN\SHELTA86.COM ...
+*   SHELTA86.ASM ...
+*   ANSI colours in welcome.txt?
+*   welcome.txt in shelta repo?
+*   make ted3, debug, and more, optional, like yasm and perl are optional
+
 ]]--

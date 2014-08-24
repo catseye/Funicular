@@ -35,6 +35,7 @@ QEMU_i386 = {
     name = 'QEMU/i386',
     emulator = QEMU,
     command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE}',
+    dist_command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE} -fda ${DIST_IMAGE}',
     setup_command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE} -cdrom ${SETUP_IMAGE}',
     install_command = 'qemu-system-i386 -hda ${SYSTEM_IMAGE} -cdrom ${INSTALL_IMAGE} -boot order=d',
 }
@@ -58,6 +59,9 @@ Amiga_500 = {
     emulator_mode = E_UAE_Amiga_500,
     create_system_image = function(funicular, size)
         execute(funicular, "mkdir -p ${SYSTEM_IMAGE}")
+    end,
+    create_dist_image = function(funicular, size)
+        execute(funicular, "init_adf ${DIST_IMAGE}")
     end
 }
 
@@ -66,6 +70,9 @@ i386 = {
     emulator_mode = QEMU_i386,
     create_system_image = function(funicular, size)
         execute(funicular, "dd if=/dev/zero of=${SYSTEM_IMAGE} bs=1M count=" .. size)
+    end,
+    create_dist_image = function(funicular, size)
+        execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=1K count=" .. size)
     end
 }
 
@@ -74,6 +81,9 @@ Commodore_64 = {
     emulator_mode = VICE_x64,
     create_system_image = function(funicular, size)
         execute(funicular, "init_d64 ${SYSTEM_IMAGE}")
+    end,
+    create_dist_image = function(funicular, size)
+        execute(funicular, "init_d64 ${DIST_IMAGE}")
     end
 }
 
@@ -82,6 +92,9 @@ VIC_20 = {
     emulator_mode = VICE_xvic,
     create_system_image = function(funicular, size)
         execute(funicular, "init_d64 ${SYSTEM_IMAGE}")
+    end,
+    create_dist_image = function(funicular, size)
+        execute(funicular, "init_d64 ${DIST_IMAGE}")
     end
 }
 
@@ -145,6 +158,7 @@ function execute(funicular, command)
     command = command:gsub("${SYSTEM_IMAGE}", funicular.system_image or '')
     command = command:gsub("${INSTALL_IMAGE}", funicular.install_image or
                            funicular.platform.install_image or '')
+    command = command:gsub("${DIST_IMAGE}", funicular.dist_image or '')
     print(command)
     local exit_code = os.execute(command)
     if exit_code ~= 0 then
@@ -216,6 +230,20 @@ commands = {
         funicular.platform.architecture.create_system_image(funicular, size)
     end,
 
+    initdist = function(funicular, arg)
+        size = arg[2]
+        if size == nil then
+            print "Usage: funicular initdist <size-in-kilobytes>"
+            os.exit(1)
+        end
+        if exists(funicular.dist_image) then
+            print(funicular.dist_image .. " already exists!  Delete it first.")
+            return
+        end
+        print("initdist... size: " .. size)
+        funicular.platform.architecture.create_dist_image(funicular, size)
+    end,
+
     install = function(funicular, arg)
         print("installing " .. funicular.platform.name .. " onto system image...")
         if funicular.install_instructions then
@@ -280,7 +308,11 @@ SETUP INSTRUCTIONS
 
     start = function(funicular, arg)
         print("starting " .. funicular.platform.architecture.emulator_mode.emulator.name .. "...")
-        execute(funicular, funicular.platform.architecture.emulator_mode.command)
+        if funicular.dist_image and exists(funicular.dist_image) then
+            execute(funicular, funicular.platform.architecture.emulator_mode.dist_command)
+        else
+            execute(funicular, funicular.platform.architecture.emulator_mode.command)
+        end
     end,
 
     backup = function(funicular, arg)
@@ -336,6 +368,7 @@ where <command> is one of:
     install
     setup
     start
+    initdist
     backup
     restore]]
     os.exit(1)
