@@ -1,6 +1,6 @@
-Gondola:c/SetPatch >NIL:
+Funicular:c/SetPatch >NIL:
 
-assign SYS: Gondola:
+assign SYS: Funicular:
 assign C: SYS:c
 assign S: SYS:s
 assign L: SYS:l
@@ -8,11 +8,11 @@ assign FONTS: SYS:fonts
 assign DEVS: SYS:devs
 assign LIBS: SYS:libs
 
-assign Extras: Gondola: ; to let (some) AmigaBasic sources' icons work
+assign Extras: Funicular: ; to let (some) AmigaBasic sources' icons work
 
 Addbuffers df0: 10
 cd c:
-echo "A500/A2000 Workbench disk -- now booting Gondola..."
+echo "A500/A2000 Workbench disk -- now booting Funicular..."
 ;
 Sys:System/FastMemFirst
 BindDrivers
@@ -30,7 +30,7 @@ path ram: c: sys:utilities sys:system s: sys:prefs add
 ;
 ; == DICE == ;
 ;
-assign DCC: Gondola:Distributions/dice-rel-3.15
+assign DCC: Funicular:Distributions/dice-rel-3.15
 assign DLIB: DCC:dlib
 assign DINCLUDE: DCC:include
 path DCC:abin/ add
@@ -38,22 +38,22 @@ path DCC:abin/ add
 ;
 ; == PCQ == ;
 ;
-assign PCQ: Gondola:Distributions/PCQ-1.2b
+assign PCQ: Funicular:Distributions/PCQ-1.2b
 assign INCLUDE: PCQ:Include
 ;
 ; == Draco == ;
 ;
-assign DRACO: Gondola:Distributions/Draco
+assign DRACO: Funicular:Distributions/Draco
 assign DRLIB: DRACO:drlib
 assign DRINC: DRACO:drinc
 path DRACO:c/ add
 path DRACO:s/ add
 ;
-run execute s:StartupII.Gondola
+run execute s:StartupII.Funicular
 wait >NIL: 5 mins
 ;
 fastfonts topaz.8
-cd Gondola:
+cd Funicular:
 conman -c
 climax
 ;

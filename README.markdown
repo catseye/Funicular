@@ -18,15 +18,15 @@ It currently supports:
 
 *   NetBSD under QEMU
 *   FreeDOS under QEMU
+*   AmigaDOS under E-UAE
 
 We hope that it will soon support:
 
-*   AmigaDOS under E-UAE
+*   Commodore 64 KERNAL under VICE
+*   VIC-20 KERNAL under VICE
 
 And one day:
 
-*   Commodore 64 KERNAL under VICE
-*   VIC-20 KERNAL under VICE
 *   AppleDOS under an Apple 2 emulator
 
 It is hoped that Funicular will eventually replace the discrete, ad-hoc

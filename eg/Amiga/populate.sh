@@ -8,7 +8,7 @@ mkdir -p dh0/libs
 mkdir -p dh0/s
 
 if [ -e dh0/s/Startup-Sequence ]; then
-    cp dh0/s/Startup-Sequence.Gondola dh0/s/Startup-Sequence
+    cp dh0/s/Startup-Sequence.Funicular dh0/s/Startup-Sequence
 fi
 
 mkdir -p dh0/Distributions
@@ -68,7 +68,7 @@ for DIR in dh0/Distributions/*; do
   fi
 done
 
-### Gondola:c ###
+### C: ###
 
 cp dh0/Distributions/Xicon/Xicon dh0/c/
 cp dh0/Distributions/MuchMore/MuchMore dh0/c/   # version 3.6
@@ -89,10 +89,10 @@ cp dh0/Distributions/Who/Who dh0/c/
 
 chmod 755 dh0/c/*
 
-### Gondola:l ###
+### L: ###
 cp dh0/Distributions/Conman/ConHandler dh0/l/
 
-### Gondola:s ###
+### S: ###
 # just some tweaks to PCQ-1.2b's Make scripts
 cat >dh0/s/PCQMake <<EOF
 .key source
@@ -114,6 +114,6 @@ blink t:<source>.o to <source> library PCQ:PCQ.lib
 delete t:<source>.o
 EOF
 
-### Gondola:libs ###
+### LIBS: ###
 cp dh0/Distributions/Conman/conhandler.library dh0/libs/
 cp dh0/Distributions/ArpRequest/arp.library dh0/libs/      # ver 39.1

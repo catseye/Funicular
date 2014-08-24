@@ -4,7 +4,7 @@ spat protect s:#? srwd
 spat protect DRACO:s/#? srwd
 
 echo "Removing Workbenchize icon..."
-delete Gondola:Workbenchize.info quiet
+delete Funicular:Workbenchize.info quiet
 echo "Done."
 
 break 1 C
