@@ -31,7 +31,6 @@ return {
 
     distrepos_hg = [[
       https://bitbucket.org/catseye/alpaca
-      https://bitbucket.org/catseye/amiga-gondola
       https://bitbucket.org/catseye/animals
       https://bitbucket.org/catseye/apple-befunge
       https://bitbucket.org/catseye/arboretuum

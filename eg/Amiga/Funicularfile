@@ -23,6 +23,14 @@ return {
       http://www.nic.funet.fi/pub/amiga/fish/201-300/ff224/Who.lha
       http://www.nic.funet.fi/pub/amiga/fish/901-1000/ff935/MuchMore.lha
     ]],
+
+    distrepos_hg = [[
+      https://bitbucket.org/catseye/befunge-93
+      https://bitbucket.org/catseye/maentwrog
+      https://bitbucket.org/catseye/rube
+      https://bitbucket.org/catseye/minischeme
+    ]],
+
     setup_instructions = [[
 * Wait for the Workbench to appear.
 * Double-click the "Funicular" disk icon.

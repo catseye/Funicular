@@ -359,9 +359,15 @@ DISTRIBUTION INSTRUCTIONS
             os.exit(1)
         end
 
-        execute(funicular, "ls -lah ${SYSTEM_IMAGE}")
-        execute(funicular, "cp ${SYSTEM_IMAGE} " .. bup .. ".img")
-        execute(funicular, "gzip " .. bup .. ".img")
+        -- special case is special
+        if funicular.system_image == 'dh0' then
+            bup_img_gz = bup .. '.tar.gz'
+            execute(funicular, "tar zcf " .. bup_img_gz .. " ${SYSTEM_IMAGE}")
+        else
+            execute(funicular, "ls -lah ${SYSTEM_IMAGE}")
+            execute(funicular, "cp ${SYSTEM_IMAGE} " .. bup .. ".img")
+            execute(funicular, "gzip " .. bup .. ".img")
+        end
         execute(funicular, "ls -lah " .. bup_img_gz)
     end,
 
@@ -373,6 +379,11 @@ DISTRIBUTION INSTRUCTIONS
         end
 
         bup_img_gz = bup .. '.img.gz'
+        -- special case is special
+        if funicular.system_image == 'dh0' then
+            bup_img_gz = bup .. '.tar.gz'
+        end
+
         if not exists(bup_img_gz) then
             print(bup_img_gz .. ' does not exist.')
             os.exit(1)
@@ -383,9 +394,14 @@ DISTRIBUTION INSTRUCTIONS
             os.exit(1)
         end
 
-        execute(funicular, "ls -lah " .. bup_img_gz)
-        execute(funicular, "cp " .. bup_img_gz .. " ${SYSTEM_IMAGE}.gz")
-        execute(funicular, "gunzip ${SYSTEM_IMAGE}.gz")
+        -- special case is special
+        if funicular.system_image == 'dh0' then
+            execute(funicular, "tar zxf " .. bup_img_gz)
+        else
+            execute(funicular, "ls -lah " .. bup_img_gz)
+            execute(funicular, "cp " .. bup_img_gz .. " ${SYSTEM_IMAGE}.gz")
+            execute(funicular, "gunzip ${SYSTEM_IMAGE}.gz")
+        end
     end,
 }
 
