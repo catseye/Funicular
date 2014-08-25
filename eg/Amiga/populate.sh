@@ -1,25 +1,5 @@
 cp -Rp skel/* dh0/
 
-mkdir -p dh0/c
-mkdir -p dh0/devs
-mkdir -p dh0/fonts
-mkdir -p dh0/l
-mkdir -p dh0/libs
-mkdir -p dh0/s
-
-if [ -e dh0/s/Startup-Sequence ]; then
-    cp dh0/s/Startup-Sequence.Funicular dh0/s/Startup-Sequence
-fi
-
-mkdir -p dh0/Distributions
-cp -p skel/icons/Drawer.info dh0/Distributions.info
-
-mkdir -p dh0/Empty
-cp -p skel/icons/Drawer.info dh0/Empty.info
-
-mkdir -p dh0/Extras
-cp -p skel/icons/Drawer.info dh0/Extras.info
-
 ### extract the simple and cromulent archives ###
 ARCHIVES="
   FastFonts

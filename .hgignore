@@ -2,7 +2,7 @@ syntax: glob
 
 *.iso
 *.img
-*.img.gz
+*.gz
 *.rom
 *.adf
 *.dms
