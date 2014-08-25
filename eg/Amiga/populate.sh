@@ -4,7 +4,7 @@ cp -Rp skel/* dh0/
 ARCHIVES="
   FastFonts
   Conman CLImax
-  MuchMore Who
+  MuchMore Who du
   Xicon NoIconPos IconType
   SmallLib FixFd
   ArpRequest
@@ -66,6 +66,7 @@ cp dh0/Distributions/CLImax/CLImax dh0/c/
 cp dh0/Distributions/FixFd/FixFD dh0/c/
 cp dh0/Distributions/FastFonts/FastFonts dh0/c/
 cp dh0/Distributions/Who/Who dh0/c/
+cp dh0/Distributions/Du/du dh0/c/
 
 chmod 755 dh0/c/*
 
