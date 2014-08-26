@@ -1,0 +1,7 @@
+return {
+    platform = Commodore_64_Platform,
+    install_image = 'blank.d64',
+    setup_image = 'setup.d64',
+    system_image = 'device8',
+    dist_image = 'dist.d64',
+}

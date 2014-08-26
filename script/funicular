@@ -47,12 +47,16 @@ VICE_x64 = {
     name = 'VICE/x64',
     emulator = VICE,
     command = 'x64 ${SYSTEM_IMAGE}',
+    setup_command = 'x64',
+    install_command = 'echo "No install step.  Installation will happen during setup."',
 }
 
 VICE_xvic = {
     name = 'VICE/xvic',
     emulator = VICE,
     command = 'xvic ${SYSTEM_IMAGE}',
+    setup_command = 'xvic',
+    install_command = 'echo "No install step.  Installation will happen during setup."',
 }
 
 --[[ Architectures ]]--
@@ -93,7 +97,7 @@ Commodore_64 = {
     name = "Commodore 64",
     emulator_mode = VICE_x64,
     create_system_image = function(funicular, size)
-        execute(funicular, "init_d64 ${SYSTEM_IMAGE}")
+        execute(funicular, "mkdir -p ${SYSTEM_IMAGE}")
     end,
     create_dist_image = function(funicular, size)
         execute(funicular, "init_d64 ${DIST_IMAGE}")
@@ -112,6 +116,12 @@ VIC_20 = {
 }
 
 --[[ Platforms ]]--
+
+Commodore_64_Platform = {
+    name = "Commodore 64 Platform",
+    architecture = Commodore_64,
+    install_image = 'blank.d64',
+}
 
 AmigaDOS_1_3 = {
     name = "AmigaDOS 1.3",
@@ -306,7 +316,7 @@ INSTALLATION INSTRUCTIONS
             -- execute(funicular, 'chmod 755 staging_area/*.sh')
         end
 
-        execute(funicular, funicular.platform.setup_command)
+        execute(funicular, funicular.platform.setup_command or 'echo "no platform setup command"')
         if funicular.setup_instructions then
             print [[
 
