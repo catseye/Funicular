@@ -46,8 +46,8 @@ QEMU_i386 = {
 VICE_x64 = {
     name = 'VICE/x64',
     emulator = VICE,
-    command = 'x64 ${SYSTEM_IMAGE}',
-    setup_command = 'x64',
+    command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
+    setup_command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
     install_command = 'echo "No install step.  Installation will happen during setup."',
 }
 
