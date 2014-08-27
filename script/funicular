@@ -121,6 +121,7 @@ Commodore_64_Platform = {
     name = "Commodore 64 Platform",
     architecture = Commodore_64,
     install_image = 'blank.d64',
+    setup_command = "sh ./populate.sh",
 }
 
 AmigaDOS_1_3 = {
