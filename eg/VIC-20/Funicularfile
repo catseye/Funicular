@@ -1,0 +1,10 @@
+return {
+    platform = VIC_20_Platform,
+    install_image = 'blank.d64',
+    setup_image = 'setup.d64',
+    system_image = 'device8',
+    dist_image = 'dist.d64',
+    distrepos_hg = [[
+      https://bitbucket.org/catseye/dungeons-of-ekileugor
+    ]],
+}
