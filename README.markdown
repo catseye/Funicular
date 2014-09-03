@@ -21,12 +21,9 @@ It currently supports:
 *   AmigaDOS under E-UAE
 *   Commodore 64 KERNAL under VICE (to a degree)
 
-We hope that it will soon support:
+And we hope that it will soon support:
 
 *   VIC-20 KERNAL under VICE
-
-And hopefully one day:
-
 *   AppleDOS under Linapple
 
 It is hoped that Funicular will eventually replace the discrete, ad-hoc
@@ -37,22 +34,26 @@ projects [NetBSD-Gondola](https://github.com/catseye/NetBSD-Gondola),
 Concepts
 --------
 
-### Funiculars, Platforms, Architectures, Emulators ###
+### Funiculars, Platforms, Architectures, EmulatorModes, Emulators ###
 
 Each funicular is defined by a `Funicularfile` in a particular directory
 dedicated to that funicular (in analogy with `Makefile`, `Vagrantfile`, etc.)
 
 A funicular defines a development environment; is generally based around a
 particular Platform.  The Platform defines a default Architecture, which in
-turn defines a default Emulator.
+turn defines a default EmulatorMode (which is provided by an Emulator.)
 
 In truth, it is more complicated than that.  Architectures have a many-to-many
 relationship with Platforms, which themselves have a many-to-many relationship
-with Emulators.
+with EmulatorModes (which have a many-to-one relationship with an Emulator.)
 
-For example, the NetBSD Platform could be on i386 or MIPS Architecture, and the
-QEMU emulator can emulate both i386 and SPARC, while the i386 architecture can
-be emulated by both QEMU and Bochs.
+Examples:
+
+*   NetBSD and FreeDOS (Platforms) can both run on i386 (Architecture)
+*   NetBSD (Platform) can run on both i386 and MIPS (Architectures)
+*   i386 (Architecture) can be emulated by both QEMU-i386 and Bochs
+    (EmulatorModes)
+*   QEMU (Emulator) can emulate both i386 and SPARC (Architectures)
 
 Worse, Platforms and Architectures are hierarchical, but not in any clean way.
 Amiga Kickstart sits on top of a 680x0 core, and AmigaDOS sits on top of

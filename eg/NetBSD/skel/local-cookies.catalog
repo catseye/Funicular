@@ -4,9 +4,6 @@
   build_command rm -rf lib/cos* && touch lib/asn1/SKIP lib/eldap/SKIP lib/gs/SKIP lib/hipe/SKIP lib/inets/SKIP lib/jinterface/SKIP lib/megaco/SKIP lib/orber/SKIP lib/odbc/SKIP lib/erlang && ./configure --prefix=`pwd` --disable-threads --disable-hipe --without-ssl && make
   exclude_paths bootstrap erts make plt release system xcomp cygwin
 
-*/*/chicken-4.*
-  build_command make PLATFORM=bsd
-
 ### Cat's Eye Stage ###
 
 */catseye/dungeons-of-ekileugor
