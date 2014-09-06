@@ -311,8 +311,13 @@ INSTALLATION INSTRUCTIONS
             execute(funicular, 'cp -p distfiles/' .. basename(url) .. ' staging_area/')
         end
         for url in string.gmatch(funicular.distrepos_hg or "", "[^%s]+") do
-            execute(funicular, 'cd distrepos && tar zcf ../staging_area/bitbucket.org,catseye,' ..
-                    basename(url) .. '-master.tar.gz ' .. basename(url))
+            if funicular.toolshelf_inside then
+                execute(funicular, 'cd distrepos && tar zcf ../staging_area/bitbucket.org,catseye,' ..
+                        basename(url) .. '-master.tar.gz ' .. basename(url))
+            else
+                execute(funicular, 'cd distrepos && tar zcf ../staging_area/' ..
+                        basename(url) .. '.tgz ' .. basename(url))
+            end
         end
         for url in string.gmatch(funicular.distrepos_git or "", "[^%s]+") do
             execute(funicular, 'cd distrepos && tar zcf ../staging_area/github.com,catseye,' ..

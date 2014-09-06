@@ -29,6 +29,7 @@ return {
 -- */*/glib-2.*
 --   build_command LIBFFI_CFLAGS=-I`toolshelf pwd libffi-3.0.13`/install/lib/libffi-3.0.13/include LIBFFI_LIBS="-L/home/user/toolshelf/.lib -lffi" ./configure --prefix=`pwd`/install && make && make install
 
+    toolshelf_inside = true,
     distrepos_hg = [[
       https://bitbucket.org/catseye/alpaca
       https://bitbucket.org/catseye/animals
