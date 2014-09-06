@@ -11,6 +11,7 @@ UNZIP D:\csdpmi7b.zip
 UNZIP D:\perl588b.zip
 UNZIP D:\tar112ab.zip
 UNZIP D:\gzip16b.zip
+UNZIP D:\fil41b.zip
 COPY D:\COPYING.DJ .
 COPY D:\README.1ST .
 CD ..
