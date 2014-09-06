@@ -26,10 +26,10 @@ VICE = {
 E_UAE_Amiga_500 = {
     name = 'E-UAE/Amiga 500',
     emulator = E_UAE,
-    start_command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
-    dist_command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "floppy0=${DIST_IMAGE}" -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
-    distboot_command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "floppy0=${DIST_IMAGE}"',
-    setup_command = 'uae -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1" -s "floppy0=${SETUP_IMAGE}"',
+    start_command = 'uae -s bogomem_size=4 -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
+    dist_command = 'uae -s bogomem_size=4 -s cpu_speed=max -s floppy_speed=800 -s "floppy0=${DIST_IMAGE}" -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
+    distboot_command = 'uae -s bogomem_size=4 -s cpu_speed=max -s floppy_speed=800 -s "floppy0=${DIST_IMAGE}"',
+    setup_command = 'uae -s bogomem_size=4 -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1" -s "floppy0=${SETUP_IMAGE}"',
     install_command = 'echo "No install step.  Installation will happen during setup."',
 }
 
