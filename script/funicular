@@ -308,7 +308,12 @@ INSTALLATION INSTRUCTIONS
         execute(funicular, 'rm -rf staging_area')
         execute(funicular, 'mkdir -p staging_area')
         for url in string.gmatch(funicular.distfiles or "", "[^%s]+") do
-            execute(funicular, 'cp -p distfiles/' .. basename(url) .. ' staging_area/')
+            local source_name = basename(url)
+            local dest_name = source_name
+            if funicular.name_map and funicular.name_map[source_name] then
+                dest_name = funicular.name_map[source_name]
+            end
+            execute(funicular, 'cp -p distfiles/' .. source_name .. ' staging_area/' .. dest_name)
         end
         for url in string.gmatch(funicular.distrepos_hg or "", "[^%s]+") do
             if funicular.toolshelf_inside then
@@ -320,8 +325,13 @@ INSTALLATION INSTRUCTIONS
             end
         end
         for url in string.gmatch(funicular.distrepos_git or "", "[^%s]+") do
-            execute(funicular, 'cd distrepos && tar zcf ../staging_area/github.com,catseye,' ..
-                    basename(url) .. '-master.tar.gz ' .. basename(url))
+            if funicular.toolshelf_inside then
+                execute(funicular, 'cd distrepos && tar zcf ../staging_area/github.com,catseye,' ..
+                        basename(url) .. '-master.tar.gz ' .. basename(url))
+            else
+                execute(funicular, 'cd distrepos && tar zcf ../staging_area/' ..
+                        basename(url) .. '.tgz ' .. basename(url))
+            end
         end
 
         if exists('skel') then
@@ -447,7 +457,7 @@ end
 
 local result, error = loadfile("Funicularfile")
 if result == nil then
-    print("No Funicularfile found in this directory.")
+    print("No valid Funicularfile found in this directory.")
     os.exit(1)
 end
 local funicular = result()

@@ -25,6 +25,13 @@ return {
       https://github.com/catseye/Illgol-Grand-Mal/archive/rel_16_tons_and_what_do_you_get.zip
     ]],
 
+    name_map = {
+        ["yasm-1.2.0-dos.exe"] = 'yasm120.exe',
+        ["lua-5.2.2.tar.gz"] = 'lua522.tgz',
+        ["shelta-1.2-2014.0422.zip"] = 'shelta12.zip',
+        ["rel_16_tons_and_what_do_you_get.zip"] = 'illgolgm.zip'
+    },
+
     distrepos_hg = [[
         https://bitbucket.org/catseye/befunge-93
         https://bitbucket.org/catseye/maentwrog
