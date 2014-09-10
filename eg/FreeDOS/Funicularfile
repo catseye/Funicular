@@ -23,13 +23,16 @@ return {
       
       http://catseye.tc/distfiles/shelta-1.2-2014.0422.zip
       https://github.com/catseye/Illgol-Grand-Mal/archive/rel_16_tons_and_what_do_you_get.zip
+
+      http://www.gnu.org/licenses/gpl-2.0.txt
     ]],
 
     name_map = {
         ["yasm-1.2.0-dos.exe"] = 'yasm120.exe',
         ["lua-5.2.2.tar.gz"] = 'lua522.tgz',
         ["shelta-1.2-2014.0422.zip"] = 'shelta12.zip',
-        ["rel_16_tons_and_what_do_you_get.zip"] = 'illgolgm.zip'
+        ["rel_16_tons_and_what_do_you_get.zip"] = 'illgolgm.zip',
+        ["gpl-2.0.txt"] = 'gpl20.txt',
     },
 
     distrepos_hg = [[
@@ -110,6 +113,12 @@ Please type 0.16, 0.18, 0.32, 0.36, 0.72, 1.2, 1.44, 1.68, 1.72, or 2.88.
 1680
 1720
 2880
+
+KERNEL   SYS     45341 2006-09-03   0:10  kernel.sys
+COMMAND  COM     66945 2006-09-03   0:11  command.com
+DRIVER       <DIR>     2006-09-03   0:11  driver
+FDCONFIG SYS      1768 2006-09-03   0:11  fdconfig.sys
+FREEDOS      <DIR>     2006-09-03   0:11  freedos
 
 ### Shelta ###
 
