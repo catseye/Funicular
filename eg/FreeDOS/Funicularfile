@@ -74,10 +74,12 @@ return {
 
     setup_instructions = [[
 *   Hit Enter for the JEMMEX option, should be fine
-*   When booted, run `D:\INSTPLAT`
+*   When booted, run `D:\INSTDJGP`
 *   When it asks `replace lib/Perl5/Pod/perlmaco.pod?`, type `A`, Enter.
 *   THEN HIT ENTER AGAIN.  It's waiting silently for you.
-*   When finished, you can just stop the emulator.
+*   When finished, you may want to exit the emulator, run
+    `funicular backup hda-djgpp`, and start it again.
+*   run `D:\INSTPLAT`.  This will install some tools into `C:\TOOLS`.
     ]],
 
     dist_instructions = [[
@@ -85,7 +87,9 @@ return {
 * Enter `360`, `720`, or `1440` as appropriate.
 * As explained in the script, it may take more than one attempt to format
   the image correctly, if it has never been used before.
-* To populate the initialized floppy with files, use `TOOLS\PUTFLOPY`.
+* The result will be a generic, bootable FreeDOS floppy.  You may
+  wish to make a backup copy of `a.img` to not need this step in future.
+* To populate the floppy with a few basic things, run `POPUFLOP`.
 
 You now have a bootable floppy image with a few basic tools on it.
   ]]
