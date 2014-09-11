@@ -93,6 +93,13 @@ You now have a bootable floppy image with a few basic tools on it.
 
 --[[
 # to build lua: set LFN=n, cd src, make generic
+# but I'm sure there are just binaries somewhere we could download?
+
+# D:\INSTPLAT -- is not idempotent w.r.t. autoexec.bat and fdconfig.sys.
+# it writes DEVICEHIGH=NANSI multiple times (which can actually kill the boot.)
+# also, DJGPP.ENV contains CRs, not CRLFs.  We should convert it,
+# somehow, probably while it's in the staging area?  (like name_map, have
+# and entry that does eol mapping of some files)
 
 #  https://raw.githubusercontent.com/kikito/ansicolors.lua/master/ansicolors.lua
 
