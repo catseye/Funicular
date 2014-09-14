@@ -421,6 +421,8 @@ DISTRIBUTION INSTRUCTIONS
             os.exit(1)
         end
 
+        bup = bup:gsub("^(.-)\.img\.gz$", "%1")
+
         bup_img_gz = bup .. '.img.gz'
         -- special case is special
         if funicular.system_image == 'dh0' then

@@ -1,0 +1,29 @@
+The FreeDOS components on this disk image -- specifically, COMMAND.COM
+and KERNEL.SYS in the root directory, and everything in the FREEDOS
+directory -- are distributed under the GNU General Public License,
+version 2.0.  Sources for these can be obtained at http://www.freedos.org/
+
+You should have received a copy of the GNU General Public License
+along with this disk; it's in the file GPL20.TXT in the root directory.
+If not, write to:
+    
+    The Free Software Foundation, Inc.
+    51 Franklin Street
+    Fifth Floor, Boston, MA
+    02110-1301
+    USA
+
+Other software packages present on this disk may be distributed under
+different licenses -- see the license text files accompanying those
+packages for more specific information.
+
+This disk is a "mere aggregation", and therefore the GPL's "viral" nature
+does not "infect" the terms of use of these other software packages.
+
+A summary of the other software packages and their licenses follows:
+
+    * TED3   -- freeware; see TED3.DOC for more information
+    * yasm   -- BSD 2-clause license, found in YASMLCNS.TXT
+    * Shelta -- Freely redistributable unmodified for non-commercial purposes
+    * CWSDPMI-- also GPL v2, see GPL20.TXT; source can be obtained at
+                http://homer.rice.edu/~sandmann/cwsdpmi/index.html
