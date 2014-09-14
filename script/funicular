@@ -320,8 +320,13 @@ INSTALLATION INSTRUCTIONS
                 execute(funicular, 'cd distrepos && tar zcf ../staging_area/bitbucket.org,catseye,' ..
                         basename(url) .. '-master.tar.gz ' .. basename(url))
             else
+                local source_name = basename(url)
+                local dest_name = source_name
+                if funicular.name_map and funicular.name_map[source_name] then
+                    dest_name = funicular.name_map[source_name]
+                end
                 execute(funicular, 'cd distrepos && tar zcf ../staging_area/' ..
-                        basename(url) .. '.tgz ' .. basename(url))
+                        dest_name .. '.tgz ' .. source_name)
             end
         end
         for url in string.gmatch(funicular.distrepos_git or "", "[^%s]+") do
@@ -405,9 +410,14 @@ DISTRIBUTION INSTRUCTIONS
     end,
 
     restore = function(funicular, arg)
+        local force = false
         bup = arg[2]
+        if bup == '-f' then
+            force = true
+            bup = arg[3]
+        end
         if bup == nil then
-            print "Usage: funicular restore <backup-basename>"
+            print "Usage: funicular restore [-f] <backup-basename>"
             os.exit(1)
         end
 
@@ -420,6 +430,10 @@ DISTRIBUTION INSTRUCTIONS
         if not exists(bup_img_gz) then
             print(bup_img_gz .. ' does not exist.')
             os.exit(1)
+        end
+
+        if force then
+            execute(funicular, "rm -rf ${SYSTEM_IMAGE}")
         end
 
         if exists(funicular.system_image) then
