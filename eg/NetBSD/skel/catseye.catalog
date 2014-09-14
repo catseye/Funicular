@@ -8,12 +8,11 @@
 # chrysoberyl, dipple, electronics-projects, specs-on-spec are intentionally @tip
 
 /cdrom/bitbucket.org,catseye,alpaca-master.tar.gz@rel_1_0_2014_0518
-/cdrom/bitbucket.org,catseye,amiga-gondola-master.tar.gz@rel_0_1_2013_1111
 /cdrom/bitbucket.org,catseye,animals-master.tar.gz@rel_1_1_2014_0819
 /cdrom/bitbucket.org,catseye,apple-befunge-master.tar.gz@rel_1_1_2014_0819
 /cdrom/bitbucket.org,catseye,arboretuum-master.tar.gz@rel_1_0_2014_0819
 /cdrom/bitbucket.org,catseye,befos-master.tar.gz@rel_0_9_2014_0819
-/cdrom/bitbucket.org,catseye,befunge-93-master.tar.gz@rel_2_23_2014_0820
+/cdrom/bitbucket.org,catseye,befunge-93-master.tar.gz
 /cdrom/bitbucket.org,catseye,beta-juliet-master.tar.gz@rel_2_0_2014_0819
 /cdrom/bitbucket.org,catseye,beturing-master.tar.gz@rel_1_1_2012_1024
 /cdrom/bitbucket.org,catseye,bhuna-master.tar.gz@rel_0_7_2014_0819
@@ -56,7 +55,7 @@
 /cdrom/bitbucket.org,catseye,kelxquoia-master.tar.gz@cdd335813463
 /cdrom/bitbucket.org,catseye,kosheri-master.tar.gz@0.1
 /cdrom/bitbucket.org,catseye,larabee-master.tar.gz@rel_1_0_2014_0818
-/cdrom/bitbucket.org,catseye,maentwrog-master.tar.gz@rel_1_1_2013_0226
+/cdrom/bitbucket.org,catseye,maentwrog-master.tar.gz
 /cdrom/bitbucket.org,catseye,mascarpone-master.tar.gz@rel_1_0_2014_0818
 /cdrom/bitbucket.org,catseye,muriel-master.tar.gz@rel_1_0_2014_0819
 /cdrom/bitbucket.org,catseye,mzstorkipiwanbotbotbot-master.tar.gz@0.1
@@ -73,7 +72,7 @@
 /cdrom/bitbucket.org,catseye,redgreen-master.tar.gz@rel_1_1_2014_0819
 /cdrom/bitbucket.org,catseye,robin-master.tar.gz@30be3893875d
 /cdrom/bitbucket.org,catseye,rube-ii-master.tar.gz@rel_1_0_2001_0201
-/cdrom/bitbucket.org,catseye,rube-master.tar.gz@rel_1_5_2014_0819
+/cdrom/bitbucket.org,catseye,rube-master.tar.gz
 /cdrom/bitbucket.org,catseye,sally-master.tar.gz@rel_1_0_2014_0819
 /cdrom/bitbucket.org,catseye,sbeezg-master.tar.gz@rel_1_0_2014_0819
 /cdrom/bitbucket.org,catseye,shelta-master.tar.gz@rel_1_2_2014_0422
