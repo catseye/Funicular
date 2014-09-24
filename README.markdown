@@ -2,7 +2,7 @@ Funicular
 =========
 
 **Funicular** is a system that semi-automates the creation of development
-environments on eclectic architectures.  It is currently a work in progress.
+environments on eclectic architectures.
 
 "Semi-automate" means it automates what it can, and provides repeatable
 instructions for you to follow for what it can't.
@@ -14,22 +14,23 @@ to install and outfit and and run a system for it, using Funicular.
 
 It's kind of like a Vagrant for the lunatic fringe, eh?
 
+It is currently a work in progress.  The current released version of
+Funicular is **version 0.1**, but this means next to nothing.
+
 It currently supports:
 
 *   NetBSD under QEMU
 *   FreeDOS under QEMU
 *   AmigaDOS under E-UAE
-*   Commodore 64 KERNAL under VICE (to a degree)
 
-And we hope that it will soon support:
+And it might, one day, support:
 
+*   Commodore 64 KERNAL under VICE
 *   VIC-20 KERNAL under VICE
 *   AppleDOS under Linapple
 
 It is hoped that Funicular will eventually replace the discrete, ad-hoc
-projects [NetBSD-Gondola](https://github.com/catseye/NetBSD-Gondola),
-[FreeDOS-Gondola](https://github.com/catseye/FreeDOS-Gondola), and
-[Amiga-Gondola](https://github.com/catseye/Amiga-Gondola).
+projects NetBSD-Gondola, FreeDOS-Gondola, and Amiga-Gondola.
 
 Concepts
 --------
@@ -130,11 +131,8 @@ a distribution image, you generally follow these steps:
 Notes
 -----
 
-The Cat's Eye Technologies Platform is a set of funiculars.  (TODO explain
-this.)
-
 `funicular` is written in Lua 5.1.  A `Funicularfile` is written in the
 configuration subset of Lua.
 
 `funicular` will use `toolshelf` if it is available on the host system,
-but does not strictly require it.
+i.e. if the `TOOLSHELF` env var is set, but does not strictly require it.
