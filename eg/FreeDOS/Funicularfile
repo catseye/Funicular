@@ -47,6 +47,7 @@ return {
         https://bitbucket.org/catseye/maentwrog
         https://bitbucket.org/catseye/rube
     ]],
+    zip_unversioned = true,
 
     install_instructions = [[
 *   select "Install to Hard Disk"

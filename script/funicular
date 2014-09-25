@@ -316,15 +316,20 @@ INSTALLATION INSTRUCTIONS
             execute(funicular, 'cp -p distfiles/' .. source_name .. ' staging_area/' .. dest_name)
         end
         for url in string.gmatch(funicular.distrepos_hg or "", "[^%s]+") do
+            local source_name = basename(url)
+            local dest_name = source_name
+            if funicular.name_map and funicular.name_map[source_name] then
+                dest_name = funicular.name_map[source_name]
+            end
             if funicular.toolshelf_inside then
                 execute(funicular, 'cd distrepos && tar zcf ../staging_area/bitbucket.org,catseye,' ..
-                        basename(url) .. '-master.tar.gz ' .. basename(url))
+                        dest_name .. '-master.tar.gz ' .. source_name)
+            elseif funicular.zip_unversioned then
+                execute(funicular, 'cd distrepos/' .. source_name ..
+                        ' && hg archive -r tip -t zip ' ..
+                        '-X .hgignore -X .gitignore -X .hgtags -X .hg_archival.txt ' ..
+                        '../staging_area/' .. dest_name .. '.zip')
             else
-                local source_name = basename(url)
-                local dest_name = source_name
-                if funicular.name_map and funicular.name_map[source_name] then
-                    dest_name = funicular.name_map[source_name]
-                end
                 execute(funicular, 'cd distrepos && tar zcf ../staging_area/' ..
                         dest_name .. '.tgz ' .. source_name)
             end
