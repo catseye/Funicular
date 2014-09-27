@@ -1,0 +1,14 @@
+Welcome to the ILLGOL FreeDOS disk image for v86!
+Here are some commands you can try:
+
+    EDIT DOC\ILLGOL.TXT
+
+    TYPE PRJ\HELLO.ILL
+    BIN\ILLGOL PRJ\HELLO.ILL HELLO.COM
+    HELLO
+
+    BIN\ILLGOL PRJ\HGR.ILL
+    OUT
+
+    BIN\ILLGOL PRJ\TEST.ILL
+    OUT
