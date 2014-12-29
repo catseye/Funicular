@@ -138,12 +138,14 @@ AmigaDOS_1_3 = {
     setup_command = "sh ./populate.sh",
 }
 
-NetBSD_6 = {
-    name = "NetBSD 6.1.4",
+NetBSD_6_1_5 = {
+    name = "NetBSD 6.1.5",
     architecture = i386,
-    install_image = 'NetBSD-6.1.4-i386.iso',
+    install_image = 'NetBSD-6.1.5-i386.iso',
+    install_image_url = 'ftp://iso.fr.netbsd.org/pub/NetBSD/NetBSD-6.1.5/iso/NetBSD-6.1.5-i386.iso',
     setup_command = "genisoimage -R -J -D -joliet-long -o ${SETUP_IMAGE} staging_area",
 }
+NetBSD_6 = NetBSD_6_1_5 -- backwards compatibility
 
 FreeDOS_1_1 = {
     name = "FreeDOS 1.1",
