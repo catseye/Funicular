@@ -64,9 +64,7 @@ VICE_xvic = {
 Amiga_500 = {
     name = "Amiga 500",
     emulator_mode = E_UAE_Amiga_500,
-    create_system_image = function(funicular, size)
-        execute(funicular, "mkdir -p ${SYSTEM_IMAGE}")
-    end,
+    virtual_system_image = true,
     create_dist_image = function(funicular, size)
         -- TODO: this is a little restrictive
         if size ~= '880' then
@@ -96,9 +94,7 @@ i386 = {
 Commodore_64 = {
     name = "Commodore 64",
     emulator_mode = VICE_x64,
-    create_system_image = function(funicular, size)
-        execute(funicular, "mkdir -p ${SYSTEM_IMAGE}")
-    end,
+    virtual_system_image = true,
     create_dist_image = function(funicular, size)
         execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683")
     end
@@ -107,9 +103,7 @@ Commodore_64 = {
 VIC_20 = {
     name = "VIC 20",
     emulator_mode = VICE_xvic,
-    create_system_image = function(funicular, size)
-        execute(funicular, "mkdir -p ${SYSTEM_IMAGE}")
-    end,
+    virtual_system_image = true,
     create_dist_image = function(funicular, size)
         execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683")
     end
@@ -260,7 +254,11 @@ commands = {
             return
         end
         print("init... size: " .. size)
-        funicular.platform.architecture.create_system_image(funicular, size)
+        if funicular.platform.architecture.virtual_system_image then
+            execute(funicular, "mkdir -p ${SYSTEM_IMAGE}")
+        else
+            funicular.platform.architecture.create_system_image(funicular, size)
+        end
     end,
 
     initdist = function(funicular, arg)
@@ -404,8 +402,7 @@ DISTRIBUTION INSTRUCTIONS
             os.exit(1)
         end
 
-        -- special case is special
-        if funicular.system_image == 'dh0' then
+        if funicular.platform.architecture.virtual_system_image then
             bup_img_gz = bup .. '.tar.gz'
             execute(funicular, "tar zcf " .. bup_img_gz .. " ${SYSTEM_IMAGE}")
         else
@@ -431,8 +428,7 @@ DISTRIBUTION INSTRUCTIONS
         bup = bup:gsub("^(.-)\.img\.gz$", "%1")
 
         bup_img_gz = bup .. '.img.gz'
-        -- special case is special
-        if funicular.system_image == 'dh0' then
+        if funicular.platform.architecture.virtual_system_image then
             bup_img_gz = bup .. '.tar.gz'
         end
 
@@ -450,8 +446,7 @@ DISTRIBUTION INSTRUCTIONS
             os.exit(1)
         end
 
-        -- special case is special
-        if funicular.system_image == 'dh0' then
+        if funicular.platform.architecture.virtual_system_image then
             execute(funicular, "tar zxf " .. bup_img_gz)
         else
             execute(funicular, "ls -lah " .. bup_img_gz)
