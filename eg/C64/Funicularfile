@@ -10,4 +10,7 @@ return {
       https://bitbucket.org/catseye/disksumo
       https://bitbucket.org/catseye/sixtypical
     ]],
+    dist_instructions = [[
+Use Commodore DOS copy commands to copy files from drive 8 to drive 9.
+    ]],
 }

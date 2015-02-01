@@ -48,6 +48,8 @@ VICE_x64 = {
     emulator = VICE,
     start_command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
     setup_command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
+    dist_command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE} -iecdevice9 -9 ${DIST_IMAGE}',
+    distboot_command = 'x64 -config vicerc ${DIST_IMAGE}',
     install_command = 'echo "No install step.  Installation will happen during setup."',
 }
 
@@ -56,6 +58,8 @@ VICE_xvic = {
     emulator = VICE,
     start_command = 'xvic -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
     setup_command = 'xvic -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
+    dist_command = 'xvic -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE} -iecdevice9 -9 ${DIST_IMAGE}',
+    distboot_command = 'xvic -config vicerc ${DIST_IMAGE}',
     install_command = 'echo "No install step.  Installation will happen during setup."',
 }
 
@@ -97,6 +101,7 @@ Commodore_64 = {
     virtual_system_image = true,
     create_dist_image = function(funicular, size)
         execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683")
+        execute(funicular, "c1541 -attach ${DIST_IMAGE} -format \"DIST,2A\" -dir")
     end
 }
 
@@ -106,6 +111,7 @@ VIC_20 = {
     virtual_system_image = true,
     create_dist_image = function(funicular, size)
         execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683")
+        execute(funicular, "c1541 -attach ${DIST_IMAGE} -format \"DIST,2A\" -dir")
     end
 }
 
