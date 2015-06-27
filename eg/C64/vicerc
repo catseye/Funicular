@@ -1,3 +1,4 @@
 [C64]
-
-; any options we can't specify with command-line arguments will go here
+VICIIDoubleScan=1
+VICIIHwScale=1
+VICIIDoubleSize=1

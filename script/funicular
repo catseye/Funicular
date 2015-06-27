@@ -121,21 +121,21 @@ Commodore_64_Platform = {
     name = "Commodore 64 Platform",
     architecture = Commodore_64,
     install_image = 'blank.d64',
-    setup_command = "sh ./populate.sh",
+    setup_command = "sh -e ./populate.sh",
 }
 
 VIC_20_Platform = {
     name = "VIC 20 Platform",
     architecture = VIC_20,
     install_image = 'blank.d64',
-    setup_command = "sh ./populate.sh",
+    setup_command = "sh -e ./populate.sh",
 }
 
 AmigaDOS_1_3 = {
     name = "AmigaDOS 1.3",
     architecture = Amiga_500,
     install_image = 'Workbench_1.3.adf',
-    setup_command = "sh ./populate.sh",
+    setup_command = "sh -e ./populate.sh",
 }
 
 NetBSD_6_1_5 = {
