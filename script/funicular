@@ -48,8 +48,8 @@ VICE_x64 = {
     emulator = VICE,
     start_command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
     setup_command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
-    dist_command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE} -iecdevice9 -9 ${DIST_IMAGE}',
-    distboot_command = 'x64 -config vicerc ${DIST_IMAGE}',
+    --dist_command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE} -iecdevice9 -9 ${DIST_IMAGE}',
+    distboot_command = 'x64 -config vicerc -iecdevice8 -device8 1 ${DIST_IMAGE}',
     install_command = 'echo "No install step.  Installation will happen during setup."',
 }
 
@@ -58,8 +58,8 @@ VICE_xvic = {
     emulator = VICE,
     start_command = 'xvic -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
     setup_command = 'xvic -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
-    dist_command = 'xvic -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE} -iecdevice9 -9 ${DIST_IMAGE}',
-    distboot_command = 'xvic -config vicerc ${DIST_IMAGE}',
+    --dist_command = 'xvic -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE} -iecdevice9 -9 ${DIST_IMAGE}',
+    distboot_command = 'xvic -config vicerc -iecdevice8 -device8 1 ${DIST_IMAGE}',
     install_command = 'echo "No install step.  Installation will happen during setup."',
 }
 
@@ -396,22 +396,29 @@ SETUP INSTRUCTIONS
 
     start = function(funicular, arg)
         print("starting " .. funicular.platform.architecture.emulator_mode.emulator.name .. "...")
-        if funicular.dist_image and exists(funicular.dist_image) then
-            if funicular.dist_instructions then
-                 print [[
+        execute(funicular, funicular.platform.architecture.emulator_mode.start_command)
+    end,
+
+    builddist = function(funicular, arg)
+        if not funicular.dist_image or not exists(funicular.dist_image) then
+            print "No distribution image defined or created."
+            return
+        end
+        if funicular.dist_script then
+            run_script(funicular, funicular.dist_script)
+        end
+        if funicular.dist_instructions then
+            print [[
 
 =========================
 DISTRIBUTION INSTRUCTIONS
 =========================
 ]]
-                 print(funicular.dist_instructions)
-            end
-            if funicular.dist_script then
-                run_script(funicular, funicular.dist_script)
-            end
+            print(funicular.dist_instructions)
+        end
+        if funicular.platform.architecture.emulator_mode.dist_command then
+            print("starting " .. funicular.platform.architecture.emulator_mode.emulator.name .. "...")
             execute(funicular, funicular.platform.architecture.emulator_mode.dist_command)
-        else
-            execute(funicular, funicular.platform.architecture.emulator_mode.start_command)
         end
     end,
 
@@ -502,6 +509,7 @@ where <command> is one of:
     setup
     start
     initdist
+    builddist
     distboot
     backup
     restore]]

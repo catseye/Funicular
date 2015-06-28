@@ -130,10 +130,12 @@ a distribution image, you generally follow these steps:
 
 *   Make sure the Funicular has been set up as above.
 *   Run `funicular initdist 720` to create a 720K (or whatever) dist image.
-*   Run `funicular start`.  It will detect that there is a dist image
+*   Run `funicular builddist`.  It will check that there is a dist image
     present, and may print out specific instructions.
 *   Formatting and populating the dist image is Funicular-dependent.
-    Look for instructions that might have been printed out,
+    Look for instructions that might have been printed out.
+    If the distribution can be created entirely on the host, the emulator
+    might not even be started.
 *   After the dist image is how you like it, shut down the emulator using
     the recommended method for doing so.
 *   Run `funicular distboot` to try to boot off the dist image, if it is
