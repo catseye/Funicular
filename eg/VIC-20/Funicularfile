@@ -8,6 +8,11 @@ return {
       https://bitbucket.org/catseye/dungeons-of-ekileugor
     ]],
     setup_script = [[
+cat >vicerc <<EOF
+[VIC20]
+VICDoubleScan=1
+VICDoubleSize=1
+EOF
 cp distrepos/dungeons-of-ekileugor/bin/* device8/
     ]],
     dist_instructions = [[

@@ -11,6 +11,11 @@ return {
       https://bitbucket.org/catseye/sixtypical
     ]],
     setup_script = [[
+cat >vicerc <<EOF
+[C64]
+VICIIDoubleScan=1
+VICIIDoubleSize=1
+EOF
 cp distrepos/bubble-escape/bin/* device8/
 cp distrepos/c64-demo-depot/petulant/petulant.prg device8/petulant
 cp distrepos/c64-demo-depot/ribos/ribos.prg device8/ribos
