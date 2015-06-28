@@ -121,21 +121,21 @@ Commodore_64_Platform = {
     name = "Commodore 64 Platform",
     architecture = Commodore_64,
     install_image = 'blank.d64',
-    setup_command = "sh -e ./populate.sh",
+    setup_via_script = true,
 }
 
 VIC_20_Platform = {
     name = "VIC 20 Platform",
     architecture = VIC_20,
     install_image = 'blank.d64',
-    setup_command = "sh -e ./populate.sh",
+    setup_via_script = true,
 }
 
 AmigaDOS_1_3 = {
     name = "AmigaDOS 1.3",
     architecture = Amiga_500,
     install_image = 'Workbench_1.3.adf',
-    setup_command = "sh -e ./populate.sh",
+    setup_via_script = true,
 }
 
 NetBSD_6_1_5 = {
@@ -183,6 +183,13 @@ end
 
 function basename(filename)
     return filename:match("^.+/(.-)$")
+end
+
+
+function write_out(filename, contents)
+   local file = io.open(filename, "w")
+   file:write(contents)
+   io.close(file)
 end
 
 
@@ -355,7 +362,21 @@ INSTALLATION INSTRUCTIONS
             -- execute(funicular, 'chmod 755 staging_area/*.sh')
         end
 
-        execute(funicular, funicular.platform.setup_command or 'echo "no platform setup command"')
+        if funicular.platform.setup_via_script then
+            if funicular.setup_script == nil then
+                print("Error: Funicularfile must define a setup_script")
+                os.exit(1)
+            end
+            write_out("populate.sh", funicular.setup_script)
+            execute(funicular, "sh -e ./populate.sh")
+            execute(funicular, "rm ./populate.sh")
+        else
+            if funicular.platform.setup_command == nil then
+                print("Error: platform must define a setup_command")
+                os.exit(1)
+            end
+            execute(funicular, funicular.platform.setup_command)
+        end
         if funicular.setup_instructions then
             print [[
 

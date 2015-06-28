@@ -10,6 +10,12 @@ return {
       https://bitbucket.org/catseye/disksumo
       https://bitbucket.org/catseye/sixtypical
     ]],
+    setup_script = [[
+cp distrepos/bubble-escape/bin/* device8/
+cp distrepos/c64-demo-depot/petulant/petulant.prg device8/petulant
+cp distrepos/c64-demo-depot/ribos/ribos.prg device8/ribos
+cp distrepos/disksumo/bin/disksumo.prg device8/disksumo
+    ]],
     dist_instructions = [[
 Use Commodore DOS copy commands to copy files from drive 8 to drive 9.
     ]],

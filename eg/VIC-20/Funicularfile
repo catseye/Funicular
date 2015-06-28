@@ -7,4 +7,10 @@ return {
     distrepos_hg = [[
       https://bitbucket.org/catseye/dungeons-of-ekileugor
     ]],
+    setup_script = [[
+cp distrepos/dungeons-of-ekileugor/bin/* device8/
+    ]],
+    dist_instructions = [[
+Use Commodore DOS copy commands to copy files from drive 8 to drive 9.
+    ]],
 }
