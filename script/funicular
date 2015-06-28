@@ -186,13 +186,6 @@ function basename(filename)
 end
 
 
-function write_out(filename, contents)
-   local file = io.open(filename, "w")
-   file:write(contents)
-   io.close(file)
-end
-
-
 function execute(funicular, command)
     command = command:gsub("${SETUP_IMAGE}", funicular.setup_image or '')
     command = command:gsub("${SYSTEM_IMAGE}", funicular.system_image or '')
@@ -204,6 +197,20 @@ function execute(funicular, command)
     if exit_code ~= 0 then
         os.exit(1)
     end
+end
+
+
+function write_out(filename, contents)
+   local file = io.open(filename, "w")
+   file:write(contents)
+   io.close(file)
+end
+
+
+function run_script(funicular, contents)
+   write_out("script.sh", contents)
+   execute(funicular, "sh -e -x ./script.sh")
+   execute(funicular, "rm ./script.sh")
 end
 
 
@@ -367,9 +374,7 @@ INSTALLATION INSTRUCTIONS
                 print("Error: Funicularfile must define a setup_script")
                 os.exit(1)
             end
-            write_out("populate.sh", funicular.setup_script)
-            execute(funicular, "sh -e ./populate.sh")
-            execute(funicular, "rm ./populate.sh")
+            run_script(funicular, funicular.setup_script)
         else
             if funicular.platform.setup_command == nil then
                 print("Error: platform must define a setup_command")
@@ -400,6 +405,9 @@ DISTRIBUTION INSTRUCTIONS
 =========================
 ]]
                  print(funicular.dist_instructions)
+            end
+            if funicular.dist_script then
+                run_script(funicular, funicular.dist_script)
             end
             execute(funicular, funicular.platform.architecture.emulator_mode.dist_command)
         else
