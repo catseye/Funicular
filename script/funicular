@@ -21,6 +21,11 @@ VICE = {
     source = 'http://downloads.sourceforge.net/project/vice-emu/releases/vice-2.4.tar.gz',
 }
 
+Linapple = {
+    name = 'Linapple',
+    source = 'https://github.com/timob/linapple/archive/master.zip',
+}
+
 --[[ Emulator Modes ]]--
 
 E_UAE_Amiga_500 = {
@@ -63,6 +68,16 @@ VICE_xvic = {
     install_command = 'echo "No install step.  Installation will happen during setup."',
 }
 
+Linapple_Apple_II = {
+    name = 'Linapple/Apple II',
+    emulator = Linapple,
+    start_command = 'linapple',
+    dist_command = 'linapple',
+    distboot_command = 'linapple',
+    setup_command = 'linapple',
+    install_command = 'echo "No install step.  Installation will happen during setup."',
+}
+
 --[[ Architectures ]]--
 
 Amiga_500 = {
@@ -95,6 +110,17 @@ i386 = {
     end
 }
 
+Apple_II = {
+    name = "Apple II",
+    emulator_mode = Linapple_Apple_II,
+    create_system_image = function(funicular, size)
+        execute(funicular, "dd if=/dev/zero of=${SYSTEM_IMAGE} bs=1M count=" .. size)
+    end,
+    create_dist_image = function(funicular, size)
+        execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683")
+    end
+}
+
 Commodore_64 = {
     name = "Commodore 64",
     emulator_mode = VICE_x64,
@@ -116,6 +142,13 @@ VIC_20 = {
 }
 
 --[[ Platforms ]]--
+
+Apple_II_Platform = {
+    name = "Apple II Platform",
+    architecture = Apple_II,
+    install_image = 'blank.dsk',
+    setup_via_script = true,
+}
 
 Commodore_64_Platform = {
     name = "Commodore 64 Platform",

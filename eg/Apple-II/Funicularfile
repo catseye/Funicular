@@ -1,0 +1,30 @@
+-- NOTE: we need
+-- ftp://ftp.apple.asimov.net/pub/apple_II/utility/a2tools-v003.zip
+-- even then, it needs a bugfix (when reading padded_name)
+-- TODO: import into Github repository!
+
+return {
+    platform = Apple_II_Platform,
+    install_image = 'blank.dsk',
+    setup_image = 'setup.dsk',
+    system_image = 'system.dsk',
+    dist_image = 'dist.dsk',
+    distrepos_hg = [[
+      https://bitbucket.org/catseye/apple-befunge
+    ]],
+    setup_script = [[
+export CWD=`pwd`
+cat >linapple.conf <<EOF
+	Computer Emulation =	1
+	Slot 6 Directory =	$CWD
+	Disk Image 1 =	$CWD/system.dsk
+	Slot 6 Autoload =	1
+EOF
+# not fantastic because assumes toolshelf
+cp `toolshelf.py pwd linapple`/splash.bmp .
+cp `toolshelf.py pwd linapple`/charset40.bmp .
+# this is even less fantastic because no just no
+cp `toolshelf.py pwd linapple`/Master.dsk system.dsk
+#cp distrepos/apple-befunge/* device8/
+    ]],
+}
