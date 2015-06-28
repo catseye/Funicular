@@ -20,7 +20,7 @@ install and outfit and run a system for it, using Funicular.
 It's kind of like a Vagrant for the lunatic fringe, eh?
 
 It is currently a work in progress.  The current released version of
-Funicular is **version 0.1**, but this means next to nothing.
+Funicular is **version 0.2**, but this means next to nothing.
 
 It currently supports:
 
