@@ -15,7 +15,12 @@ VICDoubleSize=1
 EOF
 cp distrepos/dungeons-of-ekileugor/bin/* device8/
     ]],
-    dist_instructions = [[
-Use Commodore DOS copy commands to copy files from drive 8 to drive 9.
+    dist_script = [[
+cd device8
+for FILENAME in *; do
+  c1541 -attach ../dist.d64 -write "$FILENAME"
+done
+cd ..
+c1541 -attach dist.d64 -dir
     ]],
 }

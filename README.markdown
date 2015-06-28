@@ -27,11 +27,11 @@ It currently supports:
 *   i386 running NetBSD under QEMU
 *   i386 running FreeDOS under QEMU
 *   Amiga 500 (etc) running AmigaDOS under E-UAE
-*   Commodore 64 running the C64 KERNAL under VICE
+*   Commodore 64 with a 1541 floppy drive under VICE
+*   VIC-20 with a 1541 floppy drive under VICE
 
 And it might, one day, support:
 
-*   VIC-20 running the VIC-20 KERNAL under VICE
 *   Apple //e running AppleDOS under Linapple
 
 Funicular unifies and replaces the discrete, ad-hoc projects NetBSD-Gondola,
@@ -108,7 +108,7 @@ directory of files (e.g. a "virtual disk".)  An Image has one of several roles:
 Usage
 -----
 
-To bring up a Funicular, you generally follow this series of steps:
+To create a Funicular, you generally follow this series of steps:
 
 *   Acquire an install image for the Platform (e.g. a NetBSD install ISO.)
 *   Acquire an appropriate Emulator (e.g. `toolshelf dock @@qemu`.)
