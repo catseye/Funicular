@@ -149,3 +149,8 @@ A `Funicularfile` is written in the configuration subset of Lua.
 
 `funicular` will use `toolshelf` if it is available on the host system,
 i.e. if the `TOOLSHELF` env var is set, but does not strictly require it.
+
+The contents of this repository are in the public domain.  This, of course,
+applies only to the contents of this repository, and not to the contents of
+any particular Funicular you build with with this software.  See the file
+`UNLICENSE` in this directory for more information.
