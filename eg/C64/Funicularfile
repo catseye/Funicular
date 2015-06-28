@@ -15,6 +15,10 @@ cat >vicerc <<EOF
 [C64]
 VICIIDoubleScan=1
 VICIIDoubleSize=1
+JoyDevice1=0
+JoyDevice2=1
+JoyDevice3=0
+JoyDevice4=0
 EOF
 cp distrepos/bubble-escape/bin/* device8/
 cp distrepos/c64-demo-depot/petulant/petulant.prg device8/petulant
@@ -23,6 +27,9 @@ cp distrepos/disksumo/bin/disksumo.prg device8/disksumo
     ]],
     dist_script = [[
 cd device8
+petcat -w2 -o menu -- ../menu.bas
+c1541 -attach ../dist.d64 -write menu
+rm -f menu
 for FILENAME in *; do
   c1541 -attach ../dist.d64 -write "$FILENAME"
 done
