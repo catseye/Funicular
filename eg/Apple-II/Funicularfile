@@ -9,8 +9,8 @@ return {
     setup_image = 'setup.dsk',
     system_image = 'system.dsk',
     dist_image = 'dist.dsk',
-    distrepos_hg = [[
-      https://bitbucket.org/catseye/apple-befunge
+    distrepos_specs = [[
+      bb:catseye/apple-befunge
     ]],
     setup_script = [[
 export CWD=`pwd`
