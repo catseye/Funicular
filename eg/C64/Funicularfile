@@ -4,11 +4,11 @@ return {
     setup_image = 'setup.d64',
     system_image = 'device8',
     dist_image = 'dist.d64',
-    distrepos_hg = [[
-      https://bitbucket.org/catseye/bubble-escape
-      https://bitbucket.org/catseye/c64-demo-depot
-      https://bitbucket.org/catseye/disksumo
-      https://bitbucket.org/catseye/sixtypical
+    distrepos_specs = [[
+      bb:catseye/bubble-escape
+      bb:catseye/c64-demo-depot
+      bb:catseye/disksumo
+      bb:catseye/sixtypical
     ]],
     setup_script = [[
 cat >vicerc <<EOF

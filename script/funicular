@@ -258,6 +258,35 @@ function checkout_git_repo(funicular, url)
 end
 
 
+function checkout_repo_by_spec(funicular, spec)
+    local is_hg = spec:match("^bb:(.-)$")
+    local is_git = spec:match("^gh:(.-)$")
+    local url = get_url_for_spec(funicular, spec)
+    if is_hg then
+        return checkout_hg_repo(funicular, url)
+    elseif is_git then
+        return checkout_git_repo(funicular, url)
+    else
+        print("Error: bad spec '" .. spec .. "'")
+        os.exit(1)
+    end
+end
+
+
+function get_url_for_spec(funicular, spec)
+    local is_hg = spec:match("^bb:(.-)$")
+    local is_git = spec:match("^gh:(.-)$")
+    if is_hg then
+        return 'http://bitbucket.org/' .. is_hg
+    elseif is_git then
+        return 'http://github.com/' .. is_git
+    else
+        print("Error: bad spec '" .. spec .. "'")
+        os.exit(1)
+    end
+end
+
+
 commands = {
     dump = function(funicular, arg)
         dump_table('', funicular)
@@ -318,15 +347,14 @@ INSTALLATION INSTRUCTIONS
         end
 
         execute(funicular, 'mkdir -p distrepos')
-        for url in string.gmatch(funicular.distrepos_hg or "", "[^%s]+") do
-           checkout_hg_repo(funicular, url)
-        end
-        for url in string.gmatch(funicular.distrepos_git or "", "[^%s]+") do
-            checkout_git_repo(funicular, url)
+        local distrepos_specs = funicular.distrepos_specs or ""
+        for spec in string.gmatch(distrepos_specs, "[^%s]+") do
+           checkout_repo_by_spec(funicular, spec)
         end
 
         execute(funicular, 'rm -rf staging_area')
         execute(funicular, 'mkdir -p staging_area')
+
         for url in string.gmatch(funicular.distfiles or "", "[^%s]+") do
             local source_name = basename(url)
             local dest_name = source_name
@@ -335,15 +363,20 @@ INSTALLATION INSTRUCTIONS
             end
             execute(funicular, 'cp -p distfiles/' .. source_name .. ' staging_area/' .. dest_name)
         end
-        for url in string.gmatch(funicular.distrepos_hg or "", "[^%s]+") do
+
+        for spec in string.gmatch(distrepos_specs, "[^%s]+") do
+            local url = get_url_for_spec(funicular, spec)
             local source_name = basename(url)
             local dest_name = source_name
+            local domain = 'bitbucket.org' -- FIXME
+            local username = 'catseye' -- FIXME
             if funicular.name_map and funicular.name_map[source_name] then
                 dest_name = funicular.name_map[source_name]
             end
             if funicular.toolshelf_inside then
-                execute(funicular, 'cd distrepos && tar zcf ../staging_area/bitbucket.org,catseye,' ..
-                        dest_name .. '-master.tar.gz ' .. source_name)
+                local tarball_name = domain .. ',' .. username .. ',' .. dest_name .. '-master.tar.gz'
+                execute(funicular, 'cd distrepos && ' ..
+                        'tar zcf ../staging_area/' .. tarball_name .. ' ' .. source_name)
             elseif funicular.zip_unversioned then
                 execute(funicular, 'cd distrepos/' .. source_name ..
                         ' && hg archive -r tip -t zip ' ..
@@ -352,15 +385,6 @@ INSTALLATION INSTRUCTIONS
             else
                 execute(funicular, 'cd distrepos && tar zcf ../staging_area/' ..
                         dest_name .. '.tgz ' .. source_name)
-            end
-        end
-        for url in string.gmatch(funicular.distrepos_git or "", "[^%s]+") do
-            if funicular.toolshelf_inside then
-                execute(funicular, 'cd distrepos && tar zcf ../staging_area/github.com,catseye,' ..
-                        basename(url) .. '-master.tar.gz ' .. basename(url))
-            else
-                execute(funicular, 'cd distrepos && tar zcf ../staging_area/' ..
-                        basename(url) .. '.tgz ' .. basename(url))
             end
         end
 

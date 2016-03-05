@@ -25,11 +25,11 @@ return {
       http://www.nic.funet.fi/pub/amiga/fish/901-1000/ff935/MuchMore.lha
     ]],
 
-    distrepos_hg = [[
-      https://bitbucket.org/catseye/befunge-93
-      https://bitbucket.org/catseye/maentwrog
-      https://bitbucket.org/catseye/rube
-      https://bitbucket.org/catseye/minischeme
+    distrepos_specs = [[
+      bb:catseye/befunge-93
+      bb:catseye/maentwrog
+      bb:catseye/rube
+      bb:catseye/minischeme
     ]],
 
     setup_script = [[

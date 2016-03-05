@@ -42,10 +42,10 @@ return {
         ["maentwrog"] = 'maentwrg',
     },
 
-    distrepos_hg = [[
-        https://bitbucket.org/catseye/befunge-93
-        https://bitbucket.org/catseye/maentwrog
-        https://bitbucket.org/catseye/rube
+    distrepos_specs = [[
+        bb:catseye/befunge-93
+        bb:catseye/maentwrog
+        bb:catseye/rube
     ]],
     zip_unversioned = true,
 

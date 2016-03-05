@@ -4,14 +4,15 @@ return {
     setup_image = 'setup.d64',
     system_image = 'device8',
     dist_image = 'dist.d64',
-    distrepos_hg = [[
-      https://bitbucket.org/catseye/dungeons-of-ekileugor
+    distrepos_specs = [[
+      bb:catseye/dungeons-of-ekileugor
     ]],
     setup_script = [[
 cat >vicerc <<EOF
 [VIC20]
 VICDoubleScan=1
 VICDoubleSize=1
+DriveTrueEmulation=0
 EOF
 cp distrepos/dungeons-of-ekileugor/bin/* device8/
     ]],
