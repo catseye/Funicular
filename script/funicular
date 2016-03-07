@@ -381,6 +381,18 @@ INSTALLATION INSTRUCTIONS
 
         execute(funicular, 'mkdir -p distrepos')
         local distrepos_specs = funicular.distrepos_specs or ""
+
+        local distrepos_catalogue = funicular.distrepos_catalogue or ""
+        if distrepos_catalogue ~= "" then
+            local file = io.open(distrepos_catalogue)
+            local line = file:read("*l")
+            while line do
+                distrepos_specs = distrepos_specs .. ' ' .. line
+                line = file:read("*l")
+            end
+            file:close()
+        end
+
         for spec in string.gmatch(distrepos_specs, "[^%s]+") do
            checkout_repo_by_spec(funicular, spec)
         end
