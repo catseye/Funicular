@@ -292,12 +292,12 @@ end
 
 
 function checkout_repo_by_spec(funicular, spec)
-    local is_hg = spec:match("^bb:(.-)$")
-    local is_git = spec:match("^gh:(.-)$")
+    local protocol, username, project, version =
+        spec:match("^(%w+):([^/]+)/([^@]+)(@?.*)$")
     local url = get_url_for_spec(funicular, spec)
-    if is_hg then
+    if protocol == 'bb' then
         return checkout_hg_repo(funicular, url)
-    elseif is_git then
+    elseif protocol == 'gh' then
         return checkout_git_repo(funicular, url)
     else
         print("Error: bad spec '" .. spec .. "'")
@@ -307,12 +307,12 @@ end
 
 
 function get_url_for_spec(funicular, spec)
-    local is_hg = spec:match("^bb:(.-)$")
-    local is_git = spec:match("^gh:(.-)$")
-    if is_hg then
-        return 'http://bitbucket.org/' .. is_hg
-    elseif is_git then
-        return 'http://github.com/' .. is_git
+    local protocol, username, project, version =
+        spec:match("^(%w+):([^/]+)/([^@]+)(@?.*)$")
+    if protocol == 'bb' then
+        return 'http://bitbucket.org/' .. username .. '/' .. project
+    elseif protocol == 'gh' then
+        return 'http://github.com/' .. username .. '/' .. project
     else
         print("Error: bad spec '" .. spec .. "'")
         os.exit(1)
