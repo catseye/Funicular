@@ -1,7 +1,4 @@
--- NOTE: we need
--- ftp://ftp.apple.asimov.net/pub/apple_II/utility/a2tools-v003.zip
--- even then, it needs a bugfix (when reading padded_name)
--- TODO: import into Github repository!
+-- NOTE: this requires toolshelf and assumes gh:catseye/a2tools has been docked
 
 return {
     platform = Apple_II_Platform,
@@ -20,11 +17,13 @@ cat >linapple.conf <<EOF
 	Disk Image 1 =	$CWD/system.dsk
 	Slot 6 Autoload =	1
 EOF
-# not fantastic because assumes toolshelf
-cp `toolshelf.py pwd linapple`/splash.bmp .
-cp `toolshelf.py pwd linapple`/charset40.bmp .
+
+# this is less than fantastic, but not sure how else to make sure this works
+LINAPPLE_DIR=`toolshelf.py pwd linapple`
+cp $LINAPPLE_DIR/splash.bmp .
+cp $LINAPPLE_DIR/charset40.bmp .
 # this is even less fantastic because no just no
-cp `toolshelf.py pwd linapple`/Master.dsk system.dsk
-#cp distrepos/apple-befunge/* device8/
+# instead, we should be using a2tools to put our things on a bootable disk image
+cp $LINAPPLE_DIR/Master.dsk system.dsk
     ]],
 }
