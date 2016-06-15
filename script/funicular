@@ -263,7 +263,7 @@ function is_docked(funicular, url)
 end
 
 
-function checkout_hg_repo(funicular, url)
+function checkout_hg_repo(funicular, url, version)
     filename = 'distrepos/' .. basename(url)
     if not exists(filename) then
         if TOOLSHELF ~= nil then
@@ -275,6 +275,9 @@ function checkout_hg_repo(funicular, url)
         else
             execute(funicular, 'hg clone ' .. url .. ' ' .. filename)
         end
+        if version ~= nil then
+            execute(funicular, 'cd ' .. filename .. ' && hg up ' .. version)
+        end
     else
         if TOOLSHELF ~= nil then
             execute(funicular, 'cd ' .. filename .. ' && hg pull -u')
@@ -283,10 +286,13 @@ function checkout_hg_repo(funicular, url)
 end
 
 
-function checkout_git_repo(funicular, url)
+function checkout_git_repo(funicular, url, version)
     filename = 'distrepos/' .. basename(url)
     if not exists(filename) then
         execute(funicular, 'git clone ' .. url .. ' ' .. filename)
+        if version ~= nil then
+            execute(funicular, 'cd ' .. filename .. ' && git checkout ' .. version)
+        end
     end
 end
 
@@ -294,11 +300,12 @@ end
 function checkout_repo_by_spec(funicular, spec)
     local protocol, username, project, version =
         spec:match("^(%w+):([^/]+)/([^@]+)(@?.*)$")
+    version = version:match("^@(.+)")
     local url = get_url_for_spec(funicular, spec)
     if protocol == 'bb' then
-        return checkout_hg_repo(funicular, url)
+        return checkout_hg_repo(funicular, url, version)
     elseif protocol == 'gh' then
-        return checkout_git_repo(funicular, url)
+        return checkout_git_repo(funicular, url, version)
     else
         print("Error: bad spec '" .. spec .. "'")
         os.exit(1)
@@ -451,6 +458,7 @@ INSTALLATION INSTRUCTIONS
             end
             execute(funicular, funicular.platform.setup_command)
         end
+        execute(funicular, 'rm -rf staging_area')
         if funicular.setup_instructions then
             print [[
 
