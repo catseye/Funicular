@@ -5,7 +5,7 @@ return {
     system_image = 'device8',
     dist_image = 'dist.d64',
     distrepos_specs = [[
-      bb:catseye/dungeons-of-ekileugor
+      gh:catseye/Dungeons-of-Ekileugor
     ]],
     setup_script = [[
 cat >vicerc <<EOF
@@ -14,7 +14,7 @@ VICDoubleScan=1
 VICDoubleSize=1
 DriveTrueEmulation=0
 EOF
-cp distrepos/dungeons-of-ekileugor/bin/* device8/
+cp distrepos/Dungeons-of-Ekileugor/bin/* device8/
     ]],
     dist_script = [[
 cd device8
