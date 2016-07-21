@@ -15,11 +15,11 @@ JoyDevice2=1
 JoyDevice3=0
 JoyDevice4=0
 EOF
-cp distrepos/bubble-escape/bin/* device8/
-cp distrepos/c64-demo-depot/petulant/petulant.prg device8/petulant
-cp distrepos/c64-demo-depot/ribos/ribos.prg device8/ribos
-cp distrepos/disksumo/bin/disksumo.prg device8/disksumo
-cp distrepos/situ-sol/bin/* device8/
+cp distrepos/Bubble-Escape/bin/* device8/
+cp distrepos/C64-Demo-Depot/petulant/petulant.prg device8/petulant
+cp distrepos/C64-Demo-Depot/ribos/ribos.prg device8/ribos
+cp distrepos/Disksumo/bin/disksumo.prg device8/disksumo
+cp distrepos/SITU-SOL/bin/* device8/
     ]],
     dist_script = [[
 cd device8
