@@ -26,13 +26,23 @@ return {
     ]],
 
     distrepos_specs = [[
-      bb:catseye/befunge-93
-      bb:catseye/maentwrog
-      bb:catseye/rube
-      bb:catseye/minischeme
+      gh:catseye/Befunge-93
+      gh:catseye/Maentwrog
+      gh:catseye/RUBE
+      gh:catseye/minischeme
     ]],
 
     setup_script = [[
+if [ ! -e kick.rom ]; then
+    echo "Need kick.rom"
+    exit 1
+fi
+
+if [ ! -e Workbench_1.3.adf ]; then
+    echo "Need Workbench_1.3.adf"
+    exit 1
+fi
+
 cp -Rp skel/* dh0/
 
 ### extract the simple and cromulent archives ###
@@ -61,6 +71,7 @@ lha xfw=dh0/Distributions distfiles/vbcc_target_m68k-amiga.lha
 cp dh0/Distributions/vbcc_target_m68k-amigaos/targets/m68k-amigaos/lib/amigas.lib dh0/Distributions/dice-rel-3.15/dlib/
 # can't stand the ugly...
 rm dh0/Distributions/vbcc_target_m68k-amigaos.info
+rm -rf dh0/Distributions/m68k-amigaos/vbcc_target_m68k-amigaos
 mv dh0/Distributions/vbcc_target_m68k-amigaos dh0/Distributions/m68k-amigaos
 
 ### A68k ###
