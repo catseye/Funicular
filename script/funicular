@@ -430,10 +430,16 @@ INSTALLATION INSTRUCTIONS
                 execute(funicular, 'cd distrepos && ' ..
                         'tar zcf ../staging_area/' .. tarball_name .. ' ' .. source_name)
             elseif funicular.zip_unversioned then
-                execute(funicular, 'cd distrepos/' .. source_name ..
-                        ' && hg archive -r tip -t zip ' ..
-                        '-X .hgignore -X .gitignore -X .hgtags -X .hg_archival.txt ' ..
-                        '../../staging_area/' .. dest_name .. '.zip')
+                if exists('distrepos/' .. source_name .. '/.hg') then
+                    execute(funicular, 'cd distrepos/' .. source_name ..
+                            ' && hg archive -r tip -t zip ' ..
+                            '-X .hgignore -X .gitignore -X .hgtags -X .hg_archival.txt ' ..
+                            '../../staging_area/' .. dest_name .. '.zip')
+                else
+                    execute(funicular, 'cd distrepos/' .. source_name ..
+                            ' && git archive --format=zip HEAD ' ..
+                            '--output=../../staging_area/' .. dest_name .. '.zip')
+                end
             else
                 execute(funicular, 'cd distrepos && tar zcf ../staging_area/' ..
                         dest_name .. '.tgz ' .. source_name)

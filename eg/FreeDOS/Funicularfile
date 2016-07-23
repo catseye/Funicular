@@ -6,17 +6,17 @@ return {
     dist_image = 'a.img',
     distfiles = [[
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/copying.dj
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev203.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev205.zip
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/faq230b.zip
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/readme.1st
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu224b.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc473b.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak3791b.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu226br3.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc610b.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak421b.zip
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2misc/csdpmi7b.zip
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/perl588b.zip
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/tar112ab.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gzip16b.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41b.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gzip18b.zip
+      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41br2.zip
       http://ftp.mpoli.fi/software/DOS/EDITORS/TED3.ZIP
 
       http://www.tortall.net/projects/yasm/releases/yasm-1.2.0-dos.exe
@@ -43,9 +43,9 @@ return {
     },
 
     distrepos_specs = [[
-        bb:catseye/befunge-93
-        bb:catseye/maentwrog
-        bb:catseye/rube
+        gh:catseye/Befunge-93
+        gh:catseye/Maentwrog
+        gh:catseye/RUBE
     ]],
     zip_unversioned = true,
 
