@@ -1,37 +1,31 @@
-#!/bin/sh
-
 # Apple ][+ w/ Linapple w/ certain options
 
 DISTFILE_URL='https://github.com/timob/linapple/archive/master.zip'
 
-initdist() {
+platform_initdist() {
     dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683
 }
 
-initsys() {
+platform_initsys() {
     dd if=/dev/zero of=${SYSTEM_IMAGE} bs=1M count=${SIZE}
 }
 
-start() {
+platform_start() {
     linapple
 }
 
-setup() {
+platform_setup() {
     linapple
 }
 
-dist() {
+platform_dist() {
     linapple
 }
 
-distboot() {
+platform_distboot() {
     linapple
 }
 
-install() {
+platform_install() {
     echo "No install step.  Installation will happen during setup."
 }
-
-CMD=$1
-shift
-$CMD $*

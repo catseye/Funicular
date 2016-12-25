@@ -1,8 +1,11 @@
 #!/bin/sh
 
-# This will need to `export` any variables that fu-platform-___.sh will need to see
 . ./Funicularfile
 
-MY_DIR=`dirname $0`
+DRIVER_DIR=`dirname $0`
+. ${DRIVER_DIR}/fu-platform-${PLATFORM}.sh
 
-${MY_DIR}/fu-platform-${PLATFORM}.sh $*
+# soon this will not call the platform_ directly, instead there will be wrapper functions
+CMD=$1
+shift
+platform_$CMD $*

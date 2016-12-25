@@ -1,7 +1,7 @@
 PLATFORM=c64-vice
 INSTALL_IMAGE='blank.d64'
 SETUP_IMAGE='setup.d64'
-export SYSTEM_IMAGE='device8'
+SYSTEM_IMAGE='device8'
 DIST_IMAGE='dist.d64'
 
 DISTREPOS="
