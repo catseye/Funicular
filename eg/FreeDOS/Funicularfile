@@ -1,9 +1,10 @@
 PLATFORM="i386-qemu"
-INSTALL_IMAGE='fdosflpy.img'
+INSTALL_IMAGE='fd11src.iso'
+INSTALL_IMAGE_URL='http://www.freedos.org/download/download/fd11src.iso'
 SETUP_IMAGE='freedos-init-cd.iso'
 export SYSTEM_IMAGE='hda.img'
-#WORK_IMAGE='fda.img'
 DIST_IMAGE='a.img'
+
 
 DISTFILES="
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/copying.dj
@@ -38,6 +39,11 @@ DISTREPOS="
         gh:catseye/RUBE
 "
 ZIP_UNVERSIONED=True
+
+
+setup() {
+    genisoimage -R -J -D -joliet-long -o ${SETUP_IMAGE} staging_area
+}
 
 
 #name_map = {

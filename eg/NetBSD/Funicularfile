@@ -1,5 +1,6 @@
 PLATFORM="i386-qemu"
 INSTALL_IMAGE='NetBSD-6.1.5-i386.iso'
+INSTALL_IMAGE_URL='ftp://iso.fr.netbsd.org/pub/NetBSD/NetBSD-6.1.5/iso/NetBSD-6.1.5-i386.iso'
 SETUP_IMAGE='setup-netbsd.iso'
 export SYSTEM_IMAGE='wd0.img'
 DIST_IMAGE='floppy.img'
@@ -124,6 +125,10 @@ DISTREPOS="
   catseye/openzz
   catseye/minischeme
 "
+
+setup() {
+    genisoimage -R -J -D -joliet-long -o ${SETUP_IMAGE} staging_area
+}
 
 install_instructions() {
     echo <<EOF
