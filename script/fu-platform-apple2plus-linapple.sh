@@ -2,12 +2,13 @@
 
 DISTFILE_URL='https://github.com/timob/linapple/archive/master.zip'
 
-platform_initdist() {
-    dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683
+# floppies only, for now
+platform_initsys() {
+    dd if=/dev/zero of="$1" bs=256 count=683
 }
 
-platform_initsys() {
-    dd if=/dev/zero of=${SYSTEM_IMAGE} bs=1M count=${SIZE}
+platform_initdist() {
+    dd if=/dev/zero of="$1" bs=256 count=683
 }
 
 platform_start() {

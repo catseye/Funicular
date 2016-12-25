@@ -5,23 +5,17 @@
 DRIVER_DIR=`dirname $0`
 . ${DRIVER_DIR}/fu-platform-${PLATFORM}.sh
 
-funicular_init() {
-    echo "init"
-        #size = arg[2]
-        #if size == nil then
-        #    print "Usage: funicular init <size-in-megabytes>"
-        #    os.exit(1)
-        #end
-        #if exists(funicular.system_image) then
-        #    print(funicular.system_image .. " already exists!  Delete it first.")
-        #    return
-        #end
-        #print("init... size: " .. size)
-        #if funicular.platform.architecture.virtual_system_image then
-        #    execute(funicular, "mkdir -p ${SYSTEM_IMAGE}")
-        #else
-        #    funicular.platform.architecture.create_system_image(funicular, size)
-        #end
+funicular_initsys() {
+    if [ -e $SYSTEM_IMAGE ]; then
+        echo "$SYSTEM_IMAGE already exists!  Delete it first."
+        exit 1
+    fi
+
+    if [ "x$VIRTUAL_SYSTEM_IMAGE" = "xTrue" ]; then
+        mkdir -p "$SYSTEM_IMAGE"
+    else
+        platform_initsys $SYSTEM_IMAGE
+    fi
 }
 
 funicular_install() {
@@ -145,18 +139,11 @@ funicular_start() {
 }
 
 funicular_initdist() {
-    echo "initdist"
-        #size = arg[2]
-        #if size == nil then
-        #    print "Usage: funicular initdist <size-in-kilobytes>"
-        #    os.exit(1)
-        #end
-        #if exists(funicular.dist_image) then
-        #    print(funicular.dist_image .. " already exists!  Delete it first.")
-        #    return
-        #end
-        #print("initdist... size: " .. size)
-        #funicular.platform.architecture.create_dist_image(funicular, size)
+    if [ -e $DIST_IMAGE ]; then
+        echo "$DIST_IMAGE already exists!  Delete it first."
+        exit 1
+    fi
+    platform_initdist $DIST_IMAGE
 }
 
 funicular_builddist() {
@@ -269,14 +256,14 @@ CMD=$1
 shift
 
 case $CMD in
-  init|install|setup|start|initdist|builddist|distboot|backup|restore)
+  initsys|install|setup|start|initdist|builddist|distboot|backup|restore)
     funicular_$CMD $*
     ;;
   *)
     cat <<EOF
 Usage: funicular <command>
 where <command> is one of:
-    init
+    initsys
     install
     setup
     start

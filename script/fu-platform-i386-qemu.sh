@@ -3,16 +3,28 @@
 DISTFILE_URL='http://wiki.qemu-project.org/download/qemu-1.6.2.tar.bz2'
 
 platform_initsys() {
-    dd if=/dev/zero of=${SYSTEM_IMAGE} bs=1M count=${SIZE}
+    if [ "x$IMAGE_SIZE" = x ]; then
+        IMAGE_SIZE=1024
+        echo "IMAGE_SIZE not set, defaulting to $IMAGE_SIZE megabytes"
+    fi
+    dd if=/dev/zero of="$1" bs=1M count=${IMAGE_SIZE}
 }
 
 platform_initdist() {
-        #-- TODO: this is a little restrictive
-        #if size ~= '360' and size ~= '720' and size ~= '1440' then
-        #    print "Only supported sizes: 360, 720 and 1440"
-        #    os.exit(1)
-        #end
-        #execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=1K count=" .. size)
+    if [ "x$IMAGE_SIZE" = x ]; then
+        IMAGE_SIZE=1440
+        echo "IMAGE_SIZE not set, defaulting to $IMAGE_SIZE kilobytes"
+    fi
+
+    #-- TODO: this is a little restrictive
+    case $IMAGE_SIZE in
+        360|720|1440)
+            dd if=/dev/zero of="$1" bs=1K count=${IMAGE_SIZE}
+            ;;
+        *)
+            echo "Only supported sizes: 360, 720 and 1440"
+            exit 1
+    esac
 }
 
 platform_start() {
