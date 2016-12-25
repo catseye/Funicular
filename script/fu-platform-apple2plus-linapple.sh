@@ -4,6 +4,14 @@
 
 DISTFILE_URL='https://github.com/timob/linapple/archive/master.zip'
 
+initdist() {
+    dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683
+}
+
+initsys() {
+    dd if=/dev/zero of=${SYSTEM_IMAGE} bs=1M count=${SIZE}
+}
+
 start() {
     linapple
 }
@@ -24,4 +32,6 @@ install() {
     echo "No install step.  Installation will happen during setup."
 }
 
-$1 $*
+CMD=$1
+shift
+$CMD $*

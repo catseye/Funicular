@@ -1,8 +1,15 @@
 PLATFORM=c64-vice
 INSTALL_IMAGE='blank.d64'
 SETUP_IMAGE='setup.d64'
-SYSTEM_IMAGE='device8'
+export SYSTEM_IMAGE='device8'
 DIST_IMAGE='dist.d64'
+
+DISTREPOS="
+  catseye/Bubble-Escape
+  catseye/C64-Demo-Depot
+  catseye/Disksumo
+  catseye/SITU-SOL
+"
 
 setup() {
     cat >vicerc <<EOF
