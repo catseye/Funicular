@@ -5,6 +5,22 @@
 DRIVER_DIR=`dirname $0`
 . ${DRIVER_DIR}/fu-platform-${PLATFORM}.sh
 
+funicular_init() {
+    imgtype=$1
+    shift
+    case $imgtype in
+        system)
+            funicular_initsys $*
+            ;;
+        dist)
+            funicular_initdist $*
+            ;;
+        *)
+            echo "Usage: funicular init (system|dist)"
+            exit 1
+    esac
+}
+
 funicular_initsys() {
     if [ -e $SYSTEM_IMAGE ]; then
         echo "$SYSTEM_IMAGE already exists!  Delete it first."
@@ -256,18 +272,17 @@ CMD=$1
 shift
 
 case $CMD in
-  initsys|install|setup|start|initdist|builddist|distboot|backup|restore)
+  init|install|setup|start|builddist|distboot|backup|restore)
     funicular_$CMD $*
     ;;
   *)
     cat <<EOF
 Usage: funicular <command>
 where <command> is one of:
-    initsys
+    init
     install
     setup
     start
-    initdist
     builddist
     distboot
     backup
