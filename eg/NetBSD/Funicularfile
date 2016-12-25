@@ -1,145 +1,132 @@
-return {
-    platform = NetBSD_6,
-    system_image = 'wd0.img',
-    setup_image = 'setup-netbsd.iso',
+PLATFORM="i386-qemu"
+INSTALL_IMAGE='NetBSD-6.1.5-i386.iso'
+SETUP_IMAGE='setup-netbsd.iso'
+export SYSTEM_IMAGE='wd0.img'
+DIST_IMAGE='floppy.img'
 
-    distfiles = [[
-      http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz
-      https://github.com/catseye/toolshelf/archive/0.1-2014.0818.zip
-      http://ftp.gnu.org/gnu/make/make-3.81.tar.gz
-      http://www.nano-editor.org/dist/v2.2/nano-2.2.6.tar.gz
-      http://mercurial.selenic.com/release/mercurial-1.9.3.tar.gz
-      http://www.cpan.org/src/5.0/perl-5.18.2.tar.gz
-      http://cvs.haskell.org/Hugs/downloads/2006-09/hugs98-plus-Sep2006.tar.gz
-      http://www.erlang.org/download/otp_src_R16B03-1.tar.gz
-      http://code.call-cc.org/releases/4.8.0/chicken-4.8.0.5.tar.gz
-      http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
-    ]],
+DISTFILES="
+  http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz
+  https://github.com/catseye/toolshelf/archive/0.1-2014.0818.zip
+  http://ftp.gnu.org/gnu/make/make-3.81.tar.gz
+  http://www.nano-editor.org/dist/v2.2/nano-2.2.6.tar.gz
+  http://mercurial.selenic.com/release/mercurial-1.9.3.tar.gz
+  http://www.cpan.org/src/5.0/perl-5.18.2.tar.gz
+  http://cvs.haskell.org/Hugs/downloads/2006-09/hugs98-plus-Sep2006.tar.gz
+  http://www.erlang.org/download/otp_src_R16B03-1.tar.gz
+  http://code.call-cc.org/releases/4.8.0/chicken-4.8.0.5.tar.gz
+  http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
+"
 
--- https://github.com/git/git/archive/v1.9.4.zip
--- make NO_CURL=1
--- temporarily link /usr/bin/perl to `which perl` (sighhhh)
--- no porcelain, but e.g. git-log is available
--- github.com/git/git
---   build_command NO_PERL=1 LIBRARY_PATH=$TOOLSHELF/.lib CPATH=`toolshelf pwd curl-7.35.0`/install/include make
--- 
--- */*/qemu-1.*
---   build_command PKG_CONFIG_PATH=`toolshelf pwd glib-2.39.4`/install/lib/pkgconfig ./configure --with-system-pixman --disable-sdl --prefix=`pwd`/install && make && make install
--- 
--- */*/glib-2.*
---   build_command LIBFFI_CFLAGS=-I`toolshelf pwd libffi-3.0.13`/install/lib/libffi-3.0.13/include LIBFFI_LIBS="-L/home/user/toolshelf/.lib -lffi" ./configure --prefix=`pwd`/install && make && make install
+DISTREPOS="
+  catseye/alpaca
+  catseye/animals
+  catseye/apple-befunge
+  catseye/arboretuum
+  catseye/befos
+  catseye/befunge-93
+  catseye/beta-juliet
+  catseye/beturing
+  catseye/bhuna
+  catseye/braktif
+  catseye/bubble-escape
+  catseye/burro
+  catseye/c64-demo-depot
+  catseye/cabra
+  catseye/castile
+  catseye/cfluviurrh
+  catseye/chrysoberyl
+  catseye/circute
+  catseye/console-virtual
+  catseye/corona-realm-of-magic
+  catseye/crone
+  catseye/deturgenchry
+  catseye/dieter
+  catseye/dipple
+  catseye/disksumo
+  catseye/dungeons-of-ekileugor
+  catseye/eightebed
+  catseye/electronics-projects
+  catseye/emmental
+  catseye/etcha
+  catseye/exanoke
+  catseye/falderal
+  catseye/fbbi
+  catseye/flip
+  catseye/flobnar
+  catseye/funge-98
+  catseye/funicular
+  catseye/gemooy
+  catseye/granola-m
+  catseye/hev
+  catseye/html5-gewgaws
+  catseye/hunter
+  catseye/illgol-grand-mal
+  catseye/iphigeneia
+  catseye/jaccia
+  catseye/jolverine
+  catseye/kangaroo-iceberg
+  catseye/kelxquoia
+  catseye/kosheri
+  catseye/larabee
+  catseye/maentwrog
+  catseye/mascarpone
+  catseye/muriel
+  catseye/mzstorkipiwanbotbotbot
+  catseye/n-dcnc
+  catseye/netusb
+  catseye/nhohnhehr
+  catseye/noit-o-mnain-worb
+  catseye/pail
+  catseye/pibfi
+  catseye/pixley
+  catseye/pl-goto-.net
+  catseye/pophery
+  catseye/quylthulg
+  catseye/redgreen
+  catseye/realpath
+  catseye/robin
+  catseye/rube
+  catseye/rube-ii
+  catseye/sally
+  catseye/sbeezg
+  catseye/shelta
+  catseye/sickbay
+  catseye/sixtypical
+  catseye/smetana
+  catseye/smith
+  catseye/specs-on-spec
+  catseye/squishy2k
+  catseye/strelnokoff
+  catseye/super-wumpus-land
+  catseye/tamsin
+  catseye/the-swallows
+  catseye/thue
+  catseye/toolshelf
+  catseye/tpis
+  catseye/treacle
+  catseye/troupe
+  catseye/unlikely
+  catseye/velo
+  catseye/version
+  catseye/whothm
+  catseye/wierd
+  catseye/wunnel
+  catseye/xigxag
+  catseye/xoomonk
+  catseye/yolk
+  catseye/yoob
+  catseye/yoob.js
+  catseye/ypsilax
+  catseye/yucca
+  catseye/zowie
+  catseye/zzrk
+  catseye/ophis
+  catseye/openzz
+  catseye/minischeme
+"
 
-    toolshelf_inside = true,
-    distrepos_specs = [[
-      bb:catseye/alpaca
-      bb:catseye/animals
-      bb:catseye/apple-befunge
-      bb:catseye/arboretuum
-      bb:catseye/befos
-      bb:catseye/befunge-93
-      bb:catseye/beta-juliet
-      bb:catseye/beturing
-      bb:catseye/bhuna
-      bb:catseye/braktif
-      bb:catseye/bubble-escape
-      bb:catseye/burro
-      bb:catseye/c64-demo-depot
-      bb:catseye/cabra
-      bb:catseye/castile
-      bb:catseye/cfluviurrh
-      bb:catseye/chrysoberyl
-      bb:catseye/circute
-      bb:catseye/console-virtual
-      bb:catseye/corona-realm-of-magic
-      bb:catseye/crone
-      bb:catseye/deturgenchry
-      bb:catseye/dieter
-      bb:catseye/dipple
-      bb:catseye/disksumo
-      bb:catseye/dungeons-of-ekileugor
-      bb:catseye/eightebed
-      bb:catseye/electronics-projects
-      bb:catseye/emmental
-      bb:catseye/etcha
-      bb:catseye/exanoke
-      bb:catseye/falderal
-      bb:catseye/fbbi
-      bb:catseye/flip
-      bb:catseye/flobnar
-      bb:catseye/funge-98
-      bb:catseye/funicular
-      bb:catseye/gemooy
-      bb:catseye/granola-m
-      bb:catseye/hev
-      bb:catseye/html5-gewgaws
-      bb:catseye/hunter
-      bb:catseye/illgol-grand-mal
-      bb:catseye/iphigeneia
-      bb:catseye/jaccia
-      bb:catseye/jolverine
-      bb:catseye/kangaroo-iceberg
-      bb:catseye/kelxquoia
-      bb:catseye/kosheri
-      bb:catseye/larabee
-      bb:catseye/maentwrog
-      bb:catseye/mascarpone
-      bb:catseye/muriel
-      bb:catseye/mzstorkipiwanbotbotbot
-      bb:catseye/n-dcnc
-      bb:catseye/netusb
-      bb:catseye/nhohnhehr
-      bb:catseye/noit-o-mnain-worb
-      bb:catseye/pail
-      bb:catseye/pibfi
-      bb:catseye/pixley
-      bb:catseye/pl-goto-.net
-      bb:catseye/pophery
-      bb:catseye/quylthulg
-      bb:catseye/redgreen
-      bb:catseye/realpath
-      bb:catseye/robin
-      bb:catseye/rube
-      bb:catseye/rube-ii
-      bb:catseye/sally
-      bb:catseye/sbeezg
-      bb:catseye/shelta
-      bb:catseye/sickbay
-      bb:catseye/sixtypical
-      bb:catseye/smetana
-      bb:catseye/smith
-      bb:catseye/specs-on-spec
-      bb:catseye/squishy2k
-      bb:catseye/strelnokoff
-      bb:catseye/super-wumpus-land
-      bb:catseye/tamsin
-      bb:catseye/the-swallows
-      bb:catseye/thue
-      bb:catseye/toolshelf
-      bb:catseye/tpis
-      bb:catseye/treacle
-      bb:catseye/troupe
-      bb:catseye/unlikely
-      bb:catseye/velo
-      bb:catseye/version
-      bb:catseye/whothm
-      bb:catseye/wierd
-      bb:catseye/wunnel
-      bb:catseye/xigxag
-      bb:catseye/xoomonk
-      bb:catseye/yolk
-      bb:catseye/yoob
-      bb:catseye/yoob.js
-      bb:catseye/ypsilax
-      bb:catseye/yucca
-      bb:catseye/zowie
-      bb:catseye/zzrk
-      
-      bb:catseye/ophis
-      bb:catseye/openzz
-      bb:catseye/minischeme
-    ]],
-
-    install_instructions = [[
+install_instructions() {
+    echo <<EOF
 * At the boot prompt, select "1. Install NetBSD"
 * After it boots, select a language for installation messages, and a keyboard type.
 * At the next menu, select "Install NetBSD to hard disk".  Then "yes".
@@ -154,9 +141,11 @@ return {
 * Install from CD-ROM.
 * When that's done - don't bother configuring anything.
 * When back at the main menu, select "Exit Install System" and type `shutdown -p now`
-    ]],
+EOF
+}
 
-    setup_instructions = [[
+setup_instructions() {
+    echo <<EOF
 * Login as root (which will not have a password. You may or may not wish to give it one,
   depending on your security needs.)
 * As root, run:
@@ -168,5 +157,5 @@ return {
   run passwd to give user a password at this point, depending on your security needs.)
 * Then run:
         th dock @/cdrom/infrastructure.catalog @/cdrom/catseye.catalog
-    ]],
+EOF
 }

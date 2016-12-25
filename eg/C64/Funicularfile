@@ -1,12 +1,11 @@
-return {
-    platform = Commodore_64_Platform,
-    install_image = 'blank.d64',
-    setup_image = 'setup.d64',
-    system_image = 'device8',
-    dist_image = 'dist.d64',
-    distrepos_catalogue = 'C64.catalogue',
-    setup_script = [[
-cat >vicerc <<EOF
+PLATFORM=c64-vice
+INSTALL_IMAGE='blank.d64'
+SETUP_IMAGE='setup.d64'
+SYSTEM_IMAGE='device8'
+DIST_IMAGE='dist.d64'
+
+setup() {
+    cat >vicerc <<EOF
 [C64]
 VICIIDoubleScan=1
 VICIIDoubleSize=1
@@ -15,21 +14,21 @@ JoyDevice2=1
 JoyDevice3=0
 JoyDevice4=0
 EOF
-cp distrepos/Bubble-Escape/bin/* device8/
-cp distrepos/C64-Demo-Depot/petulant/petulant.prg device8/petulant
-cp distrepos/C64-Demo-Depot/ribos/ribos.prg device8/ribos
-cp distrepos/Disksumo/bin/disksumo.prg device8/disksumo
-cp distrepos/SITU-SOL/bin/* device8/
-    ]],
-    dist_script = [[
-cd device8
-petcat -w2 -o menu -- ../menu.bas
-c1541 -attach ../dist.d64 -write menu
-rm -f menu
-for FILENAME in *; do
-  c1541 -attach ../dist.d64 -write "$FILENAME"
-done
-cd ..
-c1541 -attach dist.d64 -dir
-    ]],
+    cp distrepos/Bubble-Escape/bin/* device8/
+    cp distrepos/C64-Demo-Depot/petulant/petulant.prg device8/petulant
+    cp distrepos/C64-Demo-Depot/ribos/ribos.prg device8/ribos
+    cp distrepos/Disksumo/bin/disksumo.prg device8/disksumo
+    cp distrepos/SITU-SOL/bin/* device8/
+}
+
+dist() {
+    cd device8
+    petcat -w2 -o menu -- ../menu.bas
+    c1541 -attach ../dist.d64 -write menu
+    rm -f menu
+    for FILENAME in *; do
+      c1541 -attach ../dist.d64 -write "$FILENAME"
+    done
+    cd ..
+    c1541 -attach dist.d64 -dir
 }

@@ -1,27 +1,28 @@
-return {
-    platform = VIC_20_Platform,
-    install_image = 'blank.d64',
-    setup_image = 'setup.d64',
-    system_image = 'device8',
-    dist_image = 'dist.d64',
-    distrepos_specs = [[
-      gh:catseye/Dungeons-of-Ekileugor
-    ]],
-    setup_script = [[
-cat >vicerc <<EOF
+PLATFORM=vic20-vice
+INSTALL_IMAGE='blank.d64'
+SETUP_IMAGE='setup.d64'
+export SYSTEM_IMAGE='device8'
+DIST_IMAGE='dist.d64'
+
+DISTREPOS="
+  catseye/Dungeons-of-Ekileugor
+"
+
+setup() {
+    cat >vicerc <<EOF
 [VIC20]
 VICDoubleScan=1
 VICDoubleSize=1
 DriveTrueEmulation=0
 EOF
-cp distrepos/Dungeons-of-Ekileugor/bin/* device8/
-    ]],
-    dist_script = [[
-cd device8
-for FILENAME in *; do
-  c1541 -attach ../dist.d64 -write "$FILENAME"
-done
-cd ..
-c1541 -attach dist.d64 -dir
-    ]],
+    cp distrepos/Dungeons-of-Ekileugor/bin/* device8/
+}
+
+dist() {
+    cd device8
+    for FILENAME in *; do
+      c1541 -attach ../dist.d64 -write "$FILENAME"
+    done
+    cd ..
+    c1541 -attach dist.d64 -dir
 }

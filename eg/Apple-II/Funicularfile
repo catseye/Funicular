@@ -1,16 +1,18 @@
--- NOTE: this requires toolshelf and assumes gh:catseye/a2tools has been docked
+# NOTE: this requires toolshelf and assumes gh:catseye/a2tools has been docked
 
-return {
-    platform = Apple_II_Platform,
-    install_image = 'blank.dsk',
-    setup_image = 'setup.dsk',
-    system_image = 'system.dsk',
-    dist_image = 'dist.dsk',
-    distrepos_specs = [[
-      bb:catseye/apple-befunge
-    ]],
-    setup_script = [[
-export CWD=`pwd`
+PLATFORM=apple2plus-linapple
+INSTALL_IMAGE='blank.dsk'
+SETUP_IMAGE='setup.dsk'
+SYSTEM_IMAGE='system.dsk'
+DIST_IMAGE='dist.dsk'
+
+DISTREPOS="
+  catseye/apple-befunge
+"
+
+setup() {
+    export CWD=`pwd`
+
 cat >linapple.conf <<EOF
 	Computer Emulation =	1
 	Slot 6 Directory =	$CWD
@@ -18,12 +20,11 @@ cat >linapple.conf <<EOF
 	Slot 6 Autoload =	1
 EOF
 
-# this is less than fantastic, but not sure how else to make sure this works
-LINAPPLE_DIR=`toolshelf.py pwd linapple`
-cp $LINAPPLE_DIR/splash.bmp .
-cp $LINAPPLE_DIR/charset40.bmp .
-# this is even less fantastic because no just no
-# instead, we should be using a2tools to put our things on a bootable disk image
-cp $LINAPPLE_DIR/Master.dsk system.dsk
-    ]],
+    # this is less than fantastic, but not sure how else to make sure this works
+    LINAPPLE_DIR=`toolshelf.py pwd linapple`
+    cp $LINAPPLE_DIR/splash.bmp .
+    cp $LINAPPLE_DIR/charset40.bmp .
+    # this is even less fantastic because no just no
+    # instead, we should be using a2tools to put our things on a bootable disk image
+    cp $LINAPPLE_DIR/Master.dsk system.dsk
 }
