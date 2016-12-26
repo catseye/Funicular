@@ -18,21 +18,21 @@ funicular_init() {
                 echo "$SYSTEM_IMAGE already exists!  Delete it first."
                 exit 1
             fi
-            platform_initsys $SYSTEM_IMAGE
+            platform_initsys "$SYSTEM_IMAGE"
             ;;
         setup)
             if [ -e $SETUP_IMAGE ]; then
                 echo "$SETUP_IMAGE already exists!  Delete it first."
                 exit 1
             fi
-            funicular_initsetup $SETUP_IMAGE
+            funicular_initsetup "$SETUP_IMAGE"
             ;;
         dist)
             if [ -e $DIST_IMAGE ]; then
                 echo "$DIST_IMAGE already exists!  Delete it first."
                 exit
             fi
-            platform_initdist $DIST_IMAGE
+            platform_initdist "$DIST_IMAGE"
             ;;
         *)
             echo "Usage: funicular init (system|setup|dist)"
@@ -41,6 +41,11 @@ funicular_init() {
 }
 
 funicular_install() {
+    if [ ! -e $INSTALL_IMAGE ]; then
+        echo "$INSTALL_IMAGE does not exist.  Obtain it first."
+        echo $INSTALL_IMAGE_URL
+        exit 1
+    fi
     if runnable install_instructions; then
         cat <<EOF
 =========================
@@ -54,14 +59,18 @@ EOF
 }
 
 funicular_initsetup() {
-    echo "creating setup image..."
+    echo "Creating setup image '$1'..."
 
-    rm -rf "$SETUP_IMAGE"
+    rm -rf "$1"
 
     mkdir -p distfiles
     for url in $DISTFILES; do
         dest=`basename $url`
-        wget $url -O distfiles/$dest
+        if [ -e distfiles/$dest ]; then
+            echo "distfiles/$dest already fetched"
+        else
+            wget $url -O distfiles/$dest
+        fi
     done
 
     mkdir -p distrepos
@@ -119,7 +128,7 @@ funicular_initsetup() {
         setup_script
     fi
 
-    platform_initsetup
+    platform_initsetup "$1"
 
     rm -rf staging_area
 }

@@ -150,7 +150,7 @@ EOF
 }
 
 setup_instructions() {
-    echo <<EOF
+    cat <<EOF
 * Wait for the Workbench to appear.
 * Double-click the "Funicular" disk icon.
 * Double-click the "Workbenchize" icon that appears.
@@ -158,7 +158,7 @@ EOF
 }
 
 dist_instructions() {
-    echo <<EOF
+    cat <<EOF
 * Format DF0: by typing:
     format drive df0 name Burgundy
   (or pick whatever name you want instead of Burgundy.)

@@ -56,7 +56,7 @@ ZIP_UNVERSIONED=True
 
 
 install_instructions() {
-    echo <<EOF
+    cat <<EOF
 *   select "Install to Hard Disk"
 *   select "f" to start FDISK
 *   FAT32 -- no
@@ -89,7 +89,7 @@ EOF
 }
 
 setup_instructions() {
-    echo <<EOF
+    cat <<EOF
 * Hit Enter for the JEMMEX option, should be fine
 * When booted, run `D:\INSTDJGP`
 * When it asks `replace lib/Perl5/Pod/perlmaco.pod?`, type `A`, Enter.
@@ -101,7 +101,7 @@ EOF
 }
 
 dist_instructions() {
-    echo <<EOF
+    cat <<EOF
 * To initialize the distribution floppy, run `INITFLOP`.
 * Enter `360`, `720`, or `1440` as appropriate.
 * As explained in the script, it may take more than one attempt to format

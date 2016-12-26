@@ -83,7 +83,7 @@ DISTREPOS="
   catseye/pail
   catseye/pibfi
   catseye/pixley
-  catseye/pl-goto-.net
+  catseye/pl-goto.net
   catseye/pophery
   catseye/quylthulg
   catseye/redgreen
@@ -130,7 +130,7 @@ DISTREPOS="
 "
 
 install_instructions() {
-    echo <<EOF
+    cat <<EOF
 * At the boot prompt, select "1. Install NetBSD"
 * After it boots, select a language for installation messages, and a keyboard type.
 * At the next menu, select "Install NetBSD to hard disk".  Then "yes".
@@ -144,12 +144,12 @@ install_instructions() {
 * At "Bootblocks selection": Use BIOS console.
 * Install from CD-ROM.
 * When that's done - don't bother configuring anything.
-* When back at the main menu, select "Exit Install System" and type `shutdown -p now`
+* When back at the main menu, select "Exit Install System" and type 'shutdown -p now'
 EOF
 }
 
 setup_instructions() {
-    echo <<EOF
+    cat <<EOF
 * Login as root (which will not have a password. You may or may not wish to give it one,
   depending on your security needs.)
 * As root, run:
@@ -157,7 +157,7 @@ setup_instructions() {
         cp /cdrom/setup-netbsd.sh .
         . ./setup-netbsd.sh
 * Follow the instructions in the script.
-* Once it is finished, log out and log in again as `user`. (You may or may not wish to
+* Once it is finished, log out and log in again as 'user'. (You may or may not wish to
   run passwd to give user a password at this point, depending on your security needs.)
 * Then run:
         th dock @/cdrom/infrastructure.catalog @/cdrom/catseye.catalog

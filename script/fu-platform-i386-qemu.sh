@@ -11,6 +11,8 @@ platform_initsys() {
 }
 
 platform_initsetup() {
+    echo "Creating ISO image '$1'..."
+    echo genisoimage -R -J -D -joliet-long -o "$1" staging_area
     genisoimage -R -J -D -joliet-long -o "$1" staging_area
 }
 
