@@ -6,6 +6,10 @@ platform_initsys() {
     mkdir -p "$SYSTEM_IMAGE"
 }
 
+platform_initsetup() {
+    echo "No setup image required."
+}
+
 platform_initdist() {
     dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683
     c1541 -attach "$1" -format "DIST,2A" -dir

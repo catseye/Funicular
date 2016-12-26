@@ -10,7 +10,7 @@ DISTREPOS="
   catseye/apple-befunge
 "
 
-setup() {
+setup_script() {
     export CWD=`pwd`
 
 cat >linapple.conf <<EOF

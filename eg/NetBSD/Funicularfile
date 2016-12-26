@@ -126,10 +126,6 @@ DISTREPOS="
   catseye/minischeme
 "
 
-setup() {
-    genisoimage -R -J -D -joliet-long -o ${SETUP_IMAGE} staging_area
-}
-
 install_instructions() {
     echo <<EOF
 * At the boot prompt, select "1. Install NetBSD"

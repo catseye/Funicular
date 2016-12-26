@@ -10,6 +10,10 @@ platform_initsys() {
     dd if=/dev/zero of="$1" bs=1M count=${IMAGE_SIZE}
 }
 
+platform_initsetup() {
+    genisoimage -R -J -D -joliet-long -o "$1" staging_area
+}
+
 platform_initdist() {
     if [ "x$IMAGE_SIZE" = x ]; then
         IMAGE_SIZE=1440

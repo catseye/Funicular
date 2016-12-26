@@ -7,6 +7,10 @@ platform_initsys() {
     dd if=/dev/zero of="$1" bs=256 count=683
 }
 
+platform_initsetup() {
+    echo "No setup image required."
+}
+
 platform_initdist() {
     dd if=/dev/zero of="$1" bs=256 count=683
 }

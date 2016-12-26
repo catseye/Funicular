@@ -8,6 +8,10 @@ platform_initsys() {
     mkdir -p "$SYSTEM_IMAGE"
 }
 
+platform_initsetup() {
+    echo "No setup image required."
+}
+
 platform_initdist() {
     dd if=/dev/zero of="$1" bs=1K count=880
 }

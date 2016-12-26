@@ -20,15 +20,22 @@ funicular_init() {
             fi
             platform_initsys $SYSTEM_IMAGE
             ;;
+        setup)
+            if [ -e $SETUP_IMAGE ]; then
+                echo "$SETUP_IMAGE already exists!  Delete it first."
+                exit 1
+            fi
+            funicular_initsetup $SETUP_IMAGE
+            ;;
         dist)
             if [ -e $DIST_IMAGE ]; then
                 echo "$DIST_IMAGE already exists!  Delete it first."
-                exit 1
+                exit
             fi
             platform_initdist $DIST_IMAGE
             ;;
         *)
-            echo "Usage: funicular init (system|dist)"
+            echo "Usage: funicular init (system|setup|dist)"
             exit 1
     esac
 }
@@ -46,45 +53,34 @@ EOF
     platform_install $*
 }
 
-funicular_setup() {
-    echo "setup"
-#        print("creating setup image for " .. funicular.platform.name .. "...")
-#
-#        execute(funicular, 'mkdir -p distfiles')
-#        for url in string.gmatch(funicular.distfiles or "", "[^%s]+") do
-#            fetch_distfile(funicular, url)
-#        end
-#
-#        execute(funicular, 'mkdir -p distrepos')
-#        local distrepos_specs = funicular.distrepos_specs or ""
-#
-#        local distrepos_catalogue = funicular.distrepos_catalogue or ""
-#        if distrepos_catalogue ~= "" then
-#            local file = io.open(distrepos_catalogue)
-#            local line = file:read("*l")
-#            while line do
-#                distrepos_specs = distrepos_specs .. ' ' .. line
-#                line = file:read("*l")
-#            end
-#            file:close()
-#        end
-#
-#        for spec in string.gmatch(distrepos_specs, "[^%s]+") do
-#           checkout_repo_by_spec(funicular, spec)
-#        end
-#
-#        execute(funicular, 'rm -rf staging_area')
-#        execute(funicular, 'mkdir -p staging_area')
-#
-#        for url in string.gmatch(funicular.distfiles or "", "[^%s]+") do
-#            local source_name = basename(url)
-#            local dest_name = source_name
-#            if funicular.name_map and funicular.name_map[source_name] then
-#                dest_name = funicular.name_map[source_name]
-#            end
-#            execute(funicular, 'cp -p distfiles/' .. source_name .. ' staging_area/' .. dest_name)
-#        end
-#
+funicular_initsetup() {
+    echo "creating setup image..."
+
+    rm -rf "$SETUP_IMAGE"
+
+    mkdir -p distfiles
+    for url in $DISTFILES; do
+        dest=`basename $url`
+        wget $url -O distfiles/$dest
+    done
+
+    mkdir -p distrepos
+    cd distrepos
+    for url in $DISTREPOS; do
+        git clone $url
+    done
+    cd ..
+
+    rm -rf staging_area
+    mkdir -p staging_area
+
+    for url in $DISTFILES; do
+        dest=`basename $url`
+        # TODO apply name map here
+        dest_name=$dest
+        cp -p distfiles/$dest staging_area/$dest_name
+    done
+
 #        for spec in string.gmatch(distrepos_specs, "[^%s]+") do
 #            local url = get_url_for_spec(funicular, spec)
 #            local source_name = basename(url)
@@ -114,26 +110,22 @@ funicular_setup() {
 #                        dest_name .. '.tgz ' .. source_name)
 #            end
 #        end
-#
-#        if exists('skel') then
-#            execute(funicular, 'cp -Rp skel/* staging_area/')
-#            -- execute(funicular, 'chmod 755 staging_area/*.sh')
-#        end
-#
-#        if funicular.platform.setup_via_script then
-#            if funicular.setup_script == nil then
-#                print("Error: Funicularfile must define a setup_script")
-#                os.exit(1)
-#            end
-#            run_script(funicular, funicular.setup_script)
-#        else
-#            if funicular.platform.setup_command == nil then
-#                print("Error: platform must define a setup_command")
-#                os.exit(1)
-#            end
-#            execute(funicular, funicular.platform.setup_command)
-#        end
-#        execute(funicular, 'rm -rf staging_area')
+
+    if [ -d skel ]; then
+        cp -Rp skel/* staging_area/
+    fi
+
+    if runnable setup_script; then
+        setup_script
+    fi
+
+    platform_initsetup
+
+    rm -rf staging_area
+}
+
+funicular_setup() {
+    echo "setup"
 #        if funicular.setup_instructions then
 #            print [[
 #

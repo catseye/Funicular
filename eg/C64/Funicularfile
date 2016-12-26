@@ -11,7 +11,7 @@ DISTREPOS="
   catseye/SITU-SOL
 "
 
-setup() {
+setup_script() {
     cat >vicerc <<EOF
 [C64]
 VICIIDoubleScan=1
@@ -28,7 +28,7 @@ EOF
     cp distrepos/SITU-SOL/bin/* device8/
 }
 
-dist() {
+dist_script() {
     cd device8
     petcat -w2 -o menu -- ../menu.bas
     c1541 -attach ../dist.d64 -write menu

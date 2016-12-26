@@ -32,7 +32,7 @@ DISTREPOS="
   catseye/minischeme
 "
 
-setup() {
+setup_script() {
     if [ ! -e kick.rom ]; then
         echo "Need kick.rom"
         exit 1

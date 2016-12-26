@@ -8,7 +8,7 @@ DISTREPOS="
   catseye/Dungeons-of-Ekileugor
 "
 
-setup() {
+setup_script() {
     cat >vicerc <<EOF
 [VIC20]
 VICDoubleScan=1
@@ -18,7 +18,7 @@ EOF
     cp distrepos/Dungeons-of-Ekileugor/bin/* device8/
 }
 
-dist() {
+dist_script() {
     cd device8
     for FILENAME in *; do
       c1541 -attach ../dist.d64 -write "$FILENAME"

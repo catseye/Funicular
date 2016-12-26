@@ -5,7 +5,6 @@ SETUP_IMAGE='freedos-init-cd.iso'
 SYSTEM_IMAGE='hda.img'
 DIST_IMAGE='a.img'
 
-
 DISTFILES="
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/copying.dj
       http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev205.zip
@@ -39,11 +38,6 @@ DISTREPOS="
         gh:catseye/RUBE
 "
 ZIP_UNVERSIONED=True
-
-
-setup() {
-    genisoimage -R -J -D -joliet-long -o ${SETUP_IMAGE} staging_area
-}
 
 
 #name_map = {
