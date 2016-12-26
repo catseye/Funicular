@@ -5,6 +5,10 @@
 DRIVER_DIR=`dirname $0`
 . ${DRIVER_DIR}/fu-platform-${PLATFORM}.sh
 
+runnable() {
+    command -V $1 >/dev/null
+}
+
 funicular_init() {
     imgtype=$1
     shift
@@ -30,18 +34,16 @@ funicular_init() {
 }
 
 funicular_install() {
-    echo "install"
-#        print("installing " .. funicular.platform.name .. " onto system image...")
-#        if funicular.install_instructions then
-#            print [[
-#
-#=========================
-#INSTALLATION INSTRUCTIONS
-#=========================
-#]]
-#            print(funicular.install_instructions)
-#        end
-#        execute(funicular, funicular.platform.architecture.emulator_mode.install_command)
+    if runnable install_instructions; then
+        cat <<EOF
+=========================
+INSTALLATION INSTRUCTIONS
+=========================
+EOF
+        install_instructions
+    fi
+
+    platform_install $*
 }
 
 funicular_setup() {
