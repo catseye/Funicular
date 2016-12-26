@@ -125,56 +125,51 @@ funicular_initsetup() {
 }
 
 funicular_setup() {
-    echo "setup"
-#        if funicular.setup_instructions then
-#            print [[
-#
-#==================
-#SETUP INSTRUCTIONS
-#==================
-#]]
-#            print(funicular.setup_instructions)
-#        end
-#        execute(funicular, funicular.platform.architecture.emulator_mode.setup_command)
+    if runnable setup_instructions; then
+        cat <<EOF
+==================
+SETUP INSTRUCTIONS
+==================
+EOF
+        setup_instructions
+    fi
+
+    platform_setup $*
 }
 
 funicular_start() {
-    echo "start"
     platform_start $*
 }
 
 funicular_builddist() {
-    echo "builddist"
-#        if not funicular.dist_image or not exists(funicular.dist_image) then
-#            print "No distribution image defined or created."
-#            return
-#        end
-#        if funicular.dist_script then
-#            run_script(funicular, funicular.dist_script)
-#        end
-#        if funicular.dist_instructions then
-#            print [[
-#
-#=========================
-#DISTRIBUTION INSTRUCTIONS
-#=========================
-#]]
-#            print(funicular.dist_instructions)
-#        end
-#        if funicular.platform.architecture.emulator_mode.dist_command then
-#            print("starting " .. funicular.platform.architecture.emulator_mode.emulator.name .. "...")
-#            execute(funicular, funicular.platform.architecture.emulator_mode.dist_command)
-#        end
+    if [ ! -e $DIST_IMAGE ]; then
+        echo "$DIST_IMAGE does not exist.  (Initialize it first.)"
+        exit 1
+    fi
+
+    if runnable dist_script; then
+        dist_script $*
+    fi
+
+    if runnable dist_instructions; then
+        cat <<EOF
+=========================
+DISTRIBUTION INSTRUCTIONS
+=========================
+EOF
+        dist_instructions
+    fi
+
+    platform_dist $*
 }
 
 funicular_distboot() {
-    echo "distboot"
-        #if not funicular.dist_image or not exists(funicular.dist_image) then
-        #    print "No distribution image defined or created."
-        #    return
-        #end
-        #print("distbooting " .. funicular.platform.architecture.emulator_mode.emulator.name .. "...")
-        #execute(funicular, funicular.platform.architecture.emulator_mode.distboot_command)
+    if [ ! -e $DIST_IMAGE ]; then
+        echo "$DIST_IMAGE does not exist.  (Initialize and build it first.)"
+        exit 1
+    fi
+
+    platform_distboot $*
 }
 
 funicular_backup() {
