@@ -10,28 +10,23 @@ funicular_init() {
     shift
     case $imgtype in
         system)
-            funicular_initsys $*
+            if [ -e $SYSTEM_IMAGE ]; then
+                echo "$SYSTEM_IMAGE already exists!  Delete it first."
+                exit 1
+            fi
+            platform_initsys $SYSTEM_IMAGE
             ;;
         dist)
-            funicular_initdist $*
+            if [ -e $DIST_IMAGE ]; then
+                echo "$DIST_IMAGE already exists!  Delete it first."
+                exit 1
+            fi
+            platform_initdist $DIST_IMAGE
             ;;
         *)
             echo "Usage: funicular init (system|dist)"
             exit 1
     esac
-}
-
-funicular_initsys() {
-    if [ -e $SYSTEM_IMAGE ]; then
-        echo "$SYSTEM_IMAGE already exists!  Delete it first."
-        exit 1
-    fi
-
-    if [ "x$VIRTUAL_SYSTEM_IMAGE" = "xTrue" ]; then
-        mkdir -p "$SYSTEM_IMAGE"
-    else
-        platform_initsys $SYSTEM_IMAGE
-    fi
 }
 
 funicular_install() {
@@ -154,14 +149,6 @@ funicular_start() {
     platform_start $*
 }
 
-funicular_initdist() {
-    if [ -e $DIST_IMAGE ]; then
-        echo "$DIST_IMAGE already exists!  Delete it first."
-        exit 1
-    fi
-    platform_initdist $DIST_IMAGE
-}
-
 funicular_builddist() {
     echo "builddist"
 #        if not funicular.dist_image or not exists(funicular.dist_image) then
@@ -197,71 +184,24 @@ funicular_distboot() {
 }
 
 funicular_backup() {
-    echo "backup"
-        #bup = arg[2]
-        #if bup == nil then
-        #    print "Usage: funicular backup <backup-basename>"
-        #    os.exit(1)
-        #end
-        #
-        #bup_img_gz = bup .. '.img.gz'
-        #if exists(bup_img_gz) then
-        #    print(bup_img_gz .. ' already exists!  Delete it or pick a different name.')
-        #    os.exit(1)
-        #end
-        #
-        #if funicular.platform.architecture.virtual_system_image then
-        #    bup_img_gz = bup .. '.tar.gz'
-        #    execute(funicular, "tar zcf " .. bup_img_gz .. " ${SYSTEM_IMAGE}")
-        #else
-        #    execute(funicular, "ls -lah ${SYSTEM_IMAGE}")
-        #    execute(funicular, "cp ${SYSTEM_IMAGE} " .. bup .. ".img")
-        #    execute(funicular, "gzip " .. bup .. ".img")
-        #end
-        #execute(funicular, "ls -lah " .. bup_img_gz)
+    bu=`basename $SYSTEM_IMAGE`
+    bu="$bu-backup.tar.gz"
+    if [ -e $bu ]; then
+        echo "$bu already exists!  Delete it or rename it first."
+        exit 1
+    fi
+    tar zcvf $bu $SYSTEM_IMAGE
 }
 
 funicular_restore() {
-    echo "restore"
-        #local force = false
-        #bup = arg[2]
-        #if bup == '-f' then
-        #    force = true
-        #    bup = arg[3]
-        #end
-        #if bup == nil then
-        #    print "Usage: funicular restore [-f] <backup-basename>"
-        #    os.exit(1)
-        #end
-        #
-        #bup = bup:gsub("^(.-)\.img\.gz$", "%1")
-        #
-        #bup_img_gz = bup .. '.img.gz'
-        #if funicular.platform.architecture.virtual_system_image then
-        #    bup_img_gz = bup .. '.tar.gz'
-        #end
-        #
-        #if not exists(bup_img_gz) then
-        #    print(bup_img_gz .. ' does not exist.')
-        #    os.exit(1)
-        #end
-        #
-        #if force then
-        #    execute(funicular, "rm -rf ${SYSTEM_IMAGE}")
-        #end
-        #
-        #if exists(funicular.system_image) then
-        #    print(funicular.system_image .. ' still exists, please delete it first.')
-        #    os.exit(1)
-        #end
-        #
-        #if funicular.platform.architecture.virtual_system_image then
-        #    execute(funicular, "tar zxf " .. bup_img_gz)
-        #else
-        #    execute(funicular, "ls -lah " .. bup_img_gz)
-        #    execute(funicular, "cp " .. bup_img_gz .. " ${SYSTEM_IMAGE}.gz")
-        #    execute(funicular, "gunzip ${SYSTEM_IMAGE}.gz")
-        #end
+    if [ -e $SYSTEM_IMAGE ]; then
+        echo "$SYSTEM_IMAGE already exists!  Delete it first."
+        exit 1
+    fi
+
+    bu=`basename $SYSTEM_IMAGE`
+    bu="$bu-backup.tar.gz"
+    tar zxvf $bu
 }
 
 ########

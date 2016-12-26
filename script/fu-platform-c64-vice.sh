@@ -1,7 +1,10 @@
 # Commodore 64 w/ VICE w/ certain options
 
 DISTFILE_URL='http://downloads.sourceforge.net/project/vice-emu/releases/vice-2.4.tar.gz'
-VIRTUAL_SYSTEM_IMAGE=True
+
+platform_initsys() {
+    mkdir -p "$SYSTEM_IMAGE"
+}
 
 platform_initdist() {
     dd if=/dev/zero of="$1" bs=256 count=683

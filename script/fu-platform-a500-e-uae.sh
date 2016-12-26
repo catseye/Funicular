@@ -1,9 +1,12 @@
 # Amiga 500 w/ E-UAE w/ certain options
 
 DISTFILE_URL='http://www.rcdrummond.net/uae/e-uae-0.8.29-WIP4/e-uae-0.8.29-WIP4.tar.bz2'
-VIRTUAL_SYSTEM_IMAGE=True
 
 OPTS="-s bogomem_size=4 -s cpu_speed=max -s floppy_speed=800"
+
+platform_initsys() {
+    mkdir -p "$SYSTEM_IMAGE"
+}
 
 platform_initdist() {
     dd if=/dev/zero of="$1" bs=1K count=880
