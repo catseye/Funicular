@@ -4,6 +4,9 @@ SETUP_IMAGE='setup.d64'
 SYSTEM_IMAGE='device8'
 DIST_IMAGE='dist.d64'
 
+if [ "x$DISTREPO_ROOT" = "x" ]; then
+    DISTREPO_ROOT="git@github.com:"
+fi
 DISTREPOS="
   catseye/Dungeons-of-Ekileugor
 "

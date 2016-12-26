@@ -6,6 +6,9 @@ SETUP_IMAGE='setup.dsk'
 SYSTEM_IMAGE='system.dsk'
 DIST_IMAGE='dist.dsk'
 
+if [ "x$DISTREPO_ROOT" = "x" ]; then
+    DISTREPO_ROOT="git@github.com:"
+fi
 DISTREPOS="
   catseye/apple-befunge
 "

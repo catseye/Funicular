@@ -18,6 +18,9 @@ DISTFILES="
   http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
 "
 
+if [ "x$DISTREPO_ROOT" = "x" ]; then
+    DISTREPO_ROOT="git@github.com:"
+fi
 DISTREPOS="
   catseye/alpaca
   catseye/animals
