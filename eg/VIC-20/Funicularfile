@@ -19,6 +19,7 @@ VICDoubleSize=1
 DriveTrueEmulation=0
 EOF
     cp distrepos/Dungeons-of-Ekileugor/bin/* device8/
+    ls -la device8/
 }
 
 dist_script() {

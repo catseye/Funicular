@@ -7,7 +7,7 @@ platform_initsys() {
 }
 
 platform_initsetup() {
-    echo "No setup image required."
+    echo "Not creating setup image.  No setup image required."
 }
 
 platform_initdist() {
@@ -20,11 +20,13 @@ platform_start() {
 }
 
 platform_setup() {
-    x64 -config vicerc -iecdevice8 -device8 1 -fs8 "${SYSTEM_IMAGE}"
+    echo "Not starting emulator.  No setup image required."
+    #x64 -config vicerc -iecdevice8 -device8 1 -fs8 "${SYSTEM_IMAGE}"
 }
 
 platform_dist() {
-    x64 -config vicerc -iecdevice8 -device8 1 -fs8 "${SYSTEM_IMAGE}" -iecdevice9 -9 "${DIST_IMAGE}"
+    echo "Not starting emulator.  No in-architecture dist steps required."
+    #x64 -config vicerc -iecdevice8 -device8 1 -fs8 "${SYSTEM_IMAGE}" -iecdevice9 -9 "${DIST_IMAGE}"
 }
 
 platform_distboot() {

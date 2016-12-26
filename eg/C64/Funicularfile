@@ -29,6 +29,7 @@ EOF
     cp distrepos/C64-Demo-Depot/ribos/ribos.prg device8/ribos
     cp distrepos/Disksumo/bin/disksumo.prg device8/disksumo
     cp distrepos/SITU-SOL/bin/* device8/
+    ls -la device8/
 }
 
 dist_script() {
