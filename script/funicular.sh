@@ -21,10 +21,6 @@ funicular_init() {
             platform_initsys "$SYSTEM_IMAGE"
             ;;
         setup)
-            if [ -e $SETUP_IMAGE ]; then
-                echo "$SETUP_IMAGE already exists!  Delete it first."
-                exit 1
-            fi
             funicular_initsetup "$SETUP_IMAGE"
             ;;
         dist)
@@ -90,6 +86,12 @@ funicular_initsetup() {
         cp -p distfiles/$dest staging_area/$dest_name
     done
 
+    cd distrepos
+    for repo in *; do
+        tar zcfv ../staging_area/$repo.tar.gz $repo
+    done
+    cd ..
+
 #        for spec in string.gmatch(distrepos_specs, "[^%s]+") do
 #            local url = get_url_for_spec(funicular, spec)
 #            local source_name = basename(url)
@@ -130,7 +132,7 @@ funicular_initsetup() {
 
     platform_initsetup "$1"
 
-    rm -rf staging_area
+    #rm -rf staging_area
 }
 
 funicular_setup() {
