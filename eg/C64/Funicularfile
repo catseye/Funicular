@@ -5,7 +5,7 @@ SYSTEM_IMAGE='device8'
 DIST_IMAGE='dist.d64'
 
 if [ "x$DISTREPO_ROOT" = "x" ]; then
-    DISTREPO_ROOT="git@github.com:"
+    DISTREPO_ROOT="https://github.com/"
 fi
 DISTREPOS="
   catseye/Bubble-Escape
