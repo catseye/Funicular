@@ -1,6 +1,6 @@
 PLATFORM="a500-e-uae"
 INSTALL_IMAGE='Workbench_1.3.adf'
-SETUP_IMAGE='Workbench_1.3.adf'
+SETUP_IMAGE='setup.adf'
 SYSTEM_IMAGE='dh0'
 DIST_IMAGE='df0.adf'
 
@@ -38,12 +38,12 @@ DISTREPOS="
 setup_script() {
     if [ ! -e kick.rom ]; then
         echo "Need kick.rom"
-        exit 1
+        return 1
     fi
 
-    if [ ! -e Workbench_1.3.adf ]; then
-        echo "Need Workbench_1.3.adf"
-        exit 1
+    if [ ! -e "$INSTALL_IMAGE" ]; then
+        echo "Need $INSTALL_IMAGE"
+        return 1
     fi
 
     cp -Rp skel/* dh0/

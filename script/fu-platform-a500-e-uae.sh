@@ -9,7 +9,7 @@ platform_initsys() {
 }
 
 platform_initsetup() {
-    echo "No setup image required."
+    echo "No further initialization of setup image required."
 }
 
 platform_initdist() {
@@ -33,5 +33,5 @@ platform_distboot() {
 }
 
 platform_install() {
-    echo "No install step.  Installation will happen during setup."
+    uae ${OPTS} -s "floppy0=${INSTALL_IMAGE}" -s "filesystem2=rw,DH0:HDD:Funicular:${SYSTEM_IMAGE},1"
 }
