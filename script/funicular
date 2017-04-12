@@ -1,610 +1,232 @@
-#!/usr/bin/env lua
+#!/bin/sh
 
-TOOLSHELF = os.getenv("TOOLSHELF")
+. ./Funicularfile
 
---[[========================================================================]]--
+DRIVER_DIR=`dirname $0`
+. ${DRIVER_DIR}/fu-platform-${PLATFORM}.sh
 
---[[ Emulators ]]--
-
-E_UAE = {
-    name = 'E-UAE',
-    source = 'http://www.rcdrummond.net/uae/e-uae-0.8.29-WIP4/e-uae-0.8.29-WIP4.tar.bz2'
+runnable() {
+    command -V $1 >/dev/null
 }
 
-QEMU = {
-    name = 'QEMU',
-    source = 'http://wiki.qemu-project.org/download/qemu-1.6.2.tar.bz2'
+funicular_init() {
+    imgtype=$1
+    shift
+    case $imgtype in
+        system)
+            if [ -e $SYSTEM_IMAGE ]; then
+                echo "$SYSTEM_IMAGE already exists!  Delete it first."
+                exit 1
+            fi
+            platform_initsys "$SYSTEM_IMAGE"
+            ;;
+        setup)
+            funicular_initsetup "$SETUP_IMAGE"
+            ;;
+        dist)
+            if [ -e $DIST_IMAGE ]; then
+                echo "$DIST_IMAGE already exists!  Delete it first."
+                exit
+            fi
+            platform_initdist "$DIST_IMAGE"
+            ;;
+        *)
+            echo "Usage: funicular init (system|setup|dist)"
+            exit 1
+    esac
 }
 
-VICE = {
-    name = 'VICE',
-    source = 'http://downloads.sourceforge.net/project/vice-emu/releases/vice-2.4.tar.gz',
-}
-
-Linapple = {
-    name = 'Linapple',
-    source = 'https://github.com/timob/linapple/archive/master.zip',
-}
-
---[[ Emulator Modes ]]--
-
-E_UAE_Amiga_500 = {
-    name = 'E-UAE/Amiga 500',
-    emulator = E_UAE,
-    start_command = 'uae -s bogomem_size=4 -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
-    dist_command = 'uae -s bogomem_size=4 -s cpu_speed=max -s floppy_speed=800 -s "floppy0=${DIST_IMAGE}" -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"',
-    distboot_command = 'uae -s bogomem_size=4 -s cpu_speed=max -s floppy_speed=800 -s "floppy0=${DIST_IMAGE}"',
-    setup_command = 'uae -s bogomem_size=4 -s cpu_speed=max -s floppy_speed=800 -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1" -s "floppy0=${SETUP_IMAGE}"',
-    install_command = 'echo "No install step.  Installation will happen during setup."',
-}
-
-QEMU_i386 = {
-    name = 'QEMU/i386',
-    emulator = QEMU,
-    start_command = 'qemu-system-i386 -hda "${SYSTEM_IMAGE}"',
-    dist_command = 'qemu-system-i386 -hda "${SYSTEM_IMAGE}" -fda "${DIST_IMAGE}"',
-    distboot_command = 'qemu-system-i386 -fda "${DIST_IMAGE}" -boot order=a',
-    setup_command = 'qemu-system-i386 -hda "${SYSTEM_IMAGE}" -cdrom "${SETUP_IMAGE}"',
-    install_command = 'qemu-system-i386 -hda "${SYSTEM_IMAGE}" -cdrom "${INSTALL_IMAGE}" -boot order=d',
-}
-
-VICE_x64 = {
-    name = 'VICE/x64',
-    emulator = VICE,
-    start_command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
-    setup_command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
-    --dist_command = 'x64 -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE} -iecdevice9 -9 ${DIST_IMAGE}',
-    distboot_command = 'x64 -config vicerc -iecdevice8 -device8 1 ${DIST_IMAGE}',
-    install_command = 'echo "No install step.  Installation will happen during setup."',
-}
-
-VICE_xvic = {
-    name = 'VICE/xvic',
-    emulator = VICE,
-    start_command = 'xvic -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
-    setup_command = 'xvic -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE}',
-    --dist_command = 'xvic -config vicerc -iecdevice8 -device8 1 -fs8 ${SYSTEM_IMAGE} -iecdevice9 -9 ${DIST_IMAGE}',
-    distboot_command = 'xvic -config vicerc -iecdevice8 -device8 1 ${DIST_IMAGE}',
-    install_command = 'echo "No install step.  Installation will happen during setup."',
-}
-
-Linapple_Apple_II = {
-    name = 'Linapple/Apple II',
-    emulator = Linapple,
-    start_command = 'linapple',
-    dist_command = 'linapple',
-    distboot_command = 'linapple',
-    setup_command = 'linapple',
-    install_command = 'echo "No install step.  Installation will happen during setup."',
-}
-
---[[ Architectures ]]--
-
-Amiga_500 = {
-    name = "Amiga 500",
-    emulator_mode = E_UAE_Amiga_500,
-    virtual_system_image = true,
-    create_dist_image = function(funicular, size)
-        -- TODO: this is a little restrictive
-        if size ~= '880' then
-            print "Only supported sizes: 880"
-            os.exit(1)
-        end
-        execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=1K count=" .. size)
-    end
-}
-
-i386 = {
-    name = "i386",
-    emulator_mode = QEMU_i386,
-    create_system_image = function(funicular, size)
-        execute(funicular, "dd if=/dev/zero of=${SYSTEM_IMAGE} bs=1M count=" .. size)
-    end,
-    create_dist_image = function(funicular, size)
-        -- TODO: this is a little restrictive
-        if size ~= '360' and size ~= '720' and size ~= '1440' then
-            print "Only supported sizes: 360, 720 and 1440"
-            os.exit(1)
-        end
-        execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=1K count=" .. size)
-    end
-}
-
-Apple_II = {
-    name = "Apple II",
-    emulator_mode = Linapple_Apple_II,
-    create_system_image = function(funicular, size)
-        execute(funicular, "dd if=/dev/zero of=${SYSTEM_IMAGE} bs=1M count=" .. size)
-    end,
-    create_dist_image = function(funicular, size)
-        execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683")
-    end
-}
-
-Commodore_64 = {
-    name = "Commodore 64",
-    emulator_mode = VICE_x64,
-    virtual_system_image = true,
-    create_dist_image = function(funicular, size)
-        execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683")
-        execute(funicular, "c1541 -attach ${DIST_IMAGE} -format \"DIST,2A\" -dir")
-    end
-}
-
-VIC_20 = {
-    name = "VIC 20",
-    emulator_mode = VICE_xvic,
-    virtual_system_image = true,
-    create_dist_image = function(funicular, size)
-        execute(funicular, "dd if=/dev/zero of=${DIST_IMAGE} bs=256 count=683")
-        execute(funicular, "c1541 -attach ${DIST_IMAGE} -format \"DIST,2A\" -dir")
-    end
-}
-
---[[ Platforms ]]--
-
-Apple_II_Platform = {
-    name = "Apple II Platform",
-    architecture = Apple_II,
-    install_image = 'blank.dsk',
-    setup_via_script = true,
-}
-
-Commodore_64_Platform = {
-    name = "Commodore 64 Platform",
-    architecture = Commodore_64,
-    install_image = 'blank.d64',
-    setup_via_script = true,
-}
-
-VIC_20_Platform = {
-    name = "VIC 20 Platform",
-    architecture = VIC_20,
-    install_image = 'blank.d64',
-    setup_via_script = true,
-}
-
-AmigaDOS_1_3 = {
-    name = "AmigaDOS 1.3",
-    architecture = Amiga_500,
-    install_image = 'Workbench_1.3.adf',
-    setup_via_script = true,
-}
-
-NetBSD_6_1_5 = {
-    name = "NetBSD 6.1.5",
-    architecture = i386,
-    install_image = 'NetBSD-6.1.5-i386.iso',
-    install_image_url = 'ftp://iso.fr.netbsd.org/pub/NetBSD/NetBSD-6.1.5/iso/NetBSD-6.1.5-i386.iso',
-    setup_command = "genisoimage -R -J -D -joliet-long -o ${SETUP_IMAGE} staging_area",
-}
-NetBSD_6 = NetBSD_6_1_5 -- backwards compatibility
-
-FreeDOS_1_1 = {
-    name = "FreeDOS 1.1",
-    architecture = i386,
-    install_image = 'fd11src.iso',
-    install_image_url = 'http://www.freedos.org/download/download/fd11src.iso',
-    setup_command = "genisoimage -R -J -D -joliet-long -o ${SETUP_IMAGE} staging_area",
-}
-
---[[========================================================================]]--
-
-dump_table = function(prefix, t)
-    local k, v
-    for k, v in pairs(t) do
-        if type(v) == 'table' then
-            dump_table(prefix .. k .. '.', v)
-        elseif type(v) == 'function' then
-            print(prefix .. k .. ' = function()')
-        else
-            print(prefix .. k .. ' = ' .. v)
-        end
-    end
-end
-
-
-function exists(filename)
-   local file = io.open(filename, "r")
-   if file == nil then
-       return false
-   end
-   io.close(file)
-   return true
-end
-
-
-function basename(filename)
-    return filename:match("^.+/(.-)$")
-end
-
-
-function execute(funicular, command)
-    command = command:gsub("${SETUP_IMAGE}", funicular.setup_image or '')
-    command = command:gsub("${SYSTEM_IMAGE}", funicular.system_image or '')
-    command = command:gsub("${INSTALL_IMAGE}", funicular.install_image or
-                           funicular.platform.install_image or '')
-    command = command:gsub("${DIST_IMAGE}", funicular.dist_image or '')
-    print(command)
-    local exit_code = os.execute(command)
-    if exit_code ~= 0 then
-        os.exit(1)
-    end
-end
-
-
-function write_out(filename, contents)
-   local file = io.open(filename, "w")
-   file:write(contents)
-   io.close(file)
-end
-
-
-function run_script(funicular, contents)
-   write_out("script.sh", contents)
-   execute(funicular, "sh -e -x ./script.sh")
-   execute(funicular, "rm ./script.sh")
-end
-
-
-function fetch_distfile(funicular, url)
-    filename = 'distfiles/' .. basename(url)
-    if not exists(filename) then
-        execute(funicular, 'wget ' .. url .. ' -O ' .. filename)
-    end
-end
-
-
-function is_docked(funicular, url)
-    local command = 'toolshelf.py resolve ' .. url
-    print(command)
-    local exit_code = os.execute(command)
-    return (exit_code == 0)
-end
-
-
-function checkout_hg_repo(funicular, url, version)
-    filename = 'distrepos/' .. basename(url)
-    if not exists(filename) then
-        if TOOLSHELF ~= nil then
-            if not is_docked(funicular, url) then
-                execute(funicular, 'toolshelf.py tether ' .. url)
-            end
-            th = '`toolshelf.py resolve ' .. url .. '`'
-            execute(funicular, 'hg clone ' .. th .. ' ' .. filename)
-        else
-            execute(funicular, 'hg clone ' .. url .. ' ' .. filename)
-        end
-        if version ~= nil then
-            execute(funicular, 'cd ' .. filename .. ' && hg up ' .. version)
-        end
-    else
-        if TOOLSHELF ~= nil then
-            execute(funicular, 'cd ' .. filename .. ' && hg pull -u')
-        end
-    end
-end
-
-
-function checkout_git_repo(funicular, url, version)
-    filename = 'distrepos/' .. basename(url)
-    if not exists(filename) then
-        execute(funicular, 'git clone ' .. url .. ' ' .. filename)
-        if version ~= nil then
-            execute(funicular, 'cd ' .. filename .. ' && git checkout ' .. version)
-        end
-    end
-end
-
-
-function checkout_repo_by_spec(funicular, spec)
-    local protocol, username, project, version =
-        spec:match("^(%w+):([^/]+)/([^@]+)(@?.*)$")
-    version = version:match("^@(.+)")
-    local url = get_url_for_spec(funicular, spec)
-    if protocol == 'bb' then
-        return checkout_hg_repo(funicular, url, version)
-    elseif protocol == 'gh' then
-        return checkout_git_repo(funicular, url, version)
-    else
-        print("Error: bad spec '" .. spec .. "'")
-        os.exit(1)
-    end
-end
-
-
-function get_url_for_spec(funicular, spec)
-    local protocol, username, project, version =
-        spec:match("^(%w+):([^/]+)/([^@]+)(@?.*)$")
-    if protocol == 'bb' then
-        return 'http://bitbucket.org/' .. username .. '/' .. project
-    elseif protocol == 'gh' then
-        return 'http://github.com/' .. username .. '/' .. project
-    else
-        print("Error: bad spec '" .. spec .. "'")
-        os.exit(1)
-    end
-end
-
-
-commands = {
-    dump = function(funicular, arg)
-        dump_table('', funicular)
-    end,
-
-    init = function(funicular, arg)
-        size = arg[2]
-        if size == nil then
-            print "Usage: funicular init <size-in-megabytes>"
-            os.exit(1)
-        end
-        if exists(funicular.system_image) then
-            print(funicular.system_image .. " already exists!  Delete it first.")
-            return
-        end
-        print("init... size: " .. size)
-        if funicular.platform.architecture.virtual_system_image then
-            execute(funicular, "mkdir -p ${SYSTEM_IMAGE}")
-        else
-            funicular.platform.architecture.create_system_image(funicular, size)
-        end
-    end,
-
-    initdist = function(funicular, arg)
-        size = arg[2]
-        if size == nil then
-            print "Usage: funicular initdist <size-in-kilobytes>"
-            os.exit(1)
-        end
-        if exists(funicular.dist_image) then
-            print(funicular.dist_image .. " already exists!  Delete it first.")
-            return
-        end
-        print("initdist... size: " .. size)
-        funicular.platform.architecture.create_dist_image(funicular, size)
-    end,
-
-    install = function(funicular, arg)
-        print("installing " .. funicular.platform.name .. " onto system image...")
-        if funicular.install_instructions then
-            print [[
-
+funicular_install() {
+    if [ ! -e $INSTALL_IMAGE ]; then
+        echo "$INSTALL_IMAGE does not exist.  Obtain it first."
+        echo $INSTALL_IMAGE_URL
+        exit 1
+    fi
+    if runnable install_instructions; then
+        cat <<EOF
 =========================
 INSTALLATION INSTRUCTIONS
 =========================
-]]
-            print(funicular.install_instructions)
-        end
-        execute(funicular, funicular.platform.architecture.emulator_mode.install_command)
-    end,
+EOF
+        install_instructions
+    fi
 
-    setup = function(funicular, arg)
-        print("creating setup image for " .. funicular.platform.name .. "...")
+    platform_install $*
+}
 
-        execute(funicular, 'mkdir -p distfiles')
-        for url in string.gmatch(funicular.distfiles or "", "[^%s]+") do
-            fetch_distfile(funicular, url)
-        end
+funicular_initsetup() {
+    echo "Creating setup image '$1'..."
 
-        execute(funicular, 'mkdir -p distrepos')
-        local distrepos_specs = funicular.distrepos_specs or ""
+    rm -rf "$1"
 
-        local distrepos_catalogue = funicular.distrepos_catalogue or ""
-        if distrepos_catalogue ~= "" then
-            local file = io.open(distrepos_catalogue)
-            local line = file:read("*l")
-            while line do
-                distrepos_specs = distrepos_specs .. ' ' .. line
-                line = file:read("*l")
-            end
-            file:close()
-        end
-
-        for spec in string.gmatch(distrepos_specs, "[^%s]+") do
-           checkout_repo_by_spec(funicular, spec)
-        end
-
-        execute(funicular, 'rm -rf staging_area')
-        execute(funicular, 'mkdir -p staging_area')
-
-        for url in string.gmatch(funicular.distfiles or "", "[^%s]+") do
-            local source_name = basename(url)
-            local dest_name = source_name
-            if funicular.name_map and funicular.name_map[source_name] then
-                dest_name = funicular.name_map[source_name]
-            end
-            execute(funicular, 'cp -p distfiles/' .. source_name .. ' staging_area/' .. dest_name)
-        end
-
-        for spec in string.gmatch(distrepos_specs, "[^%s]+") do
-            local url = get_url_for_spec(funicular, spec)
-            local source_name = basename(url)
-            local dest_name = source_name
-            local domain = 'bitbucket.org' -- FIXME
-            local username = 'catseye' -- FIXME
-            if funicular.name_map and funicular.name_map[source_name] then
-                dest_name = funicular.name_map[source_name]
-            end
-            if funicular.toolshelf_inside then
-                local tarball_name = domain .. ',' .. username .. ',' .. dest_name .. '-master.tar.gz'
-                execute(funicular, 'cd distrepos && ' ..
-                        'tar zcf ../staging_area/' .. tarball_name .. ' ' .. source_name)
-            elseif funicular.zip_unversioned then
-                if exists('distrepos/' .. source_name .. '/.hg') then
-                    execute(funicular, 'cd distrepos/' .. source_name ..
-                            ' && hg archive -r tip -t zip ' ..
-                            '-X .hgignore -X .gitignore -X .hgtags -X .hg_archival.txt ' ..
-                            '../../staging_area/' .. dest_name .. '.zip')
-                else
-                    execute(funicular, 'cd distrepos/' .. source_name ..
-                            ' && git archive --format=zip HEAD ' ..
-                            '--output=../../staging_area/' .. dest_name .. '.zip')
-                end
-            else
-                execute(funicular, 'cd distrepos && tar zcf ../staging_area/' ..
-                        dest_name .. '.tgz ' .. source_name)
-            end
-        end
-
-        if exists('skel') then
-            execute(funicular, 'cp -Rp skel/* staging_area/')
-            -- execute(funicular, 'chmod 755 staging_area/*.sh')
-        end
-
-        if funicular.platform.setup_via_script then
-            if funicular.setup_script == nil then
-                print("Error: Funicularfile must define a setup_script")
-                os.exit(1)
-            end
-            run_script(funicular, funicular.setup_script)
+    mkdir -p distfiles
+    for url in $DISTFILES; do
+        dest=`basename $url`
+        if [ -e distfiles/$dest ]; then
+            echo "distfiles/$dest already fetched"
         else
-            if funicular.platform.setup_command == nil then
-                print("Error: platform must define a setup_command")
-                os.exit(1)
-            end
-            execute(funicular, funicular.platform.setup_command)
-        end
-        execute(funicular, 'rm -rf staging_area')
-        if funicular.setup_instructions then
-            print [[
+            wget $url -O distfiles/$dest
+        fi
+    done
 
+    mkdir -p distrepos
+    cd distrepos
+    for url in $DISTREPOS; do
+        git clone $DISTREPO_ROOT$url
+    done
+    cd ..
+
+    rm -rf staging_area
+    mkdir -p staging_area
+
+    for url in $DISTFILES; do
+        dest=`basename $url`
+        # TODO apply name map here
+        dest_name=$dest
+        cp -p distfiles/$dest staging_area/$dest_name
+    done
+
+    cd distrepos
+    for repo in *; do
+        tar zcfv ../staging_area/$repo.tar.gz $repo
+    done
+    cd ..
+
+#        for spec in string.gmatch(distrepos_specs, "[^%s]+") do
+#            local url = get_url_for_spec(funicular, spec)
+#            local source_name = basename(url)
+#            local dest_name = source_name
+#            local domain = 'bitbucket.org' -- FIXME
+#            local username = 'catseye' -- FIXME
+#            if funicular.name_map and funicular.name_map[source_name] then
+#                dest_name = funicular.name_map[source_name]
+#            end
+#            if funicular.toolshelf_inside then
+#                local tarball_name = domain .. ',' .. username .. ',' .. dest_name .. '-master.tar.gz'
+#                execute(funicular, 'cd distrepos && ' ..
+#                        'tar zcf ../staging_area/' .. tarball_name .. ' ' .. source_name)
+#            elseif funicular.zip_unversioned then
+#                if exists('distrepos/' .. source_name .. '/.hg') then
+#                    execute(funicular, 'cd distrepos/' .. source_name ..
+#                            ' && hg archive -r tip -t zip ' ..
+#                            '-X .hgignore -X .gitignore -X .hgtags -X .hg_archival.txt ' ..
+#                            '../../staging_area/' .. dest_name .. '.zip')
+#                else
+#                    execute(funicular, 'cd distrepos/' .. source_name ..
+#                            ' && git archive --format=zip HEAD ' ..
+#                            '--output=../../staging_area/' .. dest_name .. '.zip')
+#                end
+#            else
+#                execute(funicular, 'cd distrepos && tar zcf ../staging_area/' ..
+#                        dest_name .. '.tgz ' .. source_name)
+#            end
+#        end
+
+    if [ -d skel ]; then
+        cp -Rp skel/* staging_area/
+    fi
+
+    if runnable setup_script; then
+        setup_script
+    fi
+
+    platform_initsetup "$1"
+
+    #rm -rf staging_area
+}
+
+funicular_setup() {
+    if runnable setup_instructions; then
+        cat <<EOF
 ==================
 SETUP INSTRUCTIONS
 ==================
-]]
-            print(funicular.setup_instructions)
-        end
-        execute(funicular, funicular.platform.architecture.emulator_mode.setup_command)
-    end,
+EOF
+        setup_instructions
+    fi
 
-    start = function(funicular, arg)
-        print("starting " .. funicular.platform.architecture.emulator_mode.emulator.name .. "...")
-        execute(funicular, funicular.platform.architecture.emulator_mode.start_command)
-    end,
+    platform_setup $*
+}
 
-    builddist = function(funicular, arg)
-        if not funicular.dist_image or not exists(funicular.dist_image) then
-            print "No distribution image defined or created."
-            return
-        end
-        if funicular.dist_script then
-            run_script(funicular, funicular.dist_script)
-        end
-        if funicular.dist_instructions then
-            print [[
+funicular_start() {
+    platform_start $*
+}
 
+funicular_builddist() {
+    if [ ! -e $DIST_IMAGE ]; then
+        echo "$DIST_IMAGE does not exist.  (Initialize it first.)"
+        exit 1
+    fi
+
+    if runnable dist_script; then
+        dist_script $*
+    fi
+
+    if runnable dist_instructions; then
+        cat <<EOF
 =========================
 DISTRIBUTION INSTRUCTIONS
 =========================
-]]
-            print(funicular.dist_instructions)
-        end
-        if funicular.platform.architecture.emulator_mode.dist_command then
-            print("starting " .. funicular.platform.architecture.emulator_mode.emulator.name .. "...")
-            execute(funicular, funicular.platform.architecture.emulator_mode.dist_command)
-        end
-    end,
+EOF
+        dist_instructions
+    fi
 
-    distboot = function(funicular, arg)
-        if not funicular.dist_image or not exists(funicular.dist_image) then
-            print "No distribution image defined or created."
-            return
-        end
-        print("distbooting " .. funicular.platform.architecture.emulator_mode.emulator.name .. "...")
-        execute(funicular, funicular.platform.architecture.emulator_mode.distboot_command)
-    end,
-
-    backup = function(funicular, arg)
-        bup = arg[2]
-        if bup == nil then
-            print "Usage: funicular backup <backup-basename>"
-            os.exit(1)
-        end
-
-        bup_img_gz = bup .. '.img.gz'
-        if exists(bup_img_gz) then
-            print(bup_img_gz .. ' already exists!  Delete it or pick a different name.')
-            os.exit(1)
-        end
-
-        if funicular.platform.architecture.virtual_system_image then
-            bup_img_gz = bup .. '.tar.gz'
-            execute(funicular, "tar zcf " .. bup_img_gz .. " ${SYSTEM_IMAGE}")
-        else
-            execute(funicular, "ls -lah ${SYSTEM_IMAGE}")
-            execute(funicular, "cp ${SYSTEM_IMAGE} " .. bup .. ".img")
-            execute(funicular, "gzip " .. bup .. ".img")
-        end
-        execute(funicular, "ls -lah " .. bup_img_gz)
-    end,
-
-    restore = function(funicular, arg)
-        local force = false
-        bup = arg[2]
-        if bup == '-f' then
-            force = true
-            bup = arg[3]
-        end
-        if bup == nil then
-            print "Usage: funicular restore [-f] <backup-basename>"
-            os.exit(1)
-        end
-
-        bup = bup:gsub("^(.-)\.img\.gz$", "%1")
-
-        bup_img_gz = bup .. '.img.gz'
-        if funicular.platform.architecture.virtual_system_image then
-            bup_img_gz = bup .. '.tar.gz'
-        end
-
-        if not exists(bup_img_gz) then
-            print(bup_img_gz .. ' does not exist.')
-            os.exit(1)
-        end
-
-        if force then
-            execute(funicular, "rm -rf ${SYSTEM_IMAGE}")
-        end
-
-        if exists(funicular.system_image) then
-            print(funicular.system_image .. ' still exists, please delete it first.')
-            os.exit(1)
-        end
-
-        if funicular.platform.architecture.virtual_system_image then
-            execute(funicular, "tar zxf " .. bup_img_gz)
-        else
-            execute(funicular, "ls -lah " .. bup_img_gz)
-            execute(funicular, "cp " .. bup_img_gz .. " ${SYSTEM_IMAGE}.gz")
-            execute(funicular, "gunzip ${SYSTEM_IMAGE}.gz")
-        end
-    end,
+    platform_dist $*
 }
 
---[[-- MAIN --]]--
+funicular_distboot() {
+    if [ ! -e $DIST_IMAGE ]; then
+        echo "$DIST_IMAGE does not exist.  (Initialize and build it first.)"
+        exit 1
+    fi
 
-local command = arg[1]
-if command == nil or commands[command] == nil then
-    print [[Usage: funicular <command>
+    platform_distboot $*
+}
+
+funicular_backup() {
+    bu=`basename $SYSTEM_IMAGE`
+    bu="$bu-backup.tar.gz"
+    if [ -e $bu ]; then
+        echo "$bu already exists!  Delete it or rename it first."
+        exit 1
+    fi
+    tar zcvf $bu $SYSTEM_IMAGE
+}
+
+funicular_restore() {
+    if [ -e $SYSTEM_IMAGE ]; then
+        echo "$SYSTEM_IMAGE already exists!  Delete it first."
+        exit 1
+    fi
+
+    bu=`basename $SYSTEM_IMAGE`
+    bu="$bu-backup.tar.gz"
+    tar zxvf $bu
+}
+
+########
+# MAIN #
+########
+
+CMD=$1
+shift
+
+case $CMD in
+  init|install|setup|start|builddist|distboot|backup|restore)
+    funicular_$CMD $*
+    ;;
+  *)
+    cat <<EOF
+Usage: funicular <command>
 where <command> is one of:
     init
     install
     setup
     start
-    initdist
     builddist
     distboot
     backup
-    restore]]
-    os.exit(1)
-end
-
-local result, error = loadfile("Funicularfile")
-if result == nil then
-    print("No valid Funicularfile found in this directory.")
-    os.exit(1)
-end
-local funicular = result()
-
-command = commands[command]
-command(funicular, arg)
+    restore
+EOF
+    exit 1
+esac
