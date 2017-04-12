@@ -1,6 +1,8 @@
 Funicular
 =========
 
+*Version 0.4-PRE*
+
 **Funicular** is a system that semi-automates the creation of development
 environments on eclectic architectures.
 
@@ -26,7 +28,6 @@ It currently supports:
 
 *   i386 running NetBSD under QEMU
 *   i386 running FreeDOS under QEMU
-*   Amiga 500 (etc) running AmigaDOS under E-UAE
 *   Commodore 64 with a 1541 floppy drive under VICE
 *   VIC-20 with a 1541 floppy drive under VICE
 
@@ -144,11 +145,9 @@ a distribution image, you generally follow these steps:
 Notes
 -----
 
-The reference implementation of the `funicular` tool is written in Lua 5.1.
-A `Funicularfile` is written in the configuration subset of Lua.
-
-`funicular` will use `toolshelf` if it is available on the host system,
-i.e. if the `TOOLSHELF` env var is set, but does not strictly require it.
+The reference implementation of the `funicular` tool is written in Bourne
+shell.  A `Funicularfile` is also written in Bourne shell, but it mostly
+contains configuration, not functionality.
 
 The contents of this repository are in the public domain.  This, of course,
 applies only to the contents of this repository, and not to the contents of
