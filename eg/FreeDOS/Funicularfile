@@ -1,55 +1,62 @@
-return {
-    platform = FreeDOS_1_1,
-    system_image = 'hda.img',
-    work_image = 'fda.img',
-    setup_image = 'freedos-init-cd.iso',
-    dist_image = 'a.img',
-    distfiles = [[
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/copying.dj
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev205.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/faq230b.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/readme.1st
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu226br3.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc610b.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak421b.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2misc/csdpmi7b.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/perl588b.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/tar112ab.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gzip18b.zip
-      http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41br2.zip
-      http://ftp.mpoli.fi/software/DOS/EDITORS/TED3.ZIP
+PLATFORM="i386-qemu"
+INSTALL_IMAGE='fd11src.iso'
+INSTALL_IMAGE_URL='http://www.freedos.org/download/download/fd11src.iso'
+SETUP_IMAGE='freedos-init-cd.iso'
+SYSTEM_IMAGE='hda.img'
+DIST_IMAGE='a.img'
 
-      http://www.tortall.net/projects/yasm/releases/yasm-1.2.0-dos.exe
-      https://raw.githubusercontent.com/yasm/yasm/v1.2.0/BSD.txt
+DISTFILES="
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/copying.dj
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev205.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/faq230b.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/readme.1st
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu226br3.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc610b.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak421b.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2misc/csdpmi7b.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/perl588b.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/tar112ab.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gzip18b.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41br2.zip
+  http://ftp.mpoli.fi/software/DOS/EDITORS/TED3.ZIP
 
-      http://www.lua.org/ftp/lua-5.2.2.tar.gz
-      http://waterlan.home.xs4all.nl/dos2unix/d2u71b.zip
+  http://www.tortall.net/projects/yasm/releases/yasm-1.2.0-dos.exe
+  https://raw.githubusercontent.com/yasm/yasm/v1.2.0/BSD.txt
 
-      http://catseye.tc/distfiles/shelta-1.2-2014.0422.zip
-      https://github.com/catseye/Illgol-Grand-Mal/archive/rel_16_tons_and_what_do_you_get.zip
+  http://www.lua.org/ftp/lua-5.2.2.tar.gz
+  http://waterlan.home.xs4all.nl/dos2unix/d2u71b.zip
 
-      http://www.gnu.org/licenses/gpl-2.0.txt
-    ]],
+  http://catseye.tc/distfiles/shelta-1.2-2014.0422.zip
+  https://github.com/catseye/Illgol-Grand-Mal/archive/rel_16_tons_and_what_do_you_get.zip
 
-    name_map = {
-        ["yasm-1.2.0-dos.exe"] = 'yasm120.exe',
-        ["BSD.txt"] = 'yasmlcns.txt',
-        ["lua-5.2.2.tar.gz"] = 'lua522.tgz',
-        ["shelta-1.2-2014.0422.zip"] = 'shelta12.zip',
-        ["rel_16_tons_and_what_do_you_get.zip"] = 'illgolgm.zip',
-        ["gpl-2.0.txt"] = 'gpl20.txt',
-        ["befunge-93"] = 'befung93',
-        ["maentwrog"] = 'maentwrg',
-    },
+  http://www.gnu.org/licenses/gpl-2.0.txt
+"
 
-    distrepos_specs = [[
-        gh:catseye/Befunge-93
-        gh:catseye/Maentwrog
-        gh:catseye/RUBE
-    ]],
-    zip_unversioned = true,
+if [ "x$DISTREPO_ROOT" = "x" ]; then
+    DISTREPO_ROOT="https://github.com/"
+fi
+DISTREPOS="
+  catseye/Befunge-93
+  catseye/Maentwrog
+  catseye/RUBE
+"
+ZIP_UNVERSIONED=True
 
-    install_instructions = [[
+
+#name_map = {
+#    ["yasm-1.2.0-dos.exe"] = 'yasm120.exe',
+#    ["BSD.txt"] = 'yasmlcns.txt',
+#    ["lua-5.2.2.tar.gz"] = 'lua522.tgz',
+#    ["shelta-1.2-2014.0422.zip"] = 'shelta12.zip',
+#    ["rel_16_tons_and_what_do_you_get.zip"] = 'illgolgm.zip',
+#    ["gpl-2.0.txt"] = 'gpl20.txt',
+#    ["befunge-93"] = 'befung93',
+#    ["maentwrog"] = 'maentwrg',
+#},
+
+
+install_instructions() {
+    cat <<EOF
 *   select "Install to Hard Disk"
 *   select "f" to start FDISK
 *   FAT32 -- no
@@ -78,9 +85,11 @@ return {
 *   select "Boot from system harddisk"
 *   Hit Enter for the JEMMEX option, should be fine
 *   viola, `C:\>`.  You can now just stop the emulator.
-    ]],
+EOF
+}
 
-    setup_instructions = [[
+setup_instructions() {
+    cat <<EOF
 * Hit Enter for the JEMMEX option, should be fine
 * When booted, run `D:\INSTDJGP`
 * When it asks `replace lib/Perl5/Pod/perlmaco.pod?`, type `A`, Enter.
@@ -88,9 +97,11 @@ return {
 * When finished, you may want to exit the emulator, run
   `funicular backup hda-djgpp`, and start it again.
 * run `D:\INSTPLAT`.  This will install some tools into `C:\TOOLS`.
-    ]],
+EOF
+}
 
-    dist_instructions = [[
+dist_instructions() {
+    cat <<EOF
 * To initialize the distribution floppy, run `INITFLOP`.
 * Enter `360`, `720`, or `1440` as appropriate.
 * As explained in the script, it may take more than one attempt to format
@@ -104,67 +115,5 @@ You now have a bootable floppy image with a few basic tools on it.
 * To populate the floppy with a project distribution, run the `MAKEDIST.BAT`
   batchfile in the appropriate `SKEL` subdirectory.  For example, to make a
   Shelta distribution, run `SKEL\SHELTA\MAKEDIST`.
-    ]]
+EOF
 }
-
---[[
-# to build lua: set LFN=n, cd src, make generic
-# but I'm sure there are just binaries somewhere we could download?
-
-# D:\INSTPLAT -- is not idempotent w.r.t. autoexec.bat and fdconfig.sys.
-# it writes DEVICEHIGH=NANSI multiple times (which can actually kill the boot.)
-# also, DJGPP.ENV contains CRs, not CRLFs.  We should convert it,
-# somehow, probably while it's in the staging area?  (like name_map, have
-# and entry that does eol mapping of some files)
-
-#  https://raw.githubusercontent.com/kikito/ansicolors.lua/master/ansicolors.lua
-
-#  http://www.nasm.us/pub/nasm/releasebuilds/2.11.04/dos/nasm-2.11.04-dos-upx.zip
-
-# http://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.0/fdboot.img
-#FREEDOS_BOOT_FLOPPY=$IMGDIR/fdboot.img
-
-Please type 0.16, 0.18, 0.32, 0.36, 0.72, 1.2, 1.44, 1.68, 1.72, or 2.88.
-
-160 * 1024
-180
-320
-360
-720
-1200
-1440
-1680
-1720
-2880
-
-KERNEL   SYS     45341 2006-09-03   0:10  kernel.sys
-COMMAND  COM     66945 2006-09-03   0:11  command.com
-DRIVER       <DIR>     2006-09-03   0:11  driver
-FDCONFIG SYS      1768 2006-09-03   0:11  fdconfig.sys
-FREEDOS      <DIR>     2006-09-03   0:11  freedos
-
-### Shelta ###
-
-*   Create a 720K floppy, as described above.  Elect to install `yasm` on it.
-
-*   Back on the host, run `toolshelf dock bb:catseye/shelta` if you haven't
-    got it.
-
-*   Run `./outfit-floppy-shelta.sh`
-
-*   Run `./start-freedos.sh floppy` to confirm that the floppy image boots.
-    And test `shelta` on it.  Then just quit QEMU.
-
-TODO
-----
-
-*   LF2CRLF.COM ?
-*   BIN\SHELTAS.COM ...
-*   BIN\SHELTAS2.COM ...
-*   BIN\SHELTA86.COM ...
-*   SHELTA86.ASM ...
-*   ANSI colours in welcome.txt?
-*   welcome.txt in shelta repo?
-*   make ted3, debug, and more, optional, like yasm and perl are optional
-
-]]--
