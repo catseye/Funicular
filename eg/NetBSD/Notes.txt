@@ -1,0 +1,12 @@
+https://github.com/git/git/archive/v1.9.4.zip
+make NO_CURL=1
+temporarily link /usr/bin/perl to `which perl` (sighhhh)
+no porcelain, but e.g. git-log is available
+github.com/git/git
+  build_command NO_PERL=1 LIBRARY_PATH=$TOOLSHELF/.lib CPATH=`toolshelf pwd curl-7.35.0`/install/include make
+
+*/*/qemu-1.*
+  build_command PKG_CONFIG_PATH=`toolshelf pwd glib-2.39.4`/install/lib/pkgconfig ./configure --with-system-pixman --disable-sdl --prefix=`pwd`/install && make && make install
+
+*/*/glib-2.*
+  build_command LIBFFI_CFLAGS=-I`toolshelf pwd libffi-3.0.13`/install/lib/libffi-3.0.13/include LIBFFI_LIBS="-L/home/user/toolshelf/.lib -lffi" ./configure --prefix=`pwd`/install && make && make install

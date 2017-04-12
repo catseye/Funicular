@@ -18,4 +18,4 @@ grep >fstab -v '/cdrom' /etc/fstab
 echo >>fstab '/dev/cd0a    /cdrom    cd9660    ro'
 mv fstab /etc/fstab
 
-su user -c "/bin/sh /cdrom/init-toolshelf.sh"
+su user -c "/bin/sh /cdrom/init-shelf.sh"
