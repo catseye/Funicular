@@ -38,8 +38,21 @@ And partially supports:
 Funicular unifies and replaces the discrete, ad-hoc projects NetBSD-Gondola,
 FreeDOS-Gondola, and Amiga-Gondola.
 
+Quick(ish) Start
+----------------
+
+*   `cd` into a directory that has a `Funicularfile`.
+*   Run `funicular init system`.
+*   Acquire the appropriate install image.
+*   Run `funicular install`.
+*   Run `funicular init setup`.
+*   Run `funicular setup`.
+*   ...
+
 Concepts
 --------
+
+*This is probably out of date now.*
 
 ### Funiculars, Platforms, Architectures, EmulatorModes, Emulators ###
 

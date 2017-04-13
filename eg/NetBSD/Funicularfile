@@ -1,6 +1,7 @@
 PLATFORM="i386-qemu"
 INSTALL_IMAGE='NetBSD-6.1.5-i386.iso'
 INSTALL_IMAGE_URL='ftp://iso.fr.netbsd.org/pub/NetBSD/NetBSD-6.1.5/iso/NetBSD-6.1.5-i386.iso'
+# torrent: http://ftp.netbsd.org/pub/NetBSD/images/6.1.5/NetBSD-6.1.5-i386.iso.torrent
 SETUP_IMAGE='setup-netbsd.iso'
 SYSTEM_IMAGE='wd0.img'
 DIST_IMAGE='floppy.img'
@@ -12,7 +13,7 @@ DISTFILES="
   http://www.nano-editor.org/dist/v2.2/nano-2.2.6.tar.gz
   http://mercurial.selenic.com/release/mercurial-1.9.3.tar.gz
   http://www.cpan.org/src/5.0/perl-5.18.2.tar.gz
-  http://cvs.haskell.org/Hugs/downloads/2006-09/hugs98-plus-Sep2006.tar.gz
+  http://www.haskell.org/hugs/downloads/2006-09/hugs98-plus-Sep2006.tar.gz
   http://www.erlang.org/download/otp_src_R16B03-1.tar.gz
   http://code.call-cc.org/releases/4.8.0/chicken-4.8.0.5.tar.gz
   http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
@@ -93,6 +94,7 @@ DISTREPOS="
   catseye/rube-ii
   catseye/sally
   catseye/sbeezg
+  catseye/shelf
   catseye/shelta
   catseye/sickbay
   catseye/sixtypical
