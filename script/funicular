@@ -71,8 +71,16 @@ funicular_initsetup() {
 
     mkdir -p distrepos
     cd distrepos
-    for url in $DISTREPOS; do
-        git clone $DISTREPO_ROOT$url
+    for path in $DISTREPOS; do
+        url="$DISTREPO_ROOT$url"
+        dest=`basename $url`
+        if [ -d $dest ]; then
+            cd $dest
+            git pull
+            cd ..
+        else
+            git clone $url
+        fi
     done
     cd ..
 

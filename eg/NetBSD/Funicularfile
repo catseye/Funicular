@@ -8,7 +8,6 @@ DIST_IMAGE='floppy.img'
 
 DISTFILES="
   http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz
-  https://github.com/catseye/toolshelf/archive/0.1-2014.0818.zip
   http://ftp.gnu.org/gnu/make/make-3.81.tar.gz
   http://www.nano-editor.org/dist/v2.2/nano-2.2.6.tar.gz
   http://mercurial.selenic.com/release/mercurial-1.9.3.tar.gz
@@ -162,6 +161,7 @@ setup_instructions() {
 * Once it is finished, log out and log in again as 'user'. (You may or may not wish to
   run passwd to give user a password at this point, depending on your security needs.)
 * Then run:
-        th dock @/cdrom/infrastructure.catalog @/cdrom/catseye.catalog
+        cd catseye
+        shelf_populate /cdrom </cdrom/infrastructure.catalog
 EOF
 }
