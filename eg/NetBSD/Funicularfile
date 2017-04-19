@@ -54,5 +54,6 @@ setup_instructions() {
   run passwd to give user a password at this point, depending on your security needs.)
 * Then run:
         sh /cdrom/populate-shelf.sh
+        sh /cdrom/build-shelf.sh
 EOF
 }
