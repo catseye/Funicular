@@ -82,7 +82,11 @@ funicular_initsetup() {
             git clone $url distrepos/$dest
         fi
 
-        (cd distrepos/$dest && git pull)
+        branch=`cd distrepos/$dest && git rev-parse --abbrev-ref HEAD`
+        if [ "X$branch" != "XHEAD" ]; then
+            (cd distrepos/$dest && git pull)
+        fi
+
         if [ "X$tag" != X ]; then
             (cd distrepos/$dest && git checkout $tag)
         fi
@@ -183,6 +187,11 @@ funicular_restore() {
 
     bu=`basename $SYSTEM_IMAGE`
     bu="$bu-backup.tar.gz"
+
+    if [ "X$1" != X ]; then
+        bu=$1
+    fi
+
     tar zxvf $bu
 }
 

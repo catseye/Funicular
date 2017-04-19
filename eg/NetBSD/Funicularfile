@@ -53,7 +53,6 @@ setup_instructions() {
 * Once it is finished, log out and log in again as 'user'. (You may or may not wish to
   run passwd to give user a password at this point, depending on your security needs.)
 * Then run:
-        cd catseye
-        shelf_populate /cdrom </cdrom/infrastructure.catalog
+        sh /cdrom/populate-shelf.sh
 EOF
 }
