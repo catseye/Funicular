@@ -10,7 +10,6 @@ DISTFILES="
   http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz
   http://ftp.gnu.org/gnu/make/make-3.81.tar.gz
   http://www.nano-editor.org/dist/v2.2/nano-2.2.6.tar.gz
-  http://mercurial.selenic.com/release/mercurial-1.9.3.tar.gz
   http://www.cpan.org/src/5.0/perl-5.18.2.tar.gz
   http://www.haskell.org/hugs/downloads/2006-09/hugs98-plus-Sep2006.tar.gz
   http://www.erlang.org/download/otp_src_R16B03-1.tar.gz
@@ -19,116 +18,9 @@ DISTFILES="
 "
 
 if [ "x$DISTREPO_ROOT" = "x" ]; then
-    DISTREPO_ROOT="https://github.com/"
+    DISTREPO_ROOT="https://github.com/catseye/"
 fi
-DISTREPOS="
-  catseye/alpaca
-  catseye/animals
-  catseye/apple-befunge
-  catseye/arboretuum
-  catseye/befos
-  catseye/befunge-93
-  catseye/beta-juliet
-  catseye/beturing
-  catseye/bhuna
-  catseye/braktif
-  catseye/bubble-escape
-  catseye/burro
-  catseye/c64-demo-depot
-  catseye/cabra
-  catseye/castile
-  catseye/cfluviurrh
-  catseye/chrysoberyl
-  catseye/circute
-  catseye/console-virtual
-  catseye/corona-realm-of-magic
-  catseye/crone
-  catseye/deturgenchry
-  catseye/dieter
-  catseye/dipple
-  catseye/disksumo
-  catseye/dungeons-of-ekileugor
-  catseye/eightebed
-  catseye/electronics-projects
-  catseye/emmental
-  catseye/etcha
-  catseye/exanoke
-  catseye/falderal
-  catseye/fbbi
-  catseye/flip
-  catseye/flobnar
-  catseye/funge-98
-  catseye/funicular
-  catseye/gemooy
-  catseye/granola-m
-  catseye/hev
-  catseye/html5-gewgaws
-  catseye/hunter
-  catseye/illgol-grand-mal
-  catseye/iphigeneia
-  catseye/jaccia
-  catseye/jolverine
-  catseye/kangaroo-iceberg
-  catseye/kelxquoia
-  catseye/kosheri
-  catseye/larabee
-  catseye/maentwrog
-  catseye/mascarpone
-  catseye/muriel
-  catseye/mzstorkipiwanbotbotbot
-  catseye/n-dcnc
-  catseye/netusb
-  catseye/nhohnhehr
-  catseye/noit-o-mnain-worb
-  catseye/pail
-  catseye/pibfi
-  catseye/pixley
-  catseye/pl-goto.net
-  catseye/pophery
-  catseye/quylthulg
-  catseye/redgreen
-  catseye/realpath
-  catseye/robin
-  catseye/rube
-  catseye/rube-ii
-  catseye/sally
-  catseye/sbeezg
-  catseye/shelf
-  catseye/shelta
-  catseye/sickbay
-  catseye/sixtypical
-  catseye/smetana
-  catseye/smith
-  catseye/specs-on-spec
-  catseye/squishy2k
-  catseye/strelnokoff
-  catseye/super-wumpus-land
-  catseye/tamsin
-  catseye/the-swallows
-  catseye/thue
-  catseye/toolshelf
-  catseye/tpis
-  catseye/treacle
-  catseye/troupe
-  catseye/unlikely
-  catseye/velo
-  catseye/version
-  catseye/whothm
-  catseye/wierd
-  catseye/wunnel
-  catseye/xigxag
-  catseye/xoomonk
-  catseye/yolk
-  catseye/yoob
-  catseye/yoob.js
-  catseye/ypsilax
-  catseye/yucca
-  catseye/zowie
-  catseye/zzrk
-  catseye/ophis
-  catseye/openzz
-  catseye/minischeme
-"
+DISTREPOS=`cat skel/catseye.catalog`
 
 install_instructions() {
     cat <<EOF

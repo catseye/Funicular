@@ -70,19 +70,23 @@ funicular_initsetup() {
     done
 
     mkdir -p distrepos
-    cd distrepos
-    for path in $DISTREPOS; do
-        url="$DISTREPO_ROOT$url"
+    for spec in $DISTREPOS; do
+
+        path=`echo $spec | awk '{split($0,a,"@"); print a[1]}'`
+        tag=`echo $spec | awk '{split($0,a,"@"); print a[2]}'`
+
+        url="$DISTREPO_ROOT$path"
         dest=`basename $url`
-        if [ -d $dest ]; then
-            cd $dest
-            git pull
-            cd ..
-        else
-            git clone $url
+
+        if [ ! -d distrepos/$dest ]; then
+            git clone $url distrepos/$dest
+        fi
+
+        (cd distrepos/$dest && git pull)
+        if [ "X$tag" != X ]; then
+            (cd distrepos/$dest && git checkout $tag)
         fi
     done
-    cd ..
 
     rm -rf staging_area
     mkdir -p staging_area
@@ -99,36 +103,6 @@ funicular_initsetup() {
         tar zcfv ../staging_area/$repo.tar.gz $repo
     done
     cd ..
-
-#        for spec in string.gmatch(distrepos_specs, "[^%s]+") do
-#            local url = get_url_for_spec(funicular, spec)
-#            local source_name = basename(url)
-#            local dest_name = source_name
-#            local domain = 'bitbucket.org' -- FIXME
-#            local username = 'catseye' -- FIXME
-#            if funicular.name_map and funicular.name_map[source_name] then
-#                dest_name = funicular.name_map[source_name]
-#            end
-#            if funicular.toolshelf_inside then
-#                local tarball_name = domain .. ',' .. username .. ',' .. dest_name .. '-master.tar.gz'
-#                execute(funicular, 'cd distrepos && ' ..
-#                        'tar zcf ../staging_area/' .. tarball_name .. ' ' .. source_name)
-#            elseif funicular.zip_unversioned then
-#                if exists('distrepos/' .. source_name .. '/.hg') then
-#                    execute(funicular, 'cd distrepos/' .. source_name ..
-#                            ' && hg archive -r tip -t zip ' ..
-#                            '-X .hgignore -X .gitignore -X .hgtags -X .hg_archival.txt ' ..
-#                            '../../staging_area/' .. dest_name .. '.zip')
-#                else
-#                    execute(funicular, 'cd distrepos/' .. source_name ..
-#                            ' && git archive --format=zip HEAD ' ..
-#                            '--output=../../staging_area/' .. dest_name .. '.zip')
-#                end
-#            else
-#                execute(funicular, 'cd distrepos && tar zcf ../staging_area/' ..
-#                        dest_name .. '.tgz ' .. source_name)
-#            end
-#        end
 
     if [ -d skel ]; then
         cp -Rp skel/* staging_area/

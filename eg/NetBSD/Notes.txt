@@ -1,3 +1,9 @@
+Our fork of Ophis does not have the tags from michaelcmartin/Ophis.
+
+It should be @ v2.1 but is @ master until I figure out how to transfer the tags over. 
+
+- - - -
+
 https://github.com/git/git/archive/v1.9.4.zip
 make NO_CURL=1
 temporarily link /usr/bin/perl to `which perl` (sighhhh)
