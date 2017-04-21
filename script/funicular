@@ -172,6 +172,11 @@ funicular_distboot() {
 funicular_backup() {
     bu=`basename $SYSTEM_IMAGE`
     bu="$bu-backup.tar.gz"
+
+    if [ "X$1" != X ]; then
+        bu=$1
+    fi
+
     if [ -e $bu ]; then
         echo "$bu already exists!  Delete it or rename it first."
         exit 1

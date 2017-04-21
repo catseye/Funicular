@@ -40,5 +40,8 @@ PROJECTS="
     otp_src_R16B03-1"
 
 for p in $PROJECTS; do
+  echo "*** shelf_build $p ***"
   shelf_build $p
+  echo "*** shelf_link $p ***"
+  shelf_link $p
 done

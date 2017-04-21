@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd /home/user
-mkdir -p .local
+mkdir -p .local/bin
 mkdir -p catseye
 
 if [ ! -d shelf ]; then

@@ -53,7 +53,7 @@ setup_instructions() {
 * Once it is finished, log out and log in again as 'user'. (You may or may not wish to
   run passwd to give user a password at this point, depending on your security needs.)
 * Then run:
-        sh /cdrom/populate-shelf.sh
-        sh /cdrom/build-shelf.sh
+        sh /cdrom/populate-shelf.sh 2>&1 | tee populate-log.txt
+        sh /cdrom/build-shelf.sh 2>&1 | tee build-log.txt
 EOF
 }
