@@ -1,7 +1,7 @@
 Funicular
 =========
 
-*Version 0.4-PRE*
+*Version 0.4.  Subject to change in backwards-incompatible ways.*
 
 **Funicular** is a system that semi-automates the creation of development
 environments on eclectic architectures.
@@ -22,7 +22,7 @@ install and outfit and run a system for it, using Funicular.
 It's kind of like a Vagrant for the lunatic fringe, eh?
 
 It is currently a work in progress.  The current released version of
-Funicular is **version 0.3**, but this means next to nothing.
+Funicular is **version 0.4**, but this means next to nothing.
 
 It currently supports:
 
@@ -59,8 +59,9 @@ contains configuration, not functionality.
 You can look at the settings in the example Funicularfiles in `eg/` and
 look them up in the source code in `script/` to divine what they mean.
 
-There really isn't any further documentation right now except for
-[this out-of-date set of notes](doc/Notes.md).
+Because the entire thing was recently rewritten (converting it from
+Lua to Bourne shell), there really isn't any further documentation right
+now except for [this out-of-date set of notes](doc/Notes.md).
 
 License
 -------
