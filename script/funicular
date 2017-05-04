@@ -61,7 +61,14 @@ funicular_initsetup() {
 
     mkdir -p distfiles
     for url in $DISTFILES; do
-        dest=`basename $url`
+
+        base=`echo $url | awk '{split($0,a,"@"); print a[1]}'`
+        dest=`echo $url | awk '{split($0,a,"@"); print a[2]}'`
+        if [ "X$dest" = X ]; then
+            dest=`basename $url`
+        fi
+        url="$base"
+
         if [ -e distfiles/$dest ]; then
             echo "distfiles/$dest already fetched"
         else
@@ -95,16 +102,11 @@ funicular_initsetup() {
     rm -rf staging_area
     mkdir -p staging_area
 
-    for url in $DISTFILES; do
-        dest=`basename $url`
-        # TODO apply name map here
-        dest_name=$dest
-        cp -p distfiles/$dest staging_area/$dest_name
-    done
+    cp -p distfiles/* staging_area/
 
     cd distrepos
     for repo in *; do
-        tar zcfv ../staging_area/$repo.tar.gz $repo
+        tar zcf ../staging_area/$repo.tar.gz $repo
     done
     cd ..
 
