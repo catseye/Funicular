@@ -1,3 +1,7 @@
+#
+# Needs `lha`: on Linux, you can install `lhasa`, e.g. `sudo apt install lhasa`
+#
+
 PLATFORM="a500-e-uae"
 INSTALL_IMAGE='Workbench_1.3.adf'
 SETUP_IMAGE='setup.adf'
