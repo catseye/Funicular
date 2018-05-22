@@ -1,6 +1,6 @@
 # Apple ][+ w/ Linapple w/ certain options
 
-DISTFILE_URL='https://github.com/timob/linapple/archive/master.zip'
+DISTFILE_URL='https://github.com/linappleii/linapple/archive/master.zip'
 
 # floppies only, for now
 platform_initsys() {
@@ -16,21 +16,22 @@ platform_initdist() {
 }
 
 platform_start() {
-    linapple
+    linapple -d1 "${SYSTEM_IMAGE}" -autoboot
 }
 
 platform_setup() {
-    linapple
+    echo "Not starting emulator.  No setup image required."
+    #linapple -d1 "${SYSTEM_IMAGE}" -autoboot
 }
 
 platform_dist() {
-    linapple
+    echo "Not starting emulator.  No in-architecture dist steps required."
 }
 
 platform_distboot() {
-    linapple
+    linapple -d1 "${DIST_IMAGE}" -autoboot
 }
 
 platform_install() {
-    echo "No install step.  Installation will happen during setup."
+    cp Master.dsk "${SYSTEM_IMAGE}"
 }

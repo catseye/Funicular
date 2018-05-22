@@ -12,14 +12,3 @@ fi
 DISTREPOS="
   catseye/apple-befunge
 "
-
-setup_script() {
-    export CWD=`pwd`
-
-cat >linapple.conf <<EOF
-	Computer Emulation =	1
-	Slot 6 Directory =	$CWD
-	Disk Image 1 =	$CWD/system.dsk
-	Slot 6 Autoload =	1
-EOF
-}
