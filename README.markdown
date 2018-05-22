@@ -1,7 +1,7 @@
 Funicular
 =========
 
-*Version 0.4.  Subject to change in backwards-incompatible ways.*
+*Version 0.5.  Work-in-progress.  Subject to change in backwards-incompatible ways.*
 
 **Funicular** is a system that semi-automates the creation of development
 environments on eclectic architectures.
@@ -21,9 +21,6 @@ install and outfit and run a system for it, using Funicular.
 
 It's kind of like a Vagrant for the lunatic fringe, eh?
 
-It is currently a work in progress.  The current released version of
-Funicular is **version 0.4**, but this means next to nothing.
-
 It currently supports:
 
 *   i386 running NetBSD under QEMU
@@ -35,8 +32,8 @@ And partially supports:
 
 *   Apple //e running AppleDOS under Linapple
 
-Funicular unifies and replaces the discrete, ad-hoc projects NetBSD-Gondola,
-FreeDOS-Gondola, and Amiga-Gondola.
+Funicular unifies and replaces the older, discrete, ad-hoc projects
+NetBSD-Gondola, FreeDOS-Gondola, and Amiga-Gondola, which are now deprecated.
 
 Quick Start
 -----------
@@ -47,7 +44,7 @@ Quick Start
 *   Run `funicular install`.
 *   Run `funicular init setup`.
 *   Run `funicular setup`.
-*   ...
+*   You now have a configured Funicular.  Run `funicular start` to use it.
 
 Documentation
 -------------
