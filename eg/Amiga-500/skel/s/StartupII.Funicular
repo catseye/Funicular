@@ -1,0 +1,10 @@
+echo "Ensuring your scripts are scripts..."
+protect S:SPAT srwd
+spat protect s:#? srwd
+spat protect DRACO:s/#? srwd
+
+echo "Removing Workbenchize icon..."
+delete Funicular:Workbenchize.info quiet
+echo "Done."
+
+break 1 C
