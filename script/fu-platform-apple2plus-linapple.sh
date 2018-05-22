@@ -33,5 +33,5 @@ platform_distboot() {
 }
 
 platform_install() {
-    cp Master.dsk "${SYSTEM_IMAGE}"
+    cp "${INSTALL_IMAGE}" "${SYSTEM_IMAGE}"
 }
