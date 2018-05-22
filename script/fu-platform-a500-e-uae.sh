@@ -35,5 +35,5 @@ platform_distboot() {
 # TODO: the skel should be expanded to dh0 before this; this, not setup, involves Workbenchize;
 # so we should try to find out what setup actually does, and move as much to that as possible?
 platform_install() {
-    uae ${OPTS} -s "floppy0=${INSTALL_IMAGE}" -s "filesystem2=rw,DH0:HDD:Funicular:${SYSTEM_IMAGE},1"
+    uae ${OPTS} -s "floppy0=${INSTALL_IMAGE}" -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"
 }
