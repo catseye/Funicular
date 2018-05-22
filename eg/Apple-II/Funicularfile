@@ -1,7 +1,7 @@
-# NOTE: this requires toolshelf and assumes gh:catseye/a2tools has been docked
+# NOTE: this requires https://github.com/linappleii/linapple
 
 PLATFORM=apple2plus-linapple
-INSTALL_IMAGE='blank.dsk'
+INSTALL_IMAGE='Master.dsk'
 SETUP_IMAGE='setup.dsk'
 SYSTEM_IMAGE='system.dsk'
 DIST_IMAGE='dist.dsk'
@@ -22,12 +22,4 @@ cat >linapple.conf <<EOF
 	Disk Image 1 =	$CWD/system.dsk
 	Slot 6 Autoload =	1
 EOF
-
-    # this is less than fantastic, but not sure how else to make sure this works
-    LINAPPLE_DIR=`toolshelf.py pwd linapple`
-    cp $LINAPPLE_DIR/splash.bmp .
-    cp $LINAPPLE_DIR/charset40.bmp .
-    # this is even less fantastic because no just no
-    # instead, we should be using a2tools to put our things on a bootable disk image
-    cp $LINAPPLE_DIR/Master.dsk system.dsk
 }
