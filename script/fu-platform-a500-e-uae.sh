@@ -21,7 +21,7 @@ platform_start() {
 }
 
 platform_setup() {
-    uae ${OPTS} -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1" -s "floppy0=${SETUP_IMAGE}"
+    uae ${OPTS} -s "floppy0=${INSTALL_IMAGE}" -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"
 }
 
 platform_dist() {
@@ -32,8 +32,6 @@ platform_distboot() {
     uae ${OPTS} -s "floppy0=${DIST_IMAGE}"
 }
 
-# TODO: the skel should be expanded to dh0 before this; this, not setup, involves Workbenchize;
-# so we should try to find out what setup actually does, and move as much to that as possible?
 platform_install() {
-    uae ${OPTS} -s "floppy0=${INSTALL_IMAGE}" -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"
+    echo "No install step.  Installation will happen during setup."
 }

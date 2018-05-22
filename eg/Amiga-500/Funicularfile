@@ -155,9 +155,15 @@ EOF
 
 setup_instructions() {
     cat <<EOF
-* Wait for the Workbench to appear.
-* Double-click the "Funicular" disk icon.
-* Double-click the "Workbenchize" icon that appears.
+------------------------------------------------------
+[*] Wait for the Workbench to appear.
+[*] Double-click the "Funicular" disk icon.
+    You may need to move CLI windows out of the way
+    first, to uncover it.
+[*] Double-click the "Workbenchize" icon that appears.
+[*] Wait until it asks you to reboot, then close
+    the window and shut down the emulator.
+------------------------------------------------------
 EOF
 }
 
