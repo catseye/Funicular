@@ -22,13 +22,15 @@ DISTREPOS="
 "
 
 setup_script() {
-    a2ls "${SYSTEM_IMAGE}"
     for a2file in MYHELLO KEYS KEYS1 AA; do
       a2rm "${SYSTEM_IMAGE}" $a2file
     done
-    a2ls "${SYSTEM_IMAGE}"
     for a2file in APPLE\ BEFUNGE\ EDITOR ; do
       a2out -r distrepos/apple-befunge/disk/befunge.dsk "${a2file}"|a2in -r a "${SYSTEM_IMAGE}" "${a2file}"
     done
+    for a2file in HELLO.BF HEX.BF HWII.BF MAZE.BF ; do
+      a2out -r distrepos/apple-befunge/disk/befunge.dsk "${a2file}"|a2in -r t "${SYSTEM_IMAGE}" "${a2file}"
+    done
+
     a2ls "${SYSTEM_IMAGE}"
 }
