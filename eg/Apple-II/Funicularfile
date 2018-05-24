@@ -1,4 +1,4 @@
-# NOTE: this requires https://github.com/linappleii/linapple
+# TODO: let a Funicularfile say simply REQUIRED_TOOLS="linapple a2tools"
 
 for tool in linapple a2tools; do
   toolpath=`which $tool`
