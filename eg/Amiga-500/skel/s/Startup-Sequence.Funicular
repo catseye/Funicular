@@ -1,0 +1,61 @@
+Funicular:c/SetPatch >NIL:
+
+assign SYS: Funicular:
+assign C: SYS:c
+assign S: SYS:s
+assign L: SYS:l
+assign FONTS: SYS:fonts
+assign DEVS: SYS:devs
+assign LIBS: SYS:libs
+
+assign Extras: Funicular: ; to let (some) AmigaBasic sources' icons work
+
+Addbuffers df0: 10
+cd c:
+echo "A500/A2000 Workbench disk -- now booting Funicular..."
+;
+Sys:System/FastMemFirst
+BindDrivers
+SetClock load
+;
+resident CLI L:Shell-Seg SYSTEM pure add
+resident c:Execute pure
+mount newcon:
+;
+failat 11
+run execute s:StartupII
+wait >NIL: 5 mins
+;
+path ram: c: sys:utilities sys:system s: sys:prefs add
+;
+; == DICE == ;
+;
+assign DCC: Funicular:Distributions/dice-rel-3.15
+assign DLIB: DCC:dlib
+assign DINCLUDE: DCC:include
+path DCC:abin/ add
+;assign LIBS: DCC:libs add
+;
+; == PCQ == ;
+;
+assign PCQ: Funicular:Distributions/PCQ-1.2b
+assign INCLUDE: PCQ:Include
+;
+; == Draco == ;
+;
+assign DRACO: Funicular:Distributions/Draco
+assign DRLIB: DRACO:drlib
+assign DRINC: DRACO:drinc
+path DRACO:c/ add
+path DRACO:s/ add
+;
+run execute s:StartupII.Funicular
+wait >NIL: 5 mins
+;
+fastfonts topaz.8
+cd Funicular:
+conman -c
+climax
+;
+LoadWB delay
+endcli >NIL:

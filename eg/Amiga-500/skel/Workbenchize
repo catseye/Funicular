@@ -1,0 +1,60 @@
+.k ""
+echo "** Workbenchizing your Funicular virtual disk!"
+
+echo "(1/12) Copying C:..."
+copy C: to Funicular:c all quiet
+
+echo "(2/12) Copying S:..."
+copy S: to Funicular:s all quiet
+
+echo "(3/12) Copying L:..."
+copy L: to Funicular:l all quiet
+
+echo "(4/12) Copying DEVS:..."
+copy DEVS: to Funicular:devs all quiet
+
+echo "(5/12) Copying LIBS:..."
+copy LIBS: to Funicular:libs all quiet
+
+echo "(6/12) Copying FONTS:..."
+copy FONTS: to Funicular:fonts all quiet
+
+echo "(7/12) Copying Utilities..."
+copy SYS:Utilities to Funicular:Utilities all quiet
+copy SYS:Utilities.info to Funicular:Utilities.info quiet
+
+echo "(8/12) Copying System..."
+copy SYS:System to Funicular:System all quiet
+copy SYS:System.info to Funicular:System.info quiet
+
+echo "(9/12) Copying Expansion..."
+copy SYS:Expansion to Funicular:Expansion all quiet
+copy SYS:Expansion.info to Funicular:Expansion.info quiet
+
+echo "(10/12) Copying Trashcan..."
+copy SYS:Trashcan to Funicular:Trashcan all quiet
+copy SYS:Trashcan.info to Funicular:Trashcan.info quiet
+
+echo "(11/12) Copying Shell..."
+copy SYS:Shell to Funicular:Shell all quiet
+copy SYS:Shell.info to Funicular:Shell.info quiet
+
+echo "(12/12) Copying Prefs..."
+copy SYS:Prefs to Funicular:Prefs all quiet
+copy SYS:Prefs.info to Funicular:Prefs.info quiet
+
+echo "Replacing startup-sequence..."
+copy Funicular:s/Startup-Sequence Funicular:s/Startup-Sequence.backup
+copy Funicular:s/Startup-Sequence.Funicular Funicular:s/Startup-Sequence
+
+;echo "Making your icons float..."
+;protect Funicular:c/NoIconPos rwed
+;Funicular:c/NoIconPos Funicular:AmigaBasic
+;Funicular:c/NoIconPos Funicular:Trashcan
+;Funicular:c/NoIconPos Funicular:Extras/BasicDemos
+;Funicular:c/NoIconPos Funicular:Extras/Tools
+;Funicular:c/NoIconPos Funicular:Extras/FD1.3
+
+echo "Done.  You should now:"
+echo "** EJECT the Workbench and Extras disks, and"
+echo "** REBOOT your Amiga and see that it boots from Funicular"

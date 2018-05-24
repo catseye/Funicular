@@ -25,6 +25,7 @@ It currently supports:
 
 *   i386 running NetBSD under QEMU
 *   i386 running FreeDOS under QEMU
+*   Amiga 500 (etc) running AmigaDOS under E-UAE (* Under Development *)
 *   Commodore 64 with a 1541 floppy drive under VICE
 *   VIC-20 with a 1541 floppy drive under VICE
 
