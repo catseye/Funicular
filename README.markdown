@@ -3,34 +3,33 @@ Funicular
 
 *Version 0.5.  Work-in-progress.  Subject to change in backwards-incompatible ways.*
 
-**Funicular** is a system that semi-automates the creation of development
+**Funicular** is a system that semi-automates the creation of computing
 environments on eclectic architectures.
 
 "Semi-automate" means it automates what it can, and provides repeatable
 instructions for you to follow for what it can't.
 
-"Development environment" means an environment in which you can build
-(and perhaps even write) software.  Thus it is typically populated with
-programming language interpreters and compilers, debuggers, text editors,
-and the like.
+"Computing environment" could mean a "development environment", i.e.
+a system in which you can build (and perhaps even write) software,
+populated with interpreters and compilers, debuggers, text editors,
+and the like.  Or it could mean any other environment that could be
+set up on a computer system.
 
 "Eclectic architectures" is not terribly-well defined, but it includes
 retrocomputing and esoteric architectures.  Basically, if you've got an
 emulator for it, and installation images for it, you might be able to
 install and outfit and run a system for it, using Funicular.
 
-It's kind of like a Vagrant for the lunatic fringe, eh?
+TL;DR it's kind of like a Vagrant, but instead of provisioning VMs, it
+provisions emulators.
 
 It currently supports:
 
 *   i386 running NetBSD under QEMU
 *   i386 running FreeDOS under QEMU
-*   Amiga 500 (etc) running AmigaDOS under E-UAE (* Under Development *)
+*   Amiga 500 (etc) running AmigaDOS under E-UAE
 *   Commodore 64 with a 1541 floppy drive under VICE
 *   VIC-20 with a 1541 floppy drive under VICE
-
-And partially supports:
-
 *   Apple //e running AppleDOS under Linapple
 
 Funicular unifies and replaces the older, discrete, ad-hoc projects
