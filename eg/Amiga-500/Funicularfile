@@ -36,6 +36,8 @@ DISTREPOS="
   catseye/Befunge-93
   catseye/Maentwrog
   catseye/RUBE
+  catseye/Stringie
+  catseye/Pixley
   catseye/minischeme
 "
 
@@ -52,7 +54,8 @@ setup_script() {
 
     cp -Rp skel/* dh0/
 
-    ### extract the simple and cromulent archives ###
+    #======== Extract the simple and cromulent archives ========#
+
     ARCHIVES="
       FastFonts
       Conman CLImax
@@ -65,7 +68,7 @@ setup_script() {
         lha xfw=dh0/Distributions distfiles/${ARCHIVE}.lha
     done
 
-    ### Now the stronger stuff ###
+    #======== Now the stronger stuff ========#
 
     ### DICE 3.15 ###
     lha xfw=dh0/Distributions distfiles/dice-3.15.lha
@@ -94,12 +97,23 @@ setup_script() {
     lha xfw=dh0/Distributions distfiles/Draco.lha
     chmod 755 dh0/Distributions/Draco/c/*
 
-    ### Drawer icons in Distributions ###
-    for DIR in dh0/Distributions/*; do
+    #======== Now the distrepos ========#
+
+    rm -rf dh0/Shelf
+    mkdir dh0/Shelf
+    cp -Rp distrepos/* dh0/Shelf/
+
+    #======== Drawer icons for Distributions and Shelf ========#
+
+    for DIR in dh0/Distributions/* dh0/Shelf/*; do
       if [ -d $DIR ]; then
         cp -p skel/icons/Drawer.info ${DIR}.info
       fi
     done
+    cp -p skel/icons/Drawer.info dh0/Distributions.info
+    cp -p skel/icons/Drawer.info dh0/Shelf.info
+
+    #======== Now populate some system directories ========#
 
     ### C: ###
 
