@@ -1,6 +1,6 @@
 # Apple ][+ w/ Linapple w/ certain options
 
-DISTFILE_URL='https://github.com/linappleii/linapple/archive/master.zip'
+DISTFILE_URL='https://github.com/catseye/linapple/archive/master.zip'
 
 # floppies only, for now
 platform_initsys() {
