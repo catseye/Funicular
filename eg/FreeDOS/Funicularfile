@@ -10,8 +10,8 @@ DISTFILES="
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev205.zip
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/faq230b.zip
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/readme.1st
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu226br3.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc610b.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu230b.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc640b.zip
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak421b.zip
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2misc/csdpmi7b.zip
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/perl588b.zip
