@@ -35,10 +35,11 @@ fi
 DISTREPOS="
   catseye/Befunge-93
   catseye/Maentwrog
-  catseye/RUBE
-  catseye/Stringie
-  catseye/Pixley
   catseye/minischeme
+  catseye/Pixley
+  catseye/RUBE
+  catseye/Sally
+  catseye/stringie
 "
 
 setup_script() {
