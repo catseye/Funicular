@@ -24,7 +24,7 @@ DISTFILES="
   https://raw.githubusercontent.com/yasm/yasm/v1.2.0/BSD.txt
 
   http://www.lua.org/ftp/lua-5.2.2.tar.gz
-  http://waterlan.home.xs4all.nl/dos2unix/d2u71b.zip
+  https://sourceforge.net/projects/dos2unix/files/dos2unix/7.4.0/d2u740pm.zip
 
   http://catseye.tc/distfiles/shelta-1.2-2014.0422.zip
   https://github.com/catseye/Illgol-Grand-Mal/archive/rel_16_tons_and_what_do_you_get.zip
