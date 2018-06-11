@@ -81,39 +81,42 @@ install_instructions() {
 *   down-arrow to DONE
 *   proceed with installation -- yes
 *   Press any key to continue -- ...watch flickering...
-*   What to do with the bootloader?  -- 1
+*   What to do with the bootsector?  -- 1
 *   select "Boot from system harddisk"
 *   Hit Enter for the JEMMEX option, should be fine
-*   viola, `C:\>`.  You can now just stop the emulator.
+*   viola, C:\\>.  You can now just stop the emulator.
 EOF
 }
 
 setup_instructions() {
     cat <<EOF
 * Hit Enter for the JEMMEX option, should be fine
-* When booted, run `D:\INSTDJGP`
-* When it asks `replace lib/Perl5/Pod/perlmaco.pod?`, type `A`, Enter.
+* When booted, run "D:\INSTDJGP"
+* When it asks "replace lib/Perl5/Pod/perlmaco.pod?", type "A", Enter.
 * THEN HIT ENTER AGAIN.  It's waiting silently for you.
 * When finished, you may want to exit the emulator, run
-  `funicular backup hda-djgpp`, and start it again.
-* run `D:\INSTPLAT`.  This will install some tools into `C:\TOOLS`.
+  "funicular backup hda-djgpp", and start it again.
+* run "D:\\INSTPLAT".  This will install some tools into "C:\\TOOLS".
 EOF
 }
 
+# FIXME why "Bad command C:\TOOLS\UNIX2DOS" ?
+# FIXME why "Unable to open file D:\GPL20.TXT" ?
+
 dist_instructions() {
     cat <<EOF
-* To initialize the distribution floppy, run `INITFLOP`.
-* Enter `360`, `720`, or `1440` as appropriate.
+* To initialize the distribution floppy, run "INITFLOP".
+* Enter "360", "720", or "1440" as appropriate.
 * As explained in the script, it may take more than one attempt to format
   the image correctly, if it has never been used before.
 * The result will be a generic, bootable FreeDOS floppy.  You may
-  wish to make a backup copy of `a.img` to not need this step in future.
-* To populate the floppy with a few basic things, run `POPUFLOP`.
+  wish to make a backup copy of "a.img" to not need this step in future.
+* To populate the floppy with a few basic things, run "POPUFLOP".
 
 You now have a bootable floppy image with a few basic tools on it.
 
-* To populate the floppy with a project distribution, run the `MAKEDIST.BAT`
-  batchfile in the appropriate `SKEL` subdirectory.  For example, to make a
-  Shelta distribution, run `SKEL\SHELTA\MAKEDIST`.
+* To populate the floppy with a project distribution, run the "MAKEDIST.BAT"
+  batchfile in the appropriate "SKEL" subdirectory.  For example, to make a
+  Shelta distribution, run "SKEL\\SHELTA\\MAKEDIST".
 EOF
 }
