@@ -102,7 +102,13 @@ funicular_initsetup() {
     rm -rf staging_area
     mkdir -p staging_area
 
-    cp -p distfiles/* staging_area/
+    for file in distfiles/*; do
+        destname=`basename $file`
+        if runnable name_map; then
+            destname=`name_map $destname`
+        fi
+        cp -p $file staging_area/$destname
+    done
 
     cd distrepos
     for repo in *; do

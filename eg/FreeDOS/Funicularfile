@@ -44,16 +44,27 @@ DISTREPOS="
 ZIP_UNVERSIONED=True
 
 
-#name_map = {
-#    ["yasm-1.2.0-dos.exe"] = 'yasm120.exe',
-#    ["BSD.txt"] = 'yasmlcns.txt',
-#    ["lua-5.2.2.tar.gz"] = 'lua522.tgz',
-#    ["shelta-1.2-2014.0422.zip"] = 'shelta12.zip',
-#    ["rel_16_tons_and_what_do_you_get.zip"] = 'illgolgm.zip',
-#    ["gpl-2.0.txt"] = 'gpl20.txt',
-#    ["befunge-93"] = 'befung93',
-#    ["maentwrog"] = 'maentwrg',
-#},
+name_map() {
+    if [ "X$1" = "Xyasm-1.2.0-dos.exe" ]; then
+        echo "yasm120.exe"
+    elif [ "X$1" = "XBSD.txt" ]; then
+        echo "yasmlcns.txt"
+    elif [ "X$1" = "Xlua-5.2.2.tar.gz" ]; then
+        echo "lua522.tgz"
+    elif [ "X$1" = "Xshelta-1.2-2014.0422.zip" ]; then
+        echo "shelta12.zip"
+    elif [ "X$1" = "Xrel_16_tons_and_what_do_you_get.zip" ]; then
+        echo "illgolgm.zip"
+    elif [ "X$1" = "Xgpl-2.0.txt" ]; then
+        echo "gpl20.txt"
+    elif [ "X$1" = "Xbefunge-93" ]; then
+        echo "befung93"
+    elif [ "X$1" = "Xmaentwrog" ]; then
+        echo "maentwrg"
+    else
+        echo $1
+    fi
+}
 
 
 install_instructions() {
@@ -100,9 +111,6 @@ setup_instructions() {
 * run "D:\\INSTPLAT".  This will install some tools into "C:\\TOOLS".
 EOF
 }
-
-# FIXME why "Bad command C:\TOOLS\UNIX2DOS" ?
-# FIXME why "Unable to open file D:\GPL20.TXT" ?
 
 dist_instructions() {
     cat <<EOF
