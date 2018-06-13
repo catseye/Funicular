@@ -1,7 +1,7 @@
 PLATFORM="i386-qemu"
 INSTALL_IMAGE='fd11src.iso'
 INSTALL_IMAGE_URL='http://www.freedos.org/download/download/fd11src.iso'
-SETUP_IMAGE='freedos-init-cd.iso'
+SETUP_IMAGE='setup.iso'
 SYSTEM_IMAGE='hda.img'
 DIST_IMAGE='a.img'
 
@@ -57,9 +57,9 @@ name_map() {
         echo "illgolgm.zip"
     elif [ "X$1" = "Xgpl-2.0.txt" ]; then
         echo "gpl20.txt"
-    elif [ "X$1" = "Xbefunge-93" ]; then
+    elif [ "X$1" = "XBefunge-93" ]; then
         echo "befung93"
-    elif [ "X$1" = "Xmaentwrog" ]; then
+    elif [ "X$1" = "XMaentwrog" ]; then
         echo "maentwrg"
     else
         echo $1
@@ -110,6 +110,23 @@ setup_instructions() {
   "funicular backup hda-djgpp", and start it again.
 * run "D:\\INSTPLAT".  This will install some tools into "C:\\TOOLS".
 EOF
+}
+
+setup_script() {
+    #
+    # This is an alternative to having some kind of "archive distrepos with what archiver?"
+    # option that Funicular should arguably support instead.
+    #
+    cd distrepos
+    for repo in *; do
+        echo zip -r ../staging_area/$repo.zip $repo
+        zip -r ../staging_area/$repo.zip $repo
+        rm -f ../staging_area/$repo.tar.gz
+    done
+    cd ..
+    if [ -d skel ]; then
+        cp -Rp skel/* staging_area/
+    fi
 }
 
 dist_instructions() {

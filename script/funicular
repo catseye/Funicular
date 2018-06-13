@@ -84,6 +84,9 @@ funicular_initsetup() {
 
         url="$DISTREPO_ROOT$path"
         dest=`basename $url`
+        if runnable name_map; then
+            dest=`name_map $dest`
+        fi
 
         if [ ! -d distrepos/$dest ]; then
             git clone $url distrepos/$dest
