@@ -21,7 +21,7 @@ platform_start() {
 }
 
 platform_setup() {
-    uae ${OPTS} -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1" -s "floppy0=${SETUP_IMAGE}"
+    uae ${OPTS} -s "floppy0=${INSTALL_IMAGE}" -s "filesystem2=rw,DH0:Funicular:${SYSTEM_IMAGE},1"
 }
 
 platform_dist() {
@@ -33,5 +33,5 @@ platform_distboot() {
 }
 
 platform_install() {
-    uae ${OPTS} -s "floppy0=${INSTALL_IMAGE}" -s "filesystem2=rw,DH0:HDD:Funicular:${SYSTEM_IMAGE},1"
+    echo "No install step.  Installation will happen during setup."
 }

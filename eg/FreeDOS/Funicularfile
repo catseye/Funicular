@@ -1,7 +1,7 @@
 PLATFORM="i386-qemu"
 INSTALL_IMAGE='fd11src.iso'
 INSTALL_IMAGE_URL='http://www.freedos.org/download/download/fd11src.iso'
-SETUP_IMAGE='freedos-init-cd.iso'
+SETUP_IMAGE='setup.iso'
 SYSTEM_IMAGE='hda.img'
 DIST_IMAGE='a.img'
 
@@ -10,8 +10,9 @@ DISTFILES="
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev205.zip
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/faq230b.zip
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/readme.1st
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu226br3.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc610b.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu230b.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc810b.zip
+  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gpp810b.zip
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak421b.zip
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2misc/csdpmi7b.zip
   http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/perl588b.zip
@@ -24,7 +25,7 @@ DISTFILES="
   https://raw.githubusercontent.com/yasm/yasm/v1.2.0/BSD.txt
 
   http://www.lua.org/ftp/lua-5.2.2.tar.gz
-  http://waterlan.home.xs4all.nl/dos2unix/d2u71b.zip
+  https://sourceforge.net/projects/dos2unix/files/dos2unix/7.4.0/d2u740pm.zip
 
   http://catseye.tc/distfiles/shelta-1.2-2014.0422.zip
   https://github.com/catseye/Illgol-Grand-Mal/archive/rel_16_tons_and_what_do_you_get.zip
@@ -43,16 +44,27 @@ DISTREPOS="
 ZIP_UNVERSIONED=True
 
 
-#name_map = {
-#    ["yasm-1.2.0-dos.exe"] = 'yasm120.exe',
-#    ["BSD.txt"] = 'yasmlcns.txt',
-#    ["lua-5.2.2.tar.gz"] = 'lua522.tgz',
-#    ["shelta-1.2-2014.0422.zip"] = 'shelta12.zip',
-#    ["rel_16_tons_and_what_do_you_get.zip"] = 'illgolgm.zip',
-#    ["gpl-2.0.txt"] = 'gpl20.txt',
-#    ["befunge-93"] = 'befung93',
-#    ["maentwrog"] = 'maentwrg',
-#},
+name_map() {
+    if [ "X$1" = "Xyasm-1.2.0-dos.exe" ]; then
+        echo "yasm120.exe"
+    elif [ "X$1" = "XBSD.txt" ]; then
+        echo "yasmlcns.txt"
+    elif [ "X$1" = "Xlua-5.2.2.tar.gz" ]; then
+        echo "lua522.tgz"
+    elif [ "X$1" = "Xshelta-1.2-2014.0422.zip" ]; then
+        echo "shelta12.zip"
+    elif [ "X$1" = "Xrel_16_tons_and_what_do_you_get.zip" ]; then
+        echo "illgolgm.zip"
+    elif [ "X$1" = "Xgpl-2.0.txt" ]; then
+        echo "gpl20.txt"
+    elif [ "X$1" = "XBefunge-93" ]; then
+        echo "befung93"
+    elif [ "X$1" = "XMaentwrog" ]; then
+        echo "maentwrg"
+    else
+        echo $1
+    fi
+}
 
 
 install_instructions() {
@@ -81,39 +93,56 @@ install_instructions() {
 *   down-arrow to DONE
 *   proceed with installation -- yes
 *   Press any key to continue -- ...watch flickering...
-*   What to do with the bootloader?  -- 1
+*   What to do with the bootsector?  -- 1
 *   select "Boot from system harddisk"
 *   Hit Enter for the JEMMEX option, should be fine
-*   viola, `C:\>`.  You can now just stop the emulator.
+*   viola, C:\\>.  You can now just stop the emulator.
 EOF
 }
 
 setup_instructions() {
     cat <<EOF
 * Hit Enter for the JEMMEX option, should be fine
-* When booted, run `D:\INSTDJGP`
-* When it asks `replace lib/Perl5/Pod/perlmaco.pod?`, type `A`, Enter.
+* When booted, run "D:\INSTDJGP"
+* When it asks "replace lib/Perl5/Pod/perlmaco.pod?", type "A", Enter.
 * THEN HIT ENTER AGAIN.  It's waiting silently for you.
 * When finished, you may want to exit the emulator, run
-  `funicular backup hda-djgpp`, and start it again.
-* run `D:\INSTPLAT`.  This will install some tools into `C:\TOOLS`.
+  "funicular backup hda-djgpp", and start it again.
+* run "D:\\INSTPLAT".  This will install some tools into "C:\\TOOLS".
 EOF
+}
+
+setup_script() {
+    #
+    # This is an alternative to having some kind of "archive distrepos with what archiver?"
+    # option that Funicular should arguably support instead.
+    #
+    cd distrepos
+    for repo in *; do
+        echo zip -r ../staging_area/$repo.zip $repo
+        zip -r ../staging_area/$repo.zip $repo
+        rm -f ../staging_area/$repo.tar.gz
+    done
+    cd ..
+    if [ -d skel ]; then
+        cp -Rp skel/* staging_area/
+    fi
 }
 
 dist_instructions() {
     cat <<EOF
-* To initialize the distribution floppy, run `INITFLOP`.
-* Enter `360`, `720`, or `1440` as appropriate.
+* To initialize the distribution floppy, run "INITFLOP".
+* Enter "360", "720", or "1440" as appropriate.
 * As explained in the script, it may take more than one attempt to format
   the image correctly, if it has never been used before.
 * The result will be a generic, bootable FreeDOS floppy.  You may
-  wish to make a backup copy of `a.img` to not need this step in future.
-* To populate the floppy with a few basic things, run `POPUFLOP`.
+  wish to make a backup copy of "a.img" to not need this step in future.
+* To populate the floppy with a few basic things, run "POPUFLOP".
 
 You now have a bootable floppy image with a few basic tools on it.
 
-* To populate the floppy with a project distribution, run the `MAKEDIST.BAT`
-  batchfile in the appropriate `SKEL` subdirectory.  For example, to make a
-  Shelta distribution, run `SKEL\SHELTA\MAKEDIST`.
+* To populate the floppy with a project distribution, run the "MAKEDIST.BAT"
+  batchfile in the appropriate "SKEL" subdirectory.  For example, to make a
+  Shelta distribution, run "SKEL\\SHELTA\\MAKEDIST".
 EOF
 }

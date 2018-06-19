@@ -4,8 +4,9 @@ MKDIR DJGPP
 CD DJGPP
 UNZIP D:\djdev205.zip
 UNZIP D:\faq230b.zip
-UNZIP D:\bnu226br3.zip
-UNZIP D:\gcc610b.zip
+UNZIP D:\bnu230b.zip
+UNZIP D:\gcc810b.zip
+UNZIP D:\gpp810b.zip
 UNZIP D:\mak421b.zip
 UNZIP D:\csdpmi7b.zip
 UNZIP D:\perl588b.zip
