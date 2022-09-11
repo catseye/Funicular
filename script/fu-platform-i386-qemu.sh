@@ -34,21 +34,21 @@ platform_initdist() {
 }
 
 platform_start() {
-    qemu-system-i386 -hda "${SYSTEM_IMAGE}"
+    qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -hda "${SYSTEM_IMAGE}"
 }
 
 platform_setup() {
-    qemu-system-i386 -hda "${SYSTEM_IMAGE}" -cdrom "${SETUP_IMAGE}"
+    qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -hda "${SYSTEM_IMAGE}" -cdrom "${SETUP_IMAGE}"
 }
 
 platform_dist() {
-    qemu-system-i386 -hda "${SYSTEM_IMAGE}" -fda "${DIST_IMAGE}"
+    qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -hda "${SYSTEM_IMAGE}" -fda "${DIST_IMAGE}"
 }
 
 platform_distboot() {
-    qemu-system-i386 -fda "${DIST_IMAGE}" -boot order=a
+    qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -fda "${DIST_IMAGE}" -boot order=a
 }
 
 platform_install() {
-    qemu-system-i386 -hda "${SYSTEM_IMAGE}" -cdrom "${INSTALL_IMAGE}" -boot order=d
+    qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -hda "${SYSTEM_IMAGE}" -cdrom "${INSTALL_IMAGE}" -boot order=d
 }
