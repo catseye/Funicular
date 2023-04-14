@@ -1,7 +1,7 @@
 Funicular
 =========
 
-*Version 0.5.  Work-in-progress.  Subject to change in backwards-incompatible ways.*
+*Version 0.6.  Work-in-progress.  Subject to change in backwards-incompatible ways.*
 
 **Funicular** is a system that semi-automates the creation of computing
 environments on eclectic architectures.
