@@ -89,16 +89,16 @@ funicular_initsetup() {
         fi
 
         if [ ! -d distrepos/$dest ]; then
-            git clone $url distrepos/$dest
+            git clone $url distrepos/$dest || exit 1
         fi
 
         branch=`cd distrepos/$dest && git rev-parse --abbrev-ref HEAD`
         if [ "X$branch" != "XHEAD" ]; then
-            (cd distrepos/$dest && git pull)
+            (cd distrepos/$dest && git pull) || exit 1
         fi
 
         if [ "X$tag" != X ]; then
-            (cd distrepos/$dest && git checkout $tag)
+            (cd distrepos/$dest && git checkout $tag) || exit 1
         fi
     done
 
