@@ -10,16 +10,16 @@ DISTFILES="
   https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev205.zip
   https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/faq230b.zip
   https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/readme.1st
-  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu230b.zip
-  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc810b.zip
-  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gpp810b.zip
-  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak421b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu2351b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc830b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gpp830b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak44b.zip
   https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2misc/csdpmi7b.zip
   https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/perl588b.zip
-  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/tar112ab.zip
-  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gzip18b.zip
-  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41br2.zip
-  https://ftp.mpoli.fi/software/DOS/EDITORS/TED3.ZIP
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/tar112abr2.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gzip110b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41br3.zip
+  https://archive.org/download/msdos_TED3_shareware/TED3.zip
 
   https://www.tortall.net/projects/yasm/releases/yasm-1.2.0-dos.exe
   https://raw.githubusercontent.com/yasm/yasm/v1.2.0/BSD.txt
@@ -29,7 +29,8 @@ DISTFILES="
 
   https://catseye.tc/distfiles/shelta-1.2-2014.0422.zip
   https://github.com/catseye/Illgol-Grand-Mal/archive/rel_16_tons_and_what_do_you_get.zip
-  https://github.com/catseye/OpenZz/archive/refs/tags/1.0.4-4ce2.zip@OpenZz-1.0.4-4ce2.zip
+  https://github.com/catseye/OpenZz/archive/refs/heads/reduce-warnings.zip@OpenZz-1.0.4-4ce3.zip
+  https://github.com/catseye/Zzrk/archive/refs/tags/rel_1_0_2016_0304.zip@zzrk-1.0-2016.0304.zip
 
   https://www.gnu.org/licenses/gpl-2.0.txt
 "
