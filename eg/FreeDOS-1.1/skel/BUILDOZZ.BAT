@@ -15,9 +15,10 @@ GCC -c scope.c -o scope.o
 GCC -c source.c -o source.o
 GCC -c sys.c -o sys.o
 GCC -c table.c -o table.o
-GCC -DVERSION="1.0.4-4ce1" -c util.c -o util.o
+GCC -DVERSION='"1.0.4-4ce3"' -c util.c -o util.o
 GCC -c zkernel.c -o zkernel.o
 GCC -c zlex.c -o zlex.o
 GCC -c zsys.c -o zsys.o
-GCC -c zz.c -o zz.o
+GCC -DVERSION='"1.0.4-4ce3"' -c zz.c -o zz.o
 GCC -c zzi.c -o zzi.o
+GCC *.o -o ozz.exe
