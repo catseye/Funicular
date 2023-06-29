@@ -71,7 +71,7 @@ name_map() {
 
 install_instructions() {
     cat <<EOF
-*   select "Install to Hard Disk"
+*   select "Create Drive C:"
 *   select "f" to start FDISK
 *   FAT32 -- no
 *   1 -- create DOS partition
@@ -98,7 +98,7 @@ install_instructions() {
 *   What to do with the bootsector?  -- 1
 *   select "Boot from system harddisk"
 *   Hit Enter for the JEMMEX option, should be fine
-*   viola, C:\\>.  You can now just stop the emulator.
+*   viola, C:\\>.  You can now just run `shutdown`.
 EOF
 }
 
