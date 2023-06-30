@@ -1,0 +1,7 @@
+Welcome to the Zzrk FreeDOS disk image for v86!
+Then OpenZz interpreter will start shortly.
+When it does, run the following command to start Zzrk:
+
+    /include "zzrk.zz"
+
+Good luck!
