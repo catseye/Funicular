@@ -29,8 +29,8 @@ DISTFILES="
 
   https://catseye.tc/distfiles/shelta-1.2-2014.0422.zip
   https://github.com/catseye/Illgol-Grand-Mal/archive/rel_16_tons_and_what_do_you_get.zip
-  https://github.com/catseye/OpenZz/archive/refs/heads/reduce-warnings.zip@OpenZz-1.0.4-4ce3.zip
-  https://github.com/catseye/Zzrk/archive/refs/tags/rel_1_0_2016_0304.zip@zzrk-1.0-2016.0304.zip
+  https://github.com/catseye/OpenZz/archive/refs/heads/reduce-warnings.zip@ozz104c3.zip
+  https://github.com/catseye/Zzrk/archive/refs/tags/rel_1_0_2016_0304.zip@zzrk2016.zip
 
   https://www.gnu.org/licenses/gpl-2.0.txt
 "
