@@ -1,36 +1,38 @@
 PLATFORM="i386-qemu"
 INSTALL_IMAGE='fd11src.iso'
-INSTALL_IMAGE_URL='http://www.freedos.org/download/download/fd11src.iso'
+INSTALL_IMAGE_URL='https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/distributions/1.1/official/fd11src.iso'
 SETUP_IMAGE='setup.iso'
 SYSTEM_IMAGE='hda.img'
 DIST_IMAGE='a.img'
 
 DISTFILES="
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/copying.dj
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev205.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/faq230b.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/readme.1st
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu230b.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc810b.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gpp810b.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak421b.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2misc/csdpmi7b.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/perl588b.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/tar112ab.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gzip18b.zip
-  http://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41br2.zip
-  http://ftp.mpoli.fi/software/DOS/EDITORS/TED3.ZIP
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/copying.dj
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/djdev205.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/faq230b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2/readme.1st
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/bnu2351b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gcc830b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gpp830b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/mak44b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2misc/csdpmi7b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/perl588b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/tar112abr2.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/gzip110b.zip
+  https://www.mirrorservice.org/sites/ftp.delorie.com/pub/djgpp/current/v2gnu/fil41br3.zip
+  https://archive.org/download/msdos_TED3_shareware/TED3.zip
 
-  http://www.tortall.net/projects/yasm/releases/yasm-1.2.0-dos.exe
+  https://www.tortall.net/projects/yasm/releases/yasm-1.2.0-dos.exe
   https://raw.githubusercontent.com/yasm/yasm/v1.2.0/BSD.txt
 
-  http://www.lua.org/ftp/lua-5.2.2.tar.gz
+  https://www.lua.org/ftp/lua-5.2.2.tar.gz
   https://sourceforge.net/projects/dos2unix/files/dos2unix/7.4.0/d2u740pm.zip
 
-  http://catseye.tc/distfiles/shelta-1.2-2014.0422.zip
+  https://catseye.tc/distfiles/shelta-1.2-2014.0422.zip
   https://github.com/catseye/Illgol-Grand-Mal/archive/rel_16_tons_and_what_do_you_get.zip
+  https://github.com/catseye/OpenZz/archive/refs/heads/1.0.4-4ce3.zip@ozz104c3.zip
+  https://github.com/catseye/Zzrk/archive/refs/tags/rel_1_0_2016_0304.zip@zzrk2016.zip
 
-  http://www.gnu.org/licenses/gpl-2.0.txt
+  https://www.gnu.org/licenses/gpl-2.0.txt
 "
 
 if [ "x$DISTREPO_ROOT" = "x" ]; then
@@ -69,7 +71,7 @@ name_map() {
 
 install_instructions() {
     cat <<EOF
-*   select "Install to Hard Disk"
+*   select "Create Drive C:"
 *   select "f" to start FDISK
 *   FAT32 -- no
 *   1 -- create DOS partition
@@ -96,7 +98,7 @@ install_instructions() {
 *   What to do with the bootsector?  -- 1
 *   select "Boot from system harddisk"
 *   Hit Enter for the JEMMEX option, should be fine
-*   viola, C:\\>.  You can now just stop the emulator.
+*   viola, C:\\>.  You can now just run `shutdown`.
 EOF
 }
 
