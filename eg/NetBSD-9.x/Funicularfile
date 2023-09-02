@@ -5,24 +5,52 @@ SETUP_IMAGE='setup-netbsd.iso'
 SYSTEM_IMAGE='wd0.img'
 DIST_IMAGE='floppy.img'
 
+# DISTFILES and DISTREPOS can't be empty, for now, so just put some things in
+DISTFILES="
+  https://www.haskell.org/hugs/downloads/2006-09/hugs98-plus-Sep2006.tar.gz
+"
+if [ "x$DISTREPO_ROOT" = "x" ]; then
+    DISTREPO_ROOT="https://github.com/catseye/"
+fi
+DISTREPOS="
+  Parc@0.1
+"
+
 install_instructions() {
     cat <<EOF
-* At the boot prompt, select "1. Install NetBSD"
+* At the boot menu, select "1. Boot normally" (or just wait)
 * After it boots, select a language for installation messages, and a keyboard type.
+* Select language, keyboard ("unchanged" should be OK)
 * At the next menu, select "Install NetBSD to hard disk".  Then "yes".
-* At the "Select your distribution" menu, select "Custom installation".
-* At the next menu, arrow up to "Compiler Tools" and hit Enter to select it.
-  Then arrow back down and select "Install selected sets".
+* At "Available disks", select "a. wd0".  Then select "MBR".
 * This is the correct geometry.
 * Use the entire disk.
-* Yes, install the NetBSD bootcode.
-* Use existing partition sizes.  Partition sizes ok.  Name is irrelevant.  Yes, proceed.
+* Use default partition sizes.  Partition sizes ok.
+* Shall we continue?  Yes.
 * At "Bootblocks selection": Use BIOS console.
-* Install from CD-ROM.
-* When that's done - don't bother configuring anything.
+* At the "Select your distribution" menu, select "Custom installation".
+* At the next menu, arrow up to "Compiler Tools" and hit Enter to select it.
+* Then arrow down to "Source and debug sets", and hit Enter to select it.
+* Inside it, select "Kernel sources".  Then press "x" then Enter
+* Press "x" then Enter again to "Install selected sets".
+* If you install from CD-ROM you won't have the kernel sources.
+* Instead "Install from HTTP".
+* Press "j" to configure network.  Select interface "wm0".
+* Network media type: just press Enter.  Perform autoconfiguration?  Yes.
+* Your DNS domain: just press Enter.  Are they OK?  Yes.
+* Press "x" to "Get distribution".
+* WAIT.  Wait for the IPv6 address to timeout.  It will fall back to IPv4.
+* Is the network information accurate?  Yes.
+* The extraction is complete.  Hit Enter.
+* Select "e" to "Enable installation of binary packages".
+* Select "x" and press Enter.  And wait a lot.
+* When that's done - don't bother configuring anything else.
 * When back at the main menu, select "Exit Install System" and type 'shutdown -p now'
 EOF
 }
+
+# pkg_add http://cdn.NetBSD.org/pub/pkgsrc/packages/NetBSD/i386/9.3/All/pkgin
+# pkgin -4 -V install mklivecd nano python39
 
 setup_instructions() {
     cat <<EOF
