@@ -20,17 +20,9 @@ platform_initdist() {
     if [ "x$IMAGE_SIZE" = x ]; then
         IMAGE_SIZE=1440
         echo "IMAGE_SIZE not set, defaulting to $IMAGE_SIZE kilobytes"
+        echo "(NOTE: possible floppy sizes are: 360, 720, 1440, 2880)"
     fi
-
-    #-- TODO: this is a little restrictive
-    case $IMAGE_SIZE in
-        360|720|1440)
-            dd if=/dev/zero of="$1" bs=1K count=${IMAGE_SIZE}
-            ;;
-        *)
-            echo "Only supported sizes: 360, 720 and 1440"
-            exit 1
-    esac
+    dd if=/dev/zero of="$1" bs=1K count=${IMAGE_SIZE}
 }
 
 platform_start() {
@@ -41,12 +33,20 @@ platform_setup() {
     qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -hda "${SYSTEM_IMAGE}" -cdrom "${SETUP_IMAGE}"
 }
 
+# platform_dist() {
+#     qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -hda "${SYSTEM_IMAGE}" -fda "${DIST_IMAGE}"
+# }
+
+# platform_distboot() {
+#     qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -fda "${DIST_IMAGE}" -boot order=a
+# }
+
 platform_dist() {
-    qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -hda "${SYSTEM_IMAGE}" -fda "${DIST_IMAGE}"
+    qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -hda "${SYSTEM_IMAGE}" -hdb "${DIST_IMAGE}"
 }
 
 platform_distboot() {
-    qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -fda "${DIST_IMAGE}" -boot order=a
+    qemu-system-i386 ${QEMU_SYSTEM_I386_FLAGS} -hda "${DIST_IMAGE}"
 }
 
 platform_install() {

@@ -1,26 +1,9 @@
 PLATFORM="i386-qemu"
-INSTALL_IMAGE='NetBSD-6.1.5-i386.iso'
-INSTALL_IMAGE_URL='ftp://iso.fr.netbsd.org/pub/NetBSD/NetBSD-6.1.5/iso/NetBSD-6.1.5-i386.iso'
-# torrent: http://ftp.netbsd.org/pub/NetBSD/images/6.1.5/NetBSD-6.1.5-i386.iso.torrent
+INSTALL_IMAGE='NetBSD-9.3-i386.iso'
+INSTALL_IMAGE_URL='https://cdn.netbsd.org/pub/NetBSD/NetBSD-9.3/images/NetBSD-9.3-i386.iso'
 SETUP_IMAGE='setup-netbsd.iso'
 SYSTEM_IMAGE='wd0.img'
 DIST_IMAGE='floppy.img'
-
-DISTFILES="
-  http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz
-  http://ftp.gnu.org/gnu/make/make-3.81.tar.gz
-  http://www.nano-editor.org/dist/v2.2/nano-2.2.6.tar.gz
-  http://www.cpan.org/src/5.0/perl-5.18.2.tar.gz
-  http://www.haskell.org/hugs/downloads/2006-09/hugs98-plus-Sep2006.tar.gz
-  http://www.erlang.org/download/otp_src_R16B03-1.tar.gz
-  http://code.call-cc.org/releases/4.8.0/chicken-4.8.0.5.tar.gz
-  http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
-"
-
-if [ "x$DISTREPO_ROOT" = "x" ]; then
-    DISTREPO_ROOT="https://github.com/catseye/"
-fi
-DISTREPOS=`cat skel/catseye.catalog`
 
 install_instructions() {
     cat <<EOF
