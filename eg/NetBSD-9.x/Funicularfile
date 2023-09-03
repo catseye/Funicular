@@ -9,6 +9,8 @@ DISTFILES="
   https://static.catseye.tc/distfiles/netusb-0.1.zip
 "
 
+# pkg_add http://cdn.NetBSD.org/pub/pkgsrc/packages/NetBSD/i386/9.3/All/pkgin
+
 # GENERIC (20M) -> GENERIC_TINY (2.4M)
 ### mv /netbsd /netbsd.old ; mv /usr/src/sys/arch/GENERIC_TINY/compile/GENERIC_TINY/netbsd /
 
