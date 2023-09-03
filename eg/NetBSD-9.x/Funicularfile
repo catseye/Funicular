@@ -5,15 +5,8 @@ SETUP_IMAGE='setup-netbsd.iso'
 SYSTEM_IMAGE='wd0.img'
 DIST_IMAGE='floppy.img'
 
-# DISTFILES and DISTREPOS can't be empty, for now, so just put some things in
 DISTFILES="
   https://static.catseye.tc/distfiles/netusb-0.1.zip
-"
-if [ "x$DISTREPO_ROOT" = "x" ]; then
-    DISTREPO_ROOT="https://github.com/catseye/"
-fi
-DISTREPOS="
-  Parc@0.1
 "
 
 # GENERIC (20M) -> GENERIC_TINY (2.4M)

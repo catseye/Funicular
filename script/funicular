@@ -76,31 +76,35 @@ funicular_initsetup() {
         fi
     done
 
-    mkdir -p distrepos
-    for spec in $DISTREPOS; do
+    if [ "x$DISTREPOS" = "x" ]; then
+        echo -n
+    else
+        mkdir -p distrepos
+        for spec in $DISTREPOS; do
 
-        path=`echo $spec | awk '{split($0,a,"@"); print a[1]}'`
-        tag=`echo $spec | awk '{split($0,a,"@"); print a[2]}'`
+            path=`echo $spec | awk '{split($0,a,"@"); print a[1]}'`
+            tag=`echo $spec | awk '{split($0,a,"@"); print a[2]}'`
 
-        url="$DISTREPO_ROOT$path"
-        dest=`basename $url`
-        if runnable name_map; then
-            dest=`name_map $dest`
-        fi
+            url="$DISTREPO_ROOT$path"
+            dest=`basename $url`
+            if runnable name_map; then
+                dest=`name_map $dest`
+            fi
 
-        if [ ! -d distrepos/$dest ]; then
-            git clone $url distrepos/$dest || exit 1
-        fi
+            if [ ! -d distrepos/$dest ]; then
+                git clone $url distrepos/$dest || exit 1
+            fi
 
-        branch=`cd distrepos/$dest && git rev-parse --abbrev-ref HEAD`
-        if [ "X$branch" != "XHEAD" ]; then
-            (cd distrepos/$dest && git pull) || exit 1
-        fi
+            branch=`cd distrepos/$dest && git rev-parse --abbrev-ref HEAD`
+            if [ "X$branch" != "XHEAD" ]; then
+                (cd distrepos/$dest && git pull) || exit 1
+            fi
 
-        if [ "X$tag" != X ]; then
-            (cd distrepos/$dest && git checkout $tag) || exit 1
-        fi
-    done
+            if [ "X$tag" != X ]; then
+                (cd distrepos/$dest && git checkout $tag) || exit 1
+            fi
+        done
+    fi
 
     rm -rf staging_area
     mkdir -p staging_area
@@ -113,11 +117,15 @@ funicular_initsetup() {
         cp -p $file staging_area/$destname
     done
 
-    cd distrepos
-    for repo in *; do
-        tar zcf ../staging_area/$repo.tar.gz $repo
-    done
-    cd ..
+    if [ "x$DISTREPOS" = "x" ]; then
+        echo -n
+    else
+        cd distrepos
+        for repo in *; do
+            tar zcf ../staging_area/$repo.tar.gz $repo
+        done
+        cd ..
+    fi
 
     if [ -d skel ]; then
         cp -Rp skel/* staging_area/
