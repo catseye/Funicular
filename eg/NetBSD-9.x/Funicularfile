@@ -7,7 +7,7 @@ DIST_IMAGE='floppy.img'
 
 # DISTFILES and DISTREPOS can't be empty, for now, so just put some things in
 DISTFILES="
-  https://www.haskell.org/hugs/downloads/2006-09/hugs98-plus-Sep2006.tar.gz
+  https://static.catseye.tc/distfiles/netusb-0.1.zip
 "
 if [ "x$DISTREPO_ROOT" = "x" ]; then
     DISTREPO_ROOT="https://github.com/catseye/"
@@ -15,6 +15,19 @@ fi
 DISTREPOS="
   Parc@0.1
 "
+
+# GENERIC (20M) -> GENERIC_TINY (2.4M)
+### mv /netbsd /netbsd.old ; mv /usr/src/sys/arch/GENERIC_TINY/compile/GENERIC_TINY/netbsd /
+
+# mkdir isobuild
+# cp /usr/src/sys/arch/GENERIC_TINY/compile/GENERIC_TINY/netbsd isobuild/
+# mkdir systree  # XXX and populate with ?????
+# makefs -s 2880 -t ffs md.img systree
+# mdsetimage -v -s isobuild/netbsd md.img
+# ( cd isobuild && gzip -f -9 netbsd && mv netbsd.gz netbsd )
+
+# ( cd /usr/src/sys/arch/i386/stand/cdboot && make )
+# cp /usr/src/sys/arch/i386/stand/cdboot/cdboot isobuild/
 
 install_instructions() {
     cat <<EOF
